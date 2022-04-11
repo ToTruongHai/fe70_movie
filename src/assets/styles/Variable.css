@@ -1,0 +1,9 @@
+:root {
+  --primary_color: #f26b38;
+  --secondary_color: "#1352a5";
+  --sub_text_color: "#a0a3a7";
+  --background_dark: black;
+  
+  --mobile_screen: 768px;
+  --tablet_screen: 992px;
+}
