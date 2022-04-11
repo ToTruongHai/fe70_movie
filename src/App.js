@@ -3,7 +3,8 @@ import Home from "./pages/Home/Home";
 import ModalHOC from "./pages/ModalHOC/ModalHOC";
 import { HomeTemplate } from "./templates/homeTemplate";
 import { history } from "./util/setting";
-import './App.css'
+import './App.css';
+import './assets/styles/Variable.css';
 
 function App() {
   return (
