@@ -5,7 +5,6 @@ import HomeMovieList from "../../Components/HomeMovieList/HomeMovieList";
 export default function Home() {
   return (
     <div>
-      Home CONTENT HERE
       <HomeBanner />
       <HomeMovieList />
     </div>
