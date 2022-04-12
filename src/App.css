@@ -172,3 +172,10 @@ a {
 a:hover {
   text-decoration: none;
 }
+html {
+  font-size: 10px;
+}
+.row{
+  margin: 0;
+  padding: 0;
+}

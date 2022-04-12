@@ -1,9 +1,12 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import reduxThunk from "redux-thunk";
+import { homeBannerReducer } from "./reducers/homeBannerReducer";
+
 import { modalReducer } from "./reducers/modalReducer";
 
 const rootReducer = combineReducers({
   modalReducer,
+  homeBannerReducer,
 });
 
 let middleWare = applyMiddleware(reduxThunk);
