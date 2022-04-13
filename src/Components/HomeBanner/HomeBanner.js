@@ -2,11 +2,11 @@ import { Carousel } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../assets/styles/HomeBanner/HomeBanner.module.css";
-import { getAllBannerAction } from "../../redux/actions/homeBannerAction";
+import { getAllBannerAction } from "../../redux/actions/quanLyPhimAction";
 
 export default function HomeBanner() {
   const { arrBanner } = useSelector(
-    (rootReducer) => rootReducer.homeBannerReducer
+    (rootReducer) => rootReducer.quanLyPhimReducer
   );
   const dispatch = useDispatch();
   const [banner, setBanner] = useState();

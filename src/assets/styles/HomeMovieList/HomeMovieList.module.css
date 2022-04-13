@@ -1,0 +1,103 @@
+/* phần nav */
+.movie_home {
+    width: 50%;
+    border-bottom: 1px solid #DDD;
+}
+
+.nav_item_home>a {
+    border: none !important;
+    color: #a0a3a7;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 10px 0;
+    position: relative;
+}
+
+.nav_item_home>a::after {
+    content: "";
+    background: #f26b38;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -1px;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+}
+
+:global(.tab-movies a.active), .nav_item_home:hover>a {
+    border-width: 0;
+    border: none !important;
+    color: #43464b !important;
+    background: transparent;
+}
+
+:global(.tab-movies a.active::after), .nav_item_home:hover>a::after {
+    transform: scale(1);
+}
+
+@media screen and (max-width: 768px) {
+.movie_home {
+    width: 100%;
+    font-size: 14px;
+}
+}
+
+/* movie item */
+.img_wrapper {
+    aspect-ratio: 3/4;
+}
+
+.img_item {
+    width: 100%;
+    height: 100%;
+}
+
+.ovelay_item {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    transition: .5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 64px;
+    cursor: pointer;
+}
+
+.ovelay_item>i {
+    opacity: 0;
+    transition: .5s ease;
+}
+
+.img_wrapper:hover>div {
+    background: #0008;
+}
+.img_wrapper:hover>div>i {
+    opacity: 1;
+}
+
+.btn_datve {
+    position: absolute;
+    display: block;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background: #FB4226;
+    color: #fff;
+    font-size: 24px;
+    border: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.img_wrapper:hover+a .btn_datve, .title_movie:hover .btn_datve {
+    opacity: 1;
+}
