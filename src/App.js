@@ -19,7 +19,7 @@ function App() {
         <HomeTemplate path={"/"} component={Home} />
       </Switch>
       <ModalHOC />
-      <TrailerModal/>
+      <TrailerModal />
     </Router>
   );
 }
