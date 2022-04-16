@@ -1,13 +1,15 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function TrailerModal(props) {
-  const { component, handleSubmit, titleModal } = useSelector(
+  const { component, handleSubmit, titleModal, isOpen } = useSelector(
     (rootReducer) => rootReducer.modalReducer
   );
+
   return (
     <div
       className="modal fade bd-example-modal-lg"
+      id="trailerModal"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="myLargeModalLabel"

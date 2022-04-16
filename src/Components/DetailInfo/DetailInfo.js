@@ -14,15 +14,26 @@ export default function DetailInfo() {
   const dispatch = useDispatch();
 
   let danhGia = movieDetail?.danhGia;
+
   useEffect(async () => {
     danhGia = movieDetail?.danhGia;
+    const action = {
+      type: "SET_SRC",
+      trailerSrc: movieDetail?.trailer
+    };
+    dispatch(action);
   }, [movieDetail]);
 
   return (
     <div className={`${styles.movieInfo} mt-5`}>
       <div className={`${styles.movieInfo_img}`}>
         <div className="col-4">
-          <img src={movieDetail?.hinhAnh} alt="..." width={`100%`} height={`100%`} />
+          <img
+            src={movieDetail?.hinhAnh}
+            alt="..."
+            width={`100%`}
+            height={`100%`}
+          />
         </div>
         <div className={`${styles.movieInfo_content} col-8`}>
           <p>{movieDetail?.tenPhim}</p>
@@ -58,16 +69,17 @@ export default function DetailInfo() {
                   type: "OPEN_FORM",
                   component: <Trailer path={movieDetail?.trailer} />,
                   titleModal: "TRAILER",
+                  isOpen: true,
                   handleSubmit: () => {
-                    console.log("register sumbit");
+                    console.log("modal sumbit");
                   },
+                  trailerSrc: movieDetail?.trailer
                 };
                 dispatch(action);
               }}
             >
               WATCH TRAILER
             </button>
-            
           </div>
         </div>
       </div>
