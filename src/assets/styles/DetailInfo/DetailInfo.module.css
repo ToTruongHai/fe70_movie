@@ -1,0 +1,91 @@
+.movieInfo {
+  display: flex;
+  width: 100%;
+  /* justify-content: center;
+  align-items: center; */
+}
+.movieInfo_img {
+  width: 70%;
+  display: flex;
+}
+
+:global(.CircularProgressbar .CircularProgressbar-path) {
+  stroke: white !important;
+}
+:global(.CircularProgressbar .CircularProgressbar-text) {
+  fill: white !important;
+  font-size: 2.1rem !important;
+  font-weight: bold !important;
+  transform: translateY(2px) !important;
+}
+:global(.CircularProgressbar .CircularProgressbar-background) {
+  fill: var(--primary_color) !important;
+}
+:global(.CircularProgressbar .CircularProgressbar-trail) {
+  stroke: transparent !important;
+}
+/* Img div */
+.movieInfo_img > div {
+  width: 50%;
+}
+.movieInfo_content {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0 2rem;
+}
+
+/* movieInfo_content */
+.movieInfo_content > p:nth-child(1) {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #43464b;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.movieInfo_content > p {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.movieInfo_content > p:nth-child(2) {
+  margin: 0 0 1.5rem 0 !important;
+}
+.movieInfo_content > p > span {
+  color: var(--sub_text_color) !important;
+}
+.movieInfo_content > div > div > svg {
+  width: 70px;
+}
+.movieInfo_content > div > div {
+  align-self: center;
+}
+.movieInfo_content > div > div button {
+  background-color: var(--primary_color);
+  font-size: 1.5rem;
+}
+.movieInfo_content_noidung h3 {
+  font-weight: 600;
+  font-size: 2.5rem;
+}
+.movieInfo_content_noidung h3:after {
+  display: block;
+  width: 50px;
+  height: 2px;
+  margin-top: 8px;
+  content: "";
+  background-color: var(--primary_color);
+}
+.movieInfo_content_trailer button {
+  border: 1px solid var(--primary_color);
+  color: var(--primary_color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 5px;
+}
+.movieInfo_content_trailer button:hover {
+  border: 1px solid var(--primary_color);
+  background-color: var(--primary_color);
+  color: white;
+}

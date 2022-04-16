@@ -1,4 +1,7 @@
-import { GET_ALL_BANNER } from "../actions/types/homeBannerType";
+import {
+  GET_ALL_BANNER,
+  GET_MOVIE_DETAIL,
+} from "../actions/types/quanLyPhimType";
 import { GET_MOVIE_LIST } from "../actions/types/movieListType";
 
 const defaultState = {
@@ -10,6 +13,21 @@ const defaultState = {
     },
   ],
   movieList: [],
+  movieDetail: {
+    maPhim: 1282,
+    tenPhim: "Ban tay diet quy 4",
+    biDanh: "ban-tay-diet-quy-4",
+    trailer: "tu tu",
+    hinhAnh:
+      "https://movienew.cybersoft.edu.vn/hinhanh/ban-tay-diet-quy-2_gp00.png",
+    moTa: "Cuoc chien sinh tu hohi",
+    maNhom: "GP00",
+    hot: true,
+    dangChieu: true,
+    sapChieu: true,
+    ngayKhoiChieu: "2021-09-06T22:14:50.227",
+    danhGia: 10,
+  },
 };
 
 export const quanLyPhimReducer = (state = defaultState, action) => {
@@ -20,6 +38,10 @@ export const quanLyPhimReducer = (state = defaultState, action) => {
     }
     case GET_MOVIE_LIST: {
       state.movieList = action.content;
+      return { ...state };
+    }
+    case GET_MOVIE_DETAIL: {
+      state.movieDetail = action.detail;
       return { ...state };
     }
 
