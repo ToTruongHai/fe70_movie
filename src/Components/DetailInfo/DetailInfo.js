@@ -17,11 +17,6 @@ export default function DetailInfo() {
 
   useEffect(async () => {
     danhGia = movieDetail?.danhGia;
-    const action = {
-      type: "SET_SRC",
-      trailerSrc: movieDetail?.trailer
-    };
-    dispatch(action);
   }, [movieDetail]);
 
   return (
@@ -67,7 +62,7 @@ export default function DetailInfo() {
               onClick={() => {
                 const action = {
                   type: "OPEN_FORM",
-                  component: <Trailer path={movieDetail?.trailer} />,
+                  component: <Trailer />,
                   titleModal: "TRAILER",
                   isOpen: true,
                   handleSubmit: () => {
