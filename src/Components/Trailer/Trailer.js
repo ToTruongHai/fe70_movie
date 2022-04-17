@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Trailer(props) {
+export default function Trailer() {
   const styles = {
     width: "100%",
     height: "720px",
@@ -10,14 +10,6 @@ export default function Trailer(props) {
     (rootReducer) => rootReducer.modalReducer
   );
   const dispatch = useDispatch();
-
-  useEffect(async () => {
-    const action = {
-      type: "SET_SRC",
-      trailerSrc: props.path
-    };
-    dispatch(action);
-  }, [trailerSrc]);
 
   useEffect(() => {
     document.getElementById("trailerModal").onhide = () => {
@@ -36,7 +28,6 @@ export default function Trailer(props) {
   }, []);
 
   const renderIframe = () => {
-    console.log('abvc', trailerSrc)
     if (trailerSrc.includes("embed")) {
       return (
         <iframe
