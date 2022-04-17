@@ -10,7 +10,7 @@ export default function HomeMovieList() {
   let renderMovieList = () => {
     return movieList.map((item, index) => {
       return (
-        <div className="col-md-3 col-6" key={index}>
+        <div className="col-lg-3 col-md-4 col-6" key={index}>
           <div className={`${styles.img_wrapper} w-100 position-relative`}>
             <img src={item.hinhAnh} alt="" className={`${styles.img_item}`} />
             <div
@@ -18,7 +18,21 @@ export default function HomeMovieList() {
               data-toggle="modal"
               data-target="#modelTrailer"
               onClick={() => {
-                setSrcTrailer(item.trailer);
+                let source = item.trailer;
+                if (source.includes(".be/")) {
+                  source = source.split(".be/");
+                  source =
+                    "https://www.youtube.com/embed/" +
+                    source[source.length - 1];
+                }
+                if (source.includes("/watch?v=")) {
+                  source = source.split("/watch?v=");
+                  source = source[source.length - 1];
+
+                  source = source.split("&")[0];
+                  source = "https://www.youtube.com/embed/" + source;
+                }
+                setSrcTrailer(source);
               }}
             >
               <i className="mdi mdi-play-circle-outline"></i>

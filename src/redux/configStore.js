@@ -1,12 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import reduxThunk from "redux-thunk";
 import { quanLyPhimReducer } from "./reducers/quanLyPhimReducer";
-
+import { quanLyRapReducer } from "./reducers/quanLyRapReducer";
 import { modalReducer } from "./reducers/modalReducer";
 
 const rootReducer = combineReducers({
   modalReducer,
   quanLyPhimReducer,
+  quanLyRapReducer,
 });
 
 let middleWare = applyMiddleware(reduxThunk);
