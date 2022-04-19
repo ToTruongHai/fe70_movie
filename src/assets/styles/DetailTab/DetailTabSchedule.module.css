@@ -28,3 +28,47 @@
 .schedule_tab :global(.ant-tabs-top > .ant-tabs-nav) {
   margin: 0 0 5rem 0 !important;
 }
+.tab_content_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tab_content_info h2 {
+  font-size: 2rem;
+  line-height: 1;
+}
+.tab_content_info h2 {
+  font-size: 2rem;
+  color: var(--primary_color);
+}
+.tab_content_time a {
+  color: var(--secondary_color);
+  border: 1px solid #ced0da;
+  color: #43464b;
+  display: inline-block;
+}
+.tab_content_time a:hover {
+  color: var(--primary_color) !important;
+  border: 1px solid var(--primary_color);
+}
+
+.schedule_rap {
+  border-left: 10px solid #47251c;
+}
+.schedule_rap h2 {
+  position: relative;
+  box-sizing: border-box;
+  width: 270px;
+  padding: 7px 20px;
+  font-size: 2rem;
+  background-color: #f26b38;
+  color: #ffffff;
+}
+
+.schedule_time{
+  border: 1px solid var(--sub_text_color);
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
