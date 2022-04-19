@@ -1,0 +1,1 @@
+export const GET_MOVIE_SCHEDULE = 'GET_MOVIE_SCHEDULE';

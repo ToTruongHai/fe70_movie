@@ -1,11 +1,12 @@
 .movieInfo {
   display: flex;
-  width: 100%;
+  width: 60%;
   /* justify-content: center;
   align-items: center; */
+
 }
 .movieInfo_img {
-  width: 70%;
+  width: 100%;
   display: flex;
 }
 
@@ -33,6 +34,7 @@
   display: flex;
   flex-direction: column;
   padding: 0 0 0 2rem;
+  justify-content: space-between;
 }
 
 /* movieInfo_content */
@@ -88,4 +90,10 @@
   border: 1px solid var(--primary_color);
   background-color: var(--primary_color);
   color: white;
+}
+
+
+/* movie_tab */
+.movie_tab{
+
 }
