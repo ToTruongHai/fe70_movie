@@ -3,7 +3,6 @@ import { Route } from "react-router-dom";
 import HomeFooter from "../Components/HomeFooter/HomeFooter";
 import HomeHeader from "../Components/HomeHeader/HomeHeader";
 
-
 export const HomeTemplate = (props) => {
   const [windowSize, setWindowSize] = useState({
     innerWidth: window.innerWidth,
@@ -27,6 +26,10 @@ export const HomeTemplate = (props) => {
       //(Chuyển template hoặc reload)
       window.removeEventListener("onload");
       window.removeEventListener("onresize");
+
+      document
+        .getElementById("trailerModal")
+        .removeEventListener("onhide", null);
     };
   }, []);
 
