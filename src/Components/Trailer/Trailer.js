@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Trailer() {
   const styles = {
     width: "100%",
-    height: "720px",
+    height: "100%",
   };
   const { trailerSrc } = useSelector(
     (rootReducer) => rootReducer.modalReducer
@@ -19,12 +19,6 @@ export default function Trailer() {
       };
       dispatch(action);
     };
-
-    // return () => {
-    //   document
-    //     .getElementById("trailerModal")
-    //     .removeEventListener("onhide", null);
-    // };
   }, []);
 
   const renderIframe = () => {

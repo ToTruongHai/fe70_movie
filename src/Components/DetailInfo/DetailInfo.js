@@ -7,6 +7,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Trailer from "../Trailer/Trailer";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 export default function DetailInfo() {
   const { movieDetail } = useSelector(
@@ -42,7 +43,7 @@ export default function DetailInfo() {
           <p>{movieDetail?.tenPhim}</p>
           <p>
             <span>Ngày khởi chiếu: </span>
-            {movieDetail?.ngayKhoiChieu}
+            {moment(movieDetail.ngayKhoiChieu).format("DD/MM/YYYY hh:mm A")}
           </p>
           <div className="row">
             <div className="col-md-5 col-lg-3 ">
