@@ -20,11 +20,11 @@ export default function Trailer() {
       dispatch(action);
     };
 
-    return () => {
-      document
-        .getElementById("trailerModal")
-        .removeEventListener("onhide", null);
-    };
+    // return () => {
+    //   document
+    //     .getElementById("trailerModal")
+    //     .removeEventListener("onhide", null);
+    // };
   }, []);
 
   const renderIframe = () => {
