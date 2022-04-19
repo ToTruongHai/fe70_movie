@@ -1,6 +1,8 @@
 import React from "react";
 import { Tabs } from "antd";
 import { useSelector } from "react-redux";
+import styles from "../../assets/styles/DetailTab/DetailTabSchedule.module.css";
+
 
 const { TabPane } = Tabs;
 export default function DetailTabSchedule() {
@@ -8,7 +10,7 @@ export default function DetailTabSchedule() {
     (rootReducer) => rootReducer.quanLyRapReducer
   );
   return (
-    <Tabs tabPosition="left">
+    <Tabs tabPosition="left" className={`${styles.schedule_tab}`}>
       {movieSchedule.heThongRapChieu?.map((rap, index) => {
         return (
           <TabPane
