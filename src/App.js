@@ -3,8 +3,10 @@ import Home from "./pages/Home/Home";
 import ModalHOC from "./pages/ModalHOC/ModalHOC";
 import { HomeTemplate } from "./templates/homeTemplate";
 import { history } from "./util/setting";
-import './App.css';
-import './assets/styles/Variable.css';
+import "./App.css";
+import "./assets/styles/Variable.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Detail from "./pages/Detail/Detail";
 import TrailerModal from "./pages/ModalHOC/TrailerModal";
 

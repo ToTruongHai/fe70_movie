@@ -1,11 +1,11 @@
 import { Carousel } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styles from "../../assets/styles/HomeBanner/HomeBanner.module.css";
 import { getAllBannerAction } from "../../redux/actions/quanLyPhimAction";
 
-export default function HomeBanner() {
+function HomeBanner() {
   const { arrBanner } = useSelector(
     (rootReducer) => rootReducer.quanLyPhimReducer
   );
@@ -18,10 +18,10 @@ export default function HomeBanner() {
     dispatch(action);
   }, []);
 
-  useEffect(async () => {
-    let action = getAllBannerAction();
-    dispatch(action);
-  }, [arrBanner]);
+  // useEffect(async () => {
+  //   let action = getAllBannerAction();
+  //   dispatch(action);
+  // }, [arrBanner]);
 
   const renderBanner = () => {
     return arrBanner?.map((banner, index) => {
@@ -68,3 +68,5 @@ export default function HomeBanner() {
     </div>
   );
 }
+
+export default memo(HomeBanner);

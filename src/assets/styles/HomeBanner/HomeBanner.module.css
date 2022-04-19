@@ -63,6 +63,6 @@
 :global(.ant-carousel .slick-dots li.slick-active){
   width: 16px !important;
 }
-:global(.slick-dots li.slick-active button){
+:global(.ant-carousel .slick-dots li.slick-active button){
   border: 2px solid var(--primary_color) !important;
 }

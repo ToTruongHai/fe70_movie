@@ -1,7 +1,13 @@
 import axios from "axios";
-import { DOMAIN, http } from "../../util/setting";
-import { GET_ALL_BANNER, GET_MOVIE_DETAIL } from "./types/quanLyPhimType";
-import { GET_MOVIE_LIST } from "./types/movieListType";
+import { apiGet } from "../../functions/apiFunctions";
+import { http } from "../../util/setting";
+import {
+  GET_ALL_BANNER,
+  GET_MOVIE_DETAIL,
+  GET_MOVIE_LIST,
+  GET_MOVIE_COMMING,
+} from "./types/quanLyPhimType";
+// import { GET_MOVIE_LIST } from "./types/movieListType";
 
 export const getAllBannerAction = () => {
   return async (dispatch) => {
@@ -18,19 +24,14 @@ export const getAllBannerAction = () => {
 };
 
 export const getMovieListAction = () => {
-  return async (dispatch) => {
-    try {
-      let result = await http.get(
-        "/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01"
-      );
-      dispatch({
-        type: GET_MOVIE_LIST,
-        content: result.data.content,
-      });
-    } catch (err) {
-      console.log(err.response?.data);
-    }
-  };
+  return apiGet("/api/QuanLyPhim/LayDanhSachPhim", GET_MOVIE_LIST);
+};
+
+export const getMovieCommingListAction = () => {
+  return apiGet(
+    "/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP02",
+    GET_MOVIE_COMMING
+  );
 };
 
 export const getMovieDetailAction = (maPhim) => {

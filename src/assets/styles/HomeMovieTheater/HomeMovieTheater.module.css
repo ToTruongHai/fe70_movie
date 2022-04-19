@@ -1,0 +1,21 @@
+.gio_chieu {
+    border: 1px solid #a0a3a7;
+    padding: 5%;
+    color: #a0a3a7;
+    width: 80px;
+    text-align: center;
+    display: inline-block;
+}
+
+.gio_chieu:hover {
+    border: 1px solid #f26b38;
+    color: #f26b38;
+}
+
+.cum_rap {
+    max-width: 300px;
+}
+
+.tabFilms .ant-tabs-tab-btn {
+    font-size: 14px;
+}

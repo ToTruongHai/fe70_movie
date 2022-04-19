@@ -16,7 +16,7 @@
 :global(.ant-tabs-ink-bar) {
   background: var(--primary_color) !important;
 }
-:global(.ant-tabs-tab-btn) {
+:global(.detail-tabHai .ant-tabs-tab-btn) {
   font-size: 2rem !important;
 }
 :global(.ant-tabs-tab-btn:focus) {

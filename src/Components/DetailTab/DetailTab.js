@@ -20,8 +20,8 @@ export default function DetailTab() {
 
   return (
     <React.Fragment>
-      <div className={`${styles.tab_content} mt-5`}>
-          <h3>Lịch Chiếu</h3>
+      <div className={`${styles.tab_content} mt-5 detail-tabHai`}>
+        <h3>Lịch Chiếu</h3>
         <DetailTabSchedule />
 
         {/* <Tabs defaultActiveKey="1" centered>

@@ -1,8 +1,10 @@
 import {
   GET_ALL_BANNER,
   GET_MOVIE_DETAIL,
+  GET_MOVIE_LIST,
+  GET_MOVIE_COMMING,
 } from "../actions/types/quanLyPhimType";
-import { GET_MOVIE_LIST } from "../actions/types/movieListType";
+// import { GET_MOVIE_LIST } from "../actions/typeS/quanLyPhimType";
 
 const defaultState = {
   arrBanner: [
@@ -13,6 +15,7 @@ const defaultState = {
     },
   ],
   movieList: [],
+  movieCommingList: [],
   movieDetail: {
     maPhim: 1282,
     tenPhim: "Ban tay diet quy 4",
@@ -44,7 +47,10 @@ export const quanLyPhimReducer = (state = defaultState, action) => {
       state.movieDetail = action.detail;
       return { ...state };
     }
-
+    case GET_MOVIE_COMMING: {
+      state.movieCommingList = action.content;
+      return { ...state };
+    }
     default:
       return state;
   }
