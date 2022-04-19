@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styles from "../../assets/styles/HomeMovieList/HomeMovieList.module.css";
-import { getMovieListAction } from "../../redux/actions/quanLyPhimAction";
+import {
+  getMovieCommingListAction,
+  getMovieListAction,
+} from "../../redux/actions/quanLyPhimAction";
+import MultipleRowSlick from "../ReactSlick/MultipleRowSlick";
 
 export default function HomeMovieList() {
-  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
+  let { movieList, movieCommingList } = useSelector((a) => a.quanLyPhimReducer);
   let [srcTrailer, setSrcTrailer] = useState("");
-  let renderMovieList = () => {
-    return movieList.map((item, index) => {
+  let [heightModal, setHeightModal] = useState(0);
+  let renderMovieList = (list) => {
+    return list.map((item, index) => {
       return (
-        <div className="col-lg-3 col-md-4 col-6" key={index}>
+        <div key={index} className={`${styles.home_movie_item}`}>
           <div className={`${styles.img_wrapper} w-100 position-relative`}>
             <img src={item.hinhAnh} alt="" className={`${styles.img_item}`} />
             <div
@@ -55,19 +60,34 @@ export default function HomeMovieList() {
       );
     });
   };
+  let callbackRenderMovieList = useCallback(renderMovieList, [
+    movieList,
+    movieCommingList,
+  ]);
   let dispatch = useDispatch();
+  let setHeightModalFunction = () => {
+    let { innerWidth } = window;
+    setHeightModal((innerWidth * 0.8 * 9) / 16);
+  };
   useEffect(() => {
+    window.addEventListener("resize", setHeightModalFunction, false);
+    window.onload = setHeightModalFunction();
     document.getElementById("modelTrailer").onhide = () => {
       setSrcTrailer("");
     };
     let action = getMovieListAction();
     dispatch(action);
+    action = getMovieCommingListAction();
+    dispatch(action);
     return () => {
       document
         .getElementById("modelTrailer")
         .removeEventListener("onhide", null);
+      window.removeEventListener("onload", null);
+      window.removeEventListener("resize", null);
     };
   }, []);
+
   return (
     <div className="row">
       <div className="col">
@@ -112,7 +132,9 @@ export default function HomeMovieList() {
                 role="tabpanel"
                 aria-labelledby="pills-home-tab"
               >
-                <div className="row">{renderMovieList()}</div>
+                <div>
+                  <MultipleRowSlick arr={callbackRenderMovieList(movieList)} />
+                </div>
               </div>
               <div
                 className="tab-pane fade py-5"
@@ -120,7 +142,11 @@ export default function HomeMovieList() {
                 role="tabpanel"
                 aria-labelledby="pills-profile-tab"
               >
-                ...
+                <div>
+                  <MultipleRowSlick
+                    arr={callbackRenderMovieList(movieCommingList)}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -138,10 +164,10 @@ export default function HomeMovieList() {
           <div
             className="modal-dialog  mx-auto"
             role="document"
-            style={{ maxWidth: "80%", height: "500px" }}
+            style={{ maxWidth: "80%", height: `${heightModal}px` }}
           >
             <div className="modal-content h-100">
-              <div className="modal-header p-0 h-100">
+              <div className="modal-body p-0 h-100">
                 <iframe
                   width="100%"
                   height="100%"

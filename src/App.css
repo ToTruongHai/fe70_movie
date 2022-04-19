@@ -174,8 +174,42 @@ a:hover {
 }
 html {
   font-size: 10px;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 400 !important;
 }
 /* .row{
   margin: 0;
   padding: 0;
 } */
+
+.ant-carousel .slick-dots {
+  margin: 0 !important;
+}
+
+.slick-dots li button:before, .slick-dots li.slick-active button:before {
+  color: transparent !important;
+}
+
+.tabFilms .ant-tabs-tabpane{
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.tabFilms ::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.tabFilms ::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.tabFilms ::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.tabFilms ::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

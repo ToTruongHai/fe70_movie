@@ -1,12 +1,12 @@
 /* phần nav */
 .movie_home {
     width: 50%;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #ddd;
 }
 
 .nav_item_home>a {
     border: none !important;
-    color: #a0a3a7;
+    color: var(--sub_text_color);
     text-transform: uppercase;
     font-size: 18px;
     font-weight: 400;
@@ -16,7 +16,7 @@
 
 .nav_item_home>a::after {
     content: "";
-    background: #f26b38;
+    background: var(--primary_color);
     height: 2px;
     position: absolute;
     width: 100%;
@@ -38,10 +38,10 @@
 }
 
 @media screen and (max-width: 768px) {
-.movie_home {
-    width: 100%;
-    font-size: 14px;
-}
+    .movie_home {
+        width: 100%;
+        font-size: 14px;
+    }
 }
 
 /* movie item */
@@ -91,13 +91,24 @@
     width: 100%;
     opacity: 0;
     transition: .5s ease;
-    background: #FB4226;
+    background: var(--primary_color);
     color: #fff;
     font-size: 24px;
     border: none;
     border-radius: 0 0 5px 5px;
+    transform: translateY(5px);
+}
+
+.title_movie {
+    height: 70px;
+    overflow-y: hidden;
 }
 
 .img_wrapper:hover+a .btn_datve, .title_movie:hover .btn_datve {
     opacity: 1;
+    transform: translateY(0);
+}
+
+.home_movie_item {
+    padding: 15px;
 }
