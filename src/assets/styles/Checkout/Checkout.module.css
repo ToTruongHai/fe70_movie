@@ -1,0 +1,35 @@
+.trapezoid {
+  border-bottom: 50px solid gray;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  height: 0;
+  width: 80%;
+  opacity: 0.3;
+  filter: drop-shadow(0px 10px 10px #000);
+}
+.darkbg {
+  background-color: black;
+  width: 80%;
+  height: 20px;
+}
+
+/* SEAT_LIST */
+
+
+
+/* SIDE_INFO */
+.side_info {
+  -webkit-box-shadow: -10px 0px 40px -5px #3d3d3d;
+  box-shadow: -10px 0px 40px -5px #3d3d3d;
+}
+.side_info p{
+  margin: 0;
+}
+.side_info span{
+  font-weight: 500;
+}
+.side_info h3{
+  font-size: 3rem;
+  margin: 0;
+  color: var(--primary_color);
+}

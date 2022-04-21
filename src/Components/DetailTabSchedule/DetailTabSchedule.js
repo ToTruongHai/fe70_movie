@@ -78,7 +78,7 @@ export default function DetailTabSchedule() {
                       return (
                         <NavLink
                           className="col-1 p-2 m-2 text-center"
-                          to="/"
+                          to={`/checkout/${lich.maLichChieu}`}
                           key={index}
                         >
                           {moment(lich.ngayChieuGioChieu).format("hh:mm A")}

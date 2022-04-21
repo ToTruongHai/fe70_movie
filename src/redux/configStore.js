@@ -3,11 +3,13 @@ import reduxThunk from "redux-thunk";
 import { quanLyPhimReducer } from "./reducers/quanLyPhimReducer";
 import { quanLyRapReducer } from "./reducers/quanLyRapReducer";
 import { modalReducer } from "./reducers/modalReducer";
+import { quanLyDatVeReducer } from "./reducers/quanLyDatVeReducer";
 
 const rootReducer = combineReducers({
   modalReducer,
   quanLyPhimReducer,
   quanLyRapReducer,
+  quanLyDatVeReducer,
 });
 
 let middleWare = applyMiddleware(reduxThunk);
