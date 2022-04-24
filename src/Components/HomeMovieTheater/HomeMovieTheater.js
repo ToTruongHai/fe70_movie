@@ -5,6 +5,7 @@ import { getScheduleTheater } from "../../redux/actions/quanLyRapAction";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import styles from "../../assets/styles/HomeMovieTheater/HomeMovieTheater.module.css";
+import ButtonPrimaryOutline from "../Elements/ButtonPrimaryOutline/ButtonPrimary";
 const { TabPane } = Tabs;
 
 function HomeMovieTheater() {
@@ -67,7 +68,7 @@ function HomeMovieTheater() {
                               //   e.target.src = "../../assets/images/logo.png";
                               // }}
                             />
-                            <div className="ml-3 w-100">
+                            <div className="ml-3 w-100 container">
                               <h5 className="font-weight-bold">
                                 {item.tenPhim}
                               </h5>
@@ -80,15 +81,23 @@ function HomeMovieTheater() {
                                   .map((item, index) => {
                                     return (
                                       <NavLink
-                                        to="/"
+                                        to={`/checkout/${item.maLichChieu}`}
                                         key={index}
-                                        className="col-2 mb-4"
+                                        className="col-xl-2 col-lg-3 col-md-4 mb-4 px-0"
                                       >
-                                        <span className={`${styles.gio_chieu}`}>
+                                        <ButtonPrimaryOutline
+                                          className="px-0"
+                                          // key={index}
+                                          // className="col-xl-2 col-lg-3 col-md-4 mb-4"
+                                        >
+                                          {/* <span
+                                            className={`${styles.gio_chieu}`}
+                                          > */}
                                           {moment(
                                             item.ngayChieuGioChieu
                                           ).format("hh:mm A")}
-                                        </span>
+                                          {/* </span> */}
+                                        </ButtonPrimaryOutline>
                                       </NavLink>
                                     );
                                   })}

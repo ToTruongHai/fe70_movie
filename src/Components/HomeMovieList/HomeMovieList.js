@@ -6,10 +6,11 @@ import {
   getMovieCommingListAction,
   getMovieListAction,
 } from "../../redux/actions/quanLyPhimAction";
+import AlertPrimary from "../Elements/AlertPrimary/AlertPrimary";
 import MultipleRowSlick from "../ReactSlick/MultipleRowSlick";
 
 export default function HomeMovieList() {
-  let { movieList, movieCommingList } = useSelector((a) => a.quanLyPhimReducer);
+  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
   let [srcTrailer, setSrcTrailer] = useState("");
   let [heightModal, setHeightModal] = useState(0);
   let renderMovieList = (list) => {
@@ -43,9 +44,16 @@ export default function HomeMovieList() {
               <i className="mdi mdi-play-circle-outline"></i>
             </div>
           </div>
-          <NavLink exact to={`/dat-ve/`}>
-            <div className={`${styles.title_movie} position-relative`}>
-              <h4 className="text-uppercase">{item.tenPhim}</h4>
+          <NavLink exact to={`/detail/${item.maPhim}`}>
+            <div className={`${styles.title_movie} position-relative pt-1`}>
+              <h4 className="text-uppercase">
+                {item.hot ? (
+                  <AlertPrimary className="mr-2">Hot</AlertPrimary>
+                ) : (
+                  ""
+                )}
+                {item.tenPhim}
+              </h4>
               <p className="text-dark">
                 {item.moTa.length > 50
                   ? item.moTa.substr(0, 50) + "..."
@@ -60,14 +68,11 @@ export default function HomeMovieList() {
       );
     });
   };
-  let callbackRenderMovieList = useCallback(renderMovieList, [
-    movieList,
-    movieCommingList,
-  ]);
+  let callbackRenderMovieList = useCallback(renderMovieList, [movieList]);
   let dispatch = useDispatch();
   let setHeightModalFunction = () => {
     let { innerWidth } = window;
-    setHeightModal((innerWidth * 0.8 * 9) / 16);
+    setHeightModal((innerWidth * 0.7 * 9) / 16);
   };
   useEffect(() => {
     window.addEventListener("resize", setHeightModalFunction, false);
@@ -77,8 +82,8 @@ export default function HomeMovieList() {
     };
     let action = getMovieListAction();
     dispatch(action);
-    action = getMovieCommingListAction();
-    dispatch(action);
+    // action = getMovieCommingListAction();
+    // dispatch(action);
     return () => {
       document
         .getElementById("modelTrailer")
@@ -133,7 +138,11 @@ export default function HomeMovieList() {
                 aria-labelledby="pills-home-tab"
               >
                 <div>
-                  <MultipleRowSlick arr={callbackRenderMovieList(movieList)} />
+                  <MultipleRowSlick
+                    arr={callbackRenderMovieList(
+                      movieList.filter((item) => item.dangChieu === true)
+                    )}
+                  />
                 </div>
               </div>
               <div
@@ -144,7 +153,9 @@ export default function HomeMovieList() {
               >
                 <div>
                   <MultipleRowSlick
-                    arr={callbackRenderMovieList(movieCommingList)}
+                    arr={callbackRenderMovieList(
+                      movieList.filter((item) => item.sapChieu === true)
+                    )}
                   />
                 </div>
               </div>
@@ -164,7 +175,7 @@ export default function HomeMovieList() {
           <div
             className="modal-dialog  mx-auto"
             role="document"
-            style={{ maxWidth: "80%", height: `${heightModal}px` }}
+            style={{ maxWidth: "70%", height: `${heightModal}px` }}
           >
             <div className="modal-content h-100">
               <div className="modal-body p-0 h-100">

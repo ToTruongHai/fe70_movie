@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function ModalHOC(props) {
-  const { component, handleSubmit, titleModal } = useSelector(
+  const { component, handleSubmit, titleModal, maxWidth } = useSelector(
     (rootReducer) => rootReducer.modalReducer
   );
   return (
@@ -14,33 +14,38 @@ export default function ModalHOC(props) {
       aria-labelledby="modelTitleId"
       aria-hidden="true"
     >
-      <div className="modal-dialog" role="document">
+      <div
+        className="modal-dialog mx-auto"
+        role="document"
+        style={maxWidth ? { maxWidth: `${maxWidth}%` } : {}}
+      >
         <div className="modal-content border-0">
-          <div className="modal-header border-0">
+          {/* <div className="modal-header border-0">
             <h5 className="modal-title d-flex ml-auto mr-auto">{titleModal}</h5>
-          </div>
+          </div> */}
           <div className="modal-body">
             {/* gọi props thế này nếu attribute truyền vào là 1 component */}
             {/* <props.component /> */}
 
             {component}
           </div>
-          {/* <div className="modal-footer">
+          <div className="modal-footer d-none">
             <button
               type="button"
               className="btn btn-secondary"
               data-dismiss="modal"
+              id="closeModal"
             >
               Close
             </button>
-            <button
+            {/* <button
               onClick={handleSubmit}
               type="button"
               className="btn btn-primary"
             >
               Save
-            </button>
-          </div> */}
+            </button> */}
+          </div>
         </div>
       </div>
     </div>

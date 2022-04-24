@@ -1,0 +1,8 @@
+.alertPrimary {
+  color: #fff;
+  text-transform: none;
+  background-color: var(--primary_color);
+  /* padding: 5px; */
+  border-radius: 5px;
+  display: inline-block;
+}

@@ -1,0 +1,12 @@
+.btnPrimaryOutline {
+    color: var(--primary_color);
+    border: 1px solid var(--primary_color) !important;
+    background-color: #fff;
+    outline: none !important;
+    border-radius: 2px;
+}
+
+.btnPrimaryOutline:hover {
+    background-color: var(--primary_color);
+    color: #fff;
+}

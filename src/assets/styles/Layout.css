@@ -1,0 +1,11 @@
+.textPrimary {
+    color: var(--primary_color);
+}
+
+::global(.swal2-title) {
+    font-size: 24px !important;
+}
+
+.swal2-popup {
+    font-size: 1.5rem !important;
+}

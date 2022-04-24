@@ -8,6 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 import Trailer from "../Trailer/Trailer";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import ButtonPrimary from "../Elements/ButtonPrimary/ButtonPrimary.js";
 
 export default function DetailInfo() {
   const { movieDetail } = useSelector(
@@ -21,7 +22,6 @@ export default function DetailInfo() {
   useEffect(async () => {
     danhGia = movieDetail?.danhGia;
   }, [movieDetail]);
-
 
   useEffect(async () => {
     let action = getMovieDetailAction(params.id);
@@ -56,7 +56,8 @@ export default function DetailInfo() {
               />
             </div>
             <div className="col-md-7 col-lg-9">
-              <button className="btn text-white">ĐÁNH GIÁ</button>
+              {/* <button className="btn text-white">ĐÁNH GIÁ</button> */}
+              <ButtonPrimary>Đánh giá</ButtonPrimary>
             </div>
           </div>
           <div className={`${styles.movieInfo_content_noidung}`}>
@@ -87,7 +88,6 @@ export default function DetailInfo() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
