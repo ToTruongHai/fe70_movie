@@ -4,12 +4,14 @@ import { quanLyPhimReducer } from "./reducers/quanLyPhimReducer";
 import { quanLyRapReducer } from "./reducers/quanLyRapReducer";
 import { modalReducer } from "./reducers/modalReducer";
 import { quanLyDatVeReducer } from "./reducers/quanLyDatVeReducer";
+import { quanLyNguoiDungReducer } from "./reducers/quanLyNguoiDungReducer";
 
 const rootReducer = combineReducers({
   modalReducer,
   quanLyPhimReducer,
   quanLyRapReducer,
   quanLyDatVeReducer,
+  quanLyNguoiDungReducer,
 });
 
 let middleWare = applyMiddleware(reduxThunk);

@@ -6,6 +6,7 @@ const defaultState = {
   handleSubmit: () => {
     alert("Default submit");
   },
+  maxWidth: null,
   isOpen: false,
   trailerSrc: "",
 };
@@ -18,6 +19,7 @@ export const modalReducer = (state = defaultState, action) => {
       state.handleSubmit = action.handleSubmit;
       state.isOpen = action.isOpen;
       state.trailerSrc = action.trailerSrc;
+      state.maxWidth = action.maxWidth;
       return { ...state };
     }
     case "SET_SRC": {

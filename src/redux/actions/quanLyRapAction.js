@@ -1,5 +1,5 @@
 import { apiGet } from "../../functions/apiFunctions";
-import { DOMAIN, http } from "../../util/setting";
+import { DOMAIN, GP, http } from "../../util/setting";
 import {
   GET_ALL_MOVIE_THEATER,
   GET_THEATER_CLUSTER,
@@ -20,7 +20,7 @@ export const getTheaterCluster = (maHeThongRap) => {
 
 export const getScheduleTheater = () => {
   return apiGet(
-    "/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP01",
+    "/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=" + GP,
     LAY_THONG_TIN_LICH_CHIEU_HE_THONG
   );
 };

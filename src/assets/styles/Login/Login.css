@@ -1,0 +1,45 @@
+ 
+.loginForm  .bodyForm {
+    box-sizing: border-box;
+    position: relative;
+}
+  
+.loginForm  .input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #a0a3a7;
+    color: black;
+    font-size: 18px;
+    height: 50px;
+    width: 100%;
+}
+
+  .loginForm  .input:focus {
+    outline: none;    
+  }
+  
+  .loginForm input::-webkit-input-placeholder {
+    color: #a0a3a7;
+  }
+  
+  /* .loginForm input:focus::-webkit-input-placeholder {
+    color: dodgerblue;
+  } */
+  
+  .loginForm .input:focus+.underline {
+    width: 100%;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+  
+  .loginForm .underline {
+    /* background: linear-gradient(120deg, #e26435 20.69%, #e26440 50.19%, #f26b45 79.69%); */
+    /* background: linear-gradient(120deg, #1C99FE 20.69%, #7644FF 50.19%, #FD4766 79.69%); */
+    background-color: var(--primary_color);
+    display: inline-block;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    width: 0;
+    bottom: 0;
+  }
