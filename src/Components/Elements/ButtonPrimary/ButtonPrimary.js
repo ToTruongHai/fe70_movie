@@ -6,6 +6,7 @@ export default function ButtonPrimary(props) {
   return (
     <button
       className={`${styles.btnPrimary} text-white text-uppercase display-6 p-3 ${props.className}`}
+      type={props.type ? props.type : "submit"}
       onClick={() => {
         if (props.handleClick) {
           props.handleClick();

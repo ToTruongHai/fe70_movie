@@ -6,6 +6,7 @@ export default function ButtonPrimaryOutline(props) {
     <button
       className={`${styles.btnPrimaryOutline} text-uppercase display-6 p-2 ${props.className}`}
       style={props.style}
+      type={props.type ? props.type : "submit"}
       onClick={() => {
         if (props.handleClick) {
           props.handleClick();

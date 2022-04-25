@@ -15,13 +15,15 @@ export const apiPost = (url, data = null, callback = null) => {
     try {
       let result = await http.post(DOMAIN + url, data);
       if (callback) {
-        callback(result, dispatch);
+        callback(result.data.content, dispatch);
       }
     } catch (err) {
       console.log(err);
       Swal.fire({
         title: "Rất tiếc!",
-        text: err.response?.data.content,
+        text: err.response?.data.content
+          ? err.response?.data.content
+          : "Đã xả ra lỗi, vui lòng thử lại",
         icon: "error",
         timer: 3000,
         showCancelButton: false,
