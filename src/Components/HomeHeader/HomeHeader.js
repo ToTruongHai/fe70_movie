@@ -4,14 +4,13 @@ import styles from "../../assets/styles/HomeHeader/HomeHeader.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import { logoutAction } from "../../redux/actions/quanLyNguoiDungAction";
+import Swal from "sweetalert2";
 
 export default function HomeHeader() {
   const dispatch = useDispatch();
 
   let { userLogin } = useSelector((a) => a.quanLyNguoiDungReducer);
-  useEffect(() => {
-    console.log("HomeHeader");
-  }, []);
   const renderLogin = () => {
     if (userLogin) {
       return (
@@ -22,7 +21,31 @@ export default function HomeHeader() {
             </NavLink>
           </li>
           <li className="nav-item active">
-            <NavLink exact className="nav-link" to="/profile">
+            <NavLink
+              exact
+              className="nav-link"
+              to=""
+              onClick={(e) => {
+                e.preventDefault();
+                Swal.fire({
+                  title: "Bạn chắc chắn muốn đăng xuất?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  showConfirmButton: true,
+                  confirmButtonText: "Đăng xuất",
+                  cancelButtonText: "Hủy",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(logoutAction());
+                    Swal.fire({
+                      title: "Đăng xuất thành công",
+                      icon: "success",
+                      showConfirmButton: false,
+                    });
+                  }
+                });
+              }}
+            >
               Đăng xuất
             </NavLink>
           </li>

@@ -9,3 +9,9 @@
 .swal2-popup {
     font-size: 1.5rem !important;
 }
+
+.swal2-confirm {
+    background-color: var(--primary_color) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}

@@ -26,6 +26,13 @@ export default function Register() {
   });
   const handleChangeInput = (event) => {
     let { name, value, placeholder } = event.target;
+    validate(name, value, placeholder);
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+  const validate = async (name, value, placeholder) => {
     let errorMess = "";
     if (value === "") {
       errorMess = placeholder + " không được để trống";
@@ -48,16 +55,15 @@ export default function Register() {
         errorMess = placeholder + " không đúng định dạng";
       }
     }
-    setErrors({
-      ...errors,
-      [name]: errorMess,
-    });
-    setValues({
-      ...values,
-      [name]: value,
-    });
+    setErrors(
+      {
+        ...errors,
+        [name]: errorMess,
+      },
+      console.log(errors)
+    );
   };
-  let handleRegister = () => {
+  let handleRegister = async () => {
     dispatch(registerAction(values));
   };
   return (
