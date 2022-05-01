@@ -8,8 +8,8 @@ export const postBookSeatAction = (thongTinDatVe = new ThongTinDatVe()) => {
       let result = await http.post(
         "/api/QuanLyDatVe/DatVe", thongTinDatVe
       );
+      
       console.log("result: ", result);
-
     } catch (error) {
       console.log("error: ", error);
     }

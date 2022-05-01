@@ -21,6 +21,7 @@ export default function DetailInfo() {
 
   useEffect(async () => {
     danhGia = movieDetail?.danhGia;
+    console.log("movieDetail: ", movieDetail);
   }, [movieDetail]);
 
   useEffect(async () => {
@@ -32,12 +33,7 @@ export default function DetailInfo() {
     <div className={`${styles.movieInfo} mt-5`}>
       <div className={`${styles.movieInfo_img}`}>
         <div className="col-5 m-0 p-0">
-          <img
-            src={movieDetail?.hinhAnh}
-            alt="..."
-            width={`100%`}
-            height={`100%`}
-          />
+          <img src={movieDetail?.hinhAnh} alt="..." width={`100%`} height={`100%`} />
         </div>
         <div className={`${styles.movieInfo_content} col-7`}>
           <p>{movieDetail?.tenPhim}</p>
@@ -62,7 +58,14 @@ export default function DetailInfo() {
           </div>
           <div className={`${styles.movieInfo_content_noidung}`}>
             <h3>Nội Dung</h3>
-            <p>{movieDetail?.moTa}</p>
+            <p>
+              {
+                // movieDetail?.moTa.length > 300
+                //       ? movieDetail?.moTa.substr(0, 300) + "..."
+                //       :
+                movieDetail?.moTa
+              }
+            </p>
           </div>
           <div className={`${styles.movieInfo_content_trailer}`}>
             <button
@@ -79,6 +82,7 @@ export default function DetailInfo() {
                     console.log("modal sumbit");
                   },
                   trailerSrc: movieDetail?.trailer,
+                  typeModal: "TRAILER",
                 };
                 dispatch(action);
               }}

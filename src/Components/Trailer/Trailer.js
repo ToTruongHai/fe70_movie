@@ -22,6 +22,7 @@ export default function Trailer() {
   }, []);
 
   const renderIframe = () => {
+
     if (trailerSrc.includes("embed")) {
       return (
         <iframe

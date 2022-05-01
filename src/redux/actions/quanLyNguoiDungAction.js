@@ -2,7 +2,7 @@ import { ACCESSTOKEN, http, USER_LOGIN } from "../../util/setting";
 import Swal from "sweetalert2";
 import "../../assets/styles/Layout.css";
 import { apiPost } from "../../functions/apiFunctions";
-import { LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
+import { GET_USER_HISTORY, LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
 import Login from "../../Components/Login/Login";
 
 export const loginAction = (data) => {
@@ -39,5 +39,21 @@ export const logoutAction = () => {
     dispatch({
       type: LOGOUT,
     });
+  };
+};
+
+export const getUserSeatHistory = () => {
+  return async (dispatch) => {
+    try {
+      let result = await http.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+      dispatch({
+        type: GET_USER_HISTORY,
+        userSeatHistory: result.data.content,
+      });
+      console.log(result.data.content);
+      console.log("result: ", result);
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 };
