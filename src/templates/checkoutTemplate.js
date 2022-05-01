@@ -36,9 +36,9 @@ export const CheckoutTemplate = (props) => {
     }
   }
 
-  // if (!localStorage.getItem(USER_LOGIN)) {
-  //   return <Redirect to="/" />;
-  // }
+  if (!localStorage.getItem(USER_LOGIN)) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Route

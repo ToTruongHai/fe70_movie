@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../assets/styles/Checkout/Checkout.module.css";
-import { getSeatListAction, postBookSeatAction } from "../../redux/actions/quanLyDatVeAction";
+import {
+  getSeatListAction,
+  postBookSeatAction,
+} from "../../redux/actions/quanLyDatVeAction";
 import "../../assets/styles/Checkout/Checkout.css";
 import { BOOK_SEAT } from "../../redux/actions/types/quanLyDatVeType";
 import { ThongTinDatVe } from "../../_core/models/ThongTinDatVe";
+import _ from "lodash";
+import { Tabs } from "antd";
+import { GET_USER_HISTORY } from "../../redux/actions/types/quanLyNguoiDungType";
+import { getUserSeatHistory } from "../../redux/actions/quanLyNguoiDungAction";
+import moment from "moment";
 
-export default function Checkout(props) {
+function Checkout(props) {
   const { seatList, danhSachGheDangDat } = useSelector(
     (rootReducer) => rootReducer.quanLyDatVeReducer
+  );
+  const { userLogin } = useSelector(
+    (rootReducer) => rootReducer.quanLyNguoiDungReducer
   );
   const { thongTinPhim, danhSachGhe } = seatList;
   const dispatch = useDispatch();
@@ -18,12 +29,22 @@ export default function Checkout(props) {
     dispatch(action);
   }, []);
 
+  useEffect(async () => {
+    renderSeat();
+  }, [seatList]);
+
   const renderSeat = () => {
     return danhSachGhe.map((ghe, index) => {
       let gheVip = ghe.loaiGhe === "Vip" ? "gheVip" : "";
       let gheDaDat = ghe.daDat === true ? "gheDaDat" : "";
 
       let classGheDangDat = "";
+
+      let gheMinhDat = "";
+      if (userLogin.taiKhoan === ghe.taiKhoanNguoiDat) {
+        gheMinhDat = "gheMinhDat";
+      }
+
       //find seat in state and compare to API list if it exist
       let indexGheDangDat = danhSachGheDangDat.findIndex(
         (gheDangDat) => gheDangDat.maGhe === ghe.maGhe
@@ -36,7 +57,7 @@ export default function Checkout(props) {
         <React.Fragment key={index}>
           <button
             disabled={ghe.daDat}
-            className={`ghe ${gheVip} ${gheDaDat} ${classGheDangDat}`}
+            className={`ghe ${gheVip} ${gheDaDat} ${classGheDangDat} ${gheMinhDat}`}
             key={index}
             onClick={() => {
               dispatch({
@@ -46,7 +67,14 @@ export default function Checkout(props) {
             }}
           >
             {ghe.daDat === true ? (
-              <i class="fa-solid fa-xmark" style={{ fontSize: "1.5rem" }}></i>
+              gheMinhDat != "" ? (
+                <i className="fa-solid fa-user"></i>
+              ) : (
+                <i
+                  className="fa-solid fa-xmark"
+                  style={{ fontSize: "1.5rem" }}
+                ></i>
+              )
             ) : (
               ghe.stt
             )}
@@ -65,7 +93,6 @@ export default function Checkout(props) {
     >
       <div className="row">
         {/* SEAT_LIST */}
-
         <div className={`col-9 text-center ${styles.seat_list}`}>
           <div className="mt-5 ">
             <div className={`${styles.darkbg} ml-auto mr-auto`}></div>
@@ -73,8 +100,80 @@ export default function Checkout(props) {
               <h3 className="text-black pt-3">Màn Hình</h3>
             </div>
           </div>
+          {/* RENDER SEAT */}
           <div className="w-100 container seat_container">
             <div className="row">{renderSeat()}</div>
+          </div>
+          {/* TABLE */}
+          <div className="mt-5 container">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>
+                    <strong>Ghế chưa đặt</strong>
+                  </th>
+                  <th>
+                    <strong>Ghế đang đặt</strong>
+                  </th>
+                  <th>
+                    <strong>Ghế đã đặt</strong>
+                  </th>
+                  <th>
+                    <strong>Ghế vip</strong>
+                  </th>
+                  <th>
+                    <strong>Ghế của bạn</strong>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <button
+                      className=" ghe text-center w-auto pl-5 pr-5"
+                      disabled={true}
+                    >
+                      <i className="fa-solid fa-check"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className=" ghe gheDangDat text-center w-auto pl-5 pr-5"
+                      disabled={true}
+                    >
+                      <i className="fa-solid fa-check"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className=" ghe gheDaDat text-center w-auto pl-5 pr-5"
+                      disabled={true}
+                    >
+                      <i
+                        className="fa-solid fa-xmark"
+                        style={{ fontSize: "1.5rem" }}
+                      ></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className=" ghe gheVip text-center w-auto pl-5 pr-5"
+                      disabled={true}
+                    >
+                      <i className="fa-solid fa-check"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className=" ghe gheMinhDat text-center w-auto pl-5 pr-5"
+                      disabled={true}
+                    >
+                      <i className="fa-solid fa-user"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         {/* SIDE_INFO */}
@@ -141,13 +240,18 @@ export default function Checkout(props) {
             </div>
             <hr />
             <p>
+              <span>Họ Tên: </span>
+              {userLogin.hoTen}
+            </p>
+            <hr />
+            <p>
               <span>E-mail: </span>
-              AHSDKJASHJDK@gmail.com
+              {userLogin.email}
             </p>
             <hr />
             <p>
               <span>Phone: </span>
-              12312312312312312
+              {userLogin.soDT}
             </p>
 
             <hr />
@@ -169,22 +273,103 @@ export default function Checkout(props) {
             <button
               className="w-100 pt-4 pb-4 mb-4 btn btn-outline-success"
               style={{ fontSize: "2rem" }}
-              onClick={
-                () => {
-                  const thongTinDatVe = new ThongTinDatVe();
-                  thongTinDatVe.maLichChieu = props.match.params.id;
-                  thongTinDatVe.danhSachVe = danhSachGheDangDat;
+              onClick={() => {
+                const thongTinDatVe = new ThongTinDatVe();
+                thongTinDatVe.maLichChieu = props.match.params.id;
+                thongTinDatVe.danhSachVe = danhSachGheDangDat;
 
-                  console.log(thongTinDatVe);
+                console.log(thongTinDatVe);
 
-                  dispatch(postBookSeatAction(thongTinDatVe));
-                }
-              }
+                dispatch(postBookSeatAction(thongTinDatVe));
+              }}
             >
               Đặt Vé
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+const { TabPane } = Tabs;
+
+function callback(key) {
+  console.log(key);
+}
+
+export default function (props) {
+  return (
+    <div className={`${styles.tabCheckOut}`}>
+      <Tabs defaultActiveKey="1" onChange={callback}>
+        <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1">
+          <Checkout {...props} />
+        </TabPane>
+        <TabPane tab="02 KẾT QUẢ ĐẶT VÉ" key="2">
+          <KetQuaDatVe {...props} />
+        </TabPane>
+      </Tabs>
+    </div>
+  );
+}
+
+function KetQuaDatVe(props) {
+  const { userSeatHistory, userLogin } = useSelector(
+    (rootReducer) => rootReducer.quanLyNguoiDungReducer
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const action = getUserSeatHistory();
+    dispatch(action);
+  }, []);
+  return (
+    <div className="container-fluid  p-5">
+      <div className="row">
+        {userSeatHistory.thongTinDatVe?.map((seat, index) => {
+          return (
+            <div className="p-3 col-4" key={index}>
+              <div className="card h-100">
+                <div className="card-body ">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div
+                        style={{
+                          color: "var(--primary_color)",
+                          fontSize: "1.5rem",
+                        }}
+                        className="text-xs font-weight-bold  mb-1"
+                      >
+                        {seat.tenPhim}
+                      </div>
+                      <div className="h5 mb-0  text-gray-800">
+                        {`Giờ Chiếu: ${moment(seat.ngayDat).format(
+                          "hh:mm A"
+                        )} - Ngày Chiếu: ${moment(seat.ngayDat).format(
+                          "DD-MM-YYYY"
+                        )}`}
+                      </div>
+                      <div>
+                        Địa Điểm: {_.first(seat.danhSachGhe).tenHeThongRap} -{" "}
+                        {_.first(seat.danhSachGhe).tenCumRap}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <img
+                        src={seat.hinhAnh}
+                        style={{
+                          width: "70px",
+                          height: "70px",
+                          borderRadius: "50%",
+                        }}
+                        alt="..."
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
