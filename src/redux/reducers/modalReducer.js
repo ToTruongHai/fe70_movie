@@ -25,7 +25,10 @@ export const modalReducer = (state = defaultState, action) => {
           if (oldSrc.includes("&")) {
             oldSrc = oldSrc.substr(0, oldSrc.indexOf("&"));
           }
-          // console.log("abc", oldSrc);
+          if (!oldSrc.includes("https://")) {
+            oldSrc = "https://" + oldSrc
+          }
+          console.log("abc", oldSrc);
         }
         state.trailerSrc = oldSrc;
       }

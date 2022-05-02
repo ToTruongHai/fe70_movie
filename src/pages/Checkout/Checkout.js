@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../assets/styles/Checkout/Checkout.module.css";
 import {
@@ -13,9 +13,14 @@ import { Tabs } from "antd";
 import { GET_USER_HISTORY } from "../../redux/actions/types/quanLyNguoiDungType";
 import { getUserSeatHistory } from "../../redux/actions/quanLyNguoiDungAction";
 import moment from "moment";
+import ButtonPrimary from "../../Components/Elements/ButtonPrimary/ButtonPrimary";
+import Swal from "sweetalert2";
+import { Redirect } from "react-router-dom";
+import ButtonPrimaryOutline from "../../Components/Elements/ButtonPrimaryOutline/ButtonPrimary";
+import { history } from "../../util/setting";
 
 function Checkout(props) {
-  const { seatList, danhSachGheDangDat } = useSelector(
+  const { seatList, danhSachGheDangDat, danhSachGheKhachDangDat } = useSelector(
     (rootReducer) => rootReducer.quanLyDatVeReducer
   );
   const { userLogin } = useSelector(
@@ -38,14 +43,13 @@ function Checkout(props) {
       let gheVip = ghe.loaiGhe === "Vip" ? "gheVip" : "";
       let gheDaDat = ghe.daDat === true ? "gheDaDat" : "";
 
-      let classGheDangDat = "";
-
       let gheMinhDat = "";
       if (userLogin.taiKhoan === ghe.taiKhoanNguoiDat) {
         gheMinhDat = "gheMinhDat";
       }
 
       //find seat in state and compare to API list if it exist
+      let classGheDangDat = "";
       let indexGheDangDat = danhSachGheDangDat.findIndex(
         (gheDangDat) => gheDangDat.maGhe === ghe.maGhe
       );
@@ -53,11 +57,20 @@ function Checkout(props) {
         classGheDangDat = "gheDangDat";
       }
 
+      //find realTime other book the seat
+      let classGheKhachDangDat = "";
+      let indexGheKhachDangDat = danhSachGheKhachDangDat.findIndex(
+        (gheDangDat) => gheDangDat.maGhe === ghe.maGhe
+      );
+      if (indexGheKhachDangDat != -1) {
+        classGheKhachDangDat = "gheKhachDangDat";
+      }
+
       return (
         <React.Fragment key={index}>
           <button
-            disabled={ghe.daDat}
-            className={`ghe ${gheVip} ${gheDaDat} ${classGheDangDat} ${gheMinhDat}`}
+            disabled={ghe.daDat | (classGheKhachDangDat !== "")}
+            className={`ghe ${gheVip} ${gheDaDat} ${classGheDangDat} ${gheMinhDat} ${classGheKhachDangDat}`}
             key={index}
             onClick={() => {
               dispatch({
@@ -116,6 +129,9 @@ function Checkout(props) {
                     <strong>Ghế đang đặt</strong>
                   </th>
                   <th>
+                    <strong>Ghế khách đang đặt</strong>
+                  </th>
+                  <th>
                     <strong>Ghế đã đặt</strong>
                   </th>
                   <th>
@@ -139,6 +155,14 @@ function Checkout(props) {
                   <td>
                     <button
                       className=" ghe gheDangDat text-center w-auto pl-5 pr-5"
+                      disabled={true}
+                    >
+                      <i className="fa-solid fa-check"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className=" ghe gheKhachDangDat text-center w-auto pl-5 pr-5"
                       disabled={true}
                     >
                       <i className="fa-solid fa-check"></i>
@@ -274,13 +298,31 @@ function Checkout(props) {
               className="w-100 pt-4 pb-4 mb-4 btn btn-outline-success"
               style={{ fontSize: "2rem" }}
               onClick={() => {
-                const thongTinDatVe = new ThongTinDatVe();
-                thongTinDatVe.maLichChieu = props.match.params.id;
-                thongTinDatVe.danhSachVe = danhSachGheDangDat;
+                console.log("danhSachGheDangDat", danhSachGheDangDat);
+                if (danhSachGheDangDat.length === 0) {
+                  Swal.fire("Vui Lòng Chọn Ghế!");
+                } else {
+                  Swal.fire({
+                    title: "Đặt Vé",
+                    text: `Bạn Đã Chắc Về Chỗ Đã Đặt?`,
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f26b38",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Confirm",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire("Success!", "Đặt Thành Công.");
+                      const thongTinDatVe = new ThongTinDatVe();
+                      thongTinDatVe.maLichChieu = props.match.params.id;
+                      thongTinDatVe.danhSachVe = danhSachGheDangDat;
 
-                console.log(thongTinDatVe);
+                      console.log(thongTinDatVe);
 
-                dispatch(postBookSeatAction(thongTinDatVe));
+                      dispatch(postBookSeatAction(thongTinDatVe));
+                    }
+                  });
+                }
               }}
             >
               Đặt Vé
@@ -294,14 +336,31 @@ function Checkout(props) {
 
 const { TabPane } = Tabs;
 
-function callback(key) {
-  console.log(key);
-}
+function callback(key) {}
 
 export default function (props) {
+  const { tabActive } = useSelector(
+    (rootReducer) => rootReducer.quanLyDatVeReducer
+  );
+  const dispatch = useDispatch();
   return (
     <div className={`${styles.tabCheckOut}`}>
-      <Tabs defaultActiveKey="1" onChange={callback}>
+      <div className={`${styles.tabCheckOut_backHome}`}>
+        <ButtonPrimaryOutline
+          handleClick={() => {
+            history.push("/");
+          }}
+        >
+          BACK TO HOME
+        </ButtonPrimaryOutline>
+      </div>
+      <Tabs
+        defaultActiveKey="1"
+        activeKey={tabActive}
+        onChange={(key) => {
+          dispatch({ type: "CHANGE_BACK_TAB", number: key.toString() });
+        }}
+      >
         <TabPane tab="01 CHỌN GHẾ & THANH TOÁN" key="1">
           <Checkout {...props} />
         </TabPane>
@@ -327,43 +386,85 @@ function KetQuaDatVe(props) {
       <div className="row">
         {userSeatHistory.thongTinDatVe?.map((seat, index) => {
           return (
-            <div className="p-3 col-4" key={index}>
-              <div className="card h-100">
-                <div className="card-body ">
-                  <div className="row no-gutters align-items-center">
-                    <div className="col mr-2">
-                      <div
-                        style={{
-                          color: "var(--primary_color)",
-                          fontSize: "1.5rem",
-                        }}
-                        className="text-xs font-weight-bold  mb-1"
-                      >
-                        {seat.tenPhim}
-                      </div>
-                      <div className="h5 mb-0  text-gray-800">
-                        {`Giờ Chiếu: ${moment(seat.ngayDat).format(
-                          "hh:mm A"
-                        )} - Ngày Chiếu: ${moment(seat.ngayDat).format(
-                          "DD-MM-YYYY"
-                        )}`}
-                      </div>
-                      <div>
-                        Địa Điểm: {_.first(seat.danhSachGhe).tenHeThongRap} -{" "}
-                        {_.first(seat.danhSachGhe).tenCumRap}
-                      </div>
-                    </div>
-                    <div className="col-auto">
-                      <img
-                        src={seat.hinhAnh}
-                        style={{
-                          width: "70px",
-                          height: "70px",
-                          borderRadius: "50%",
-                        }}
-                        alt="..."
-                      />
-                    </div>
+            <div className="p-3 col-12 col-lg-4 col-md-6 col-md-6" key={index}>
+              <div
+                className="row m-0 pt-3 pb-3 border rounded"
+                style={{ height: "150px" }}
+              >
+                <div className="col-3 m-0 p-0 d-flex justify-content-center align-items-center">
+                  <img
+                    src={seat.hinhAnh}
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "50%",
+                    }}
+                    alt="..."
+                  />
+                </div>
+                <div
+                  className="col-9 m-0 p-0"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "var(--primary_color)",
+                      fontSize: "1.5rem",
+                    }}
+                    className="text-xs font-weight-bold  mb-1"
+                  >
+                    {seat.tenPhim}
+                  </div>
+                  <div className="h5 mb-0  text-gray-800">
+                    {`Giờ Chiếu: ${moment(seat.ngayDat).format(
+                      "hh:mm A"
+                    )} - Ngày Chiếu: ${moment(seat.ngayDat).format(
+                      "DD-MM-YYYY"
+                    )}`}
+                  </div>
+                  <div>
+                    <span className="h5">Địa Điểm: </span>
+                    {_.first(seat.danhSachGhe).tenHeThongRap}
+                  </div>
+                  <div>
+                    <span className="h5">Rạp: </span>
+                    {_.first(seat.danhSachGhe).tenCumRap}
+                  </div>
+                  <div>
+                    <span className="h5">Ghế: </span>
+
+                    {seat.danhSachGhe.map((ghe, index) => {
+                      if (index < 10) {
+                        return (
+                          <span
+                            style={{
+                              display: "inline-block",
+                              color: "var(--primary_color)",
+                              margin: "0 2px",
+                              fontWeight: "500",
+                            }}
+                            key={index}
+                          >
+                            {"[" + ghe.tenGhe + "]"}
+                          </span>
+                        );
+                      } else {
+                        if (index + 1 === seat.danhSachGhe.length) {
+                          return (
+                            <span
+                              style={{ display: "inline-block" }}
+                              key={index}
+                            >
+                              ...
+                            </span>
+                          );
+                        }
+                      }
+                    })}
                   </div>
                 </div>
               </div>

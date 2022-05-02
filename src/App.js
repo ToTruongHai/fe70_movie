@@ -11,14 +11,23 @@ import Detail from "./pages/Detail/Detail";
 import TrailerModal from "./pages/ModalHOC/TrailerModal";
 import { CheckoutTemplate } from "./templates/checkoutTemplate";
 import Checkout from "./pages/Checkout/Checkout";
+import Loading from "./Components/Loading/Loading";
+import { AdminTemplate } from "./templates/adminTemplate";
+import DashBoard from "./pages/Admin/DashBoard/DashBoard";
+import Movie from "./pages/Admin/Movie/Movie";
 
 function App() {
   return (
     <Router history={history}>
+      <Loading />
       <Switch>
         <HomeTemplate path={"/home"} component={Home} />
         <HomeTemplate path={"/detail/:id"} component={Detail} />
-        <CheckoutTemplate path={"/checkout/:id"} component={Checkout}/>
+        <CheckoutTemplate path={"/checkout/:id"} component={Checkout} />
+
+        {/* Admin */}
+        <AdminTemplate path={"/admin/movie"} component={Movie} />
+        <AdminTemplate path={"/admin"} component={DashBoard} />
 
         {/* Default Page */}
         <HomeTemplate path={"/"} component={Home} />
