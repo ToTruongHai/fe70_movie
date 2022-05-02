@@ -17,6 +17,10 @@
 .gheDangDat {
   background-color: green !important;
 }
+.gheKhachDangDat {
+  background-color: lightseagreen !important;
+  cursor: no-drop;
+}
 .gheVip {
   background-color: var(--primary_color);
 }

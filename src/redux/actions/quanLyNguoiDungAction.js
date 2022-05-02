@@ -4,6 +4,8 @@ import "../../assets/styles/Layout.css";
 import { apiPost } from "../../functions/apiFunctions";
 import { GET_USER_HISTORY, LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
 import Login from "../../Components/Login/Login";
+import { DISPLAY_LOADING } from "./types/loadingType";
+import { displayLoadingAction, hideLoadingAction } from "./loadingAction";
 
 export const loginAction = (data) => {
   return apiPost("/api/QuanLyNguoiDung/DangNhap", data, (content, dispatch) => {
@@ -45,13 +47,14 @@ export const logoutAction = () => {
 export const getUserSeatHistory = () => {
   return async (dispatch) => {
     try {
+      dispatch(displayLoadingAction);
       let result = await http.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
-      dispatch({
+      await dispatch({
         type: GET_USER_HISTORY,
         userSeatHistory: result.data.content,
       });
-      console.log(result.data.content);
-      console.log("result: ", result);
+      await dispatch(hideLoadingAction);
+      
     } catch (error) {
       console.log("error: ", error);
     }
