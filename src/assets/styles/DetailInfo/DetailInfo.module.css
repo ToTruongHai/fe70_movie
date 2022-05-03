@@ -1,6 +1,6 @@
 .movieInfo {
   display: flex;
-  width: 60%;
+  width: 70%;
   /* justify-content: center;
   align-items: center; */
 
@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   padding: 0 0 0 2rem;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 /* movieInfo_content */
@@ -70,6 +70,7 @@
 .movieInfo_content_noidung h3 {
   font-weight: 600;
   font-size: 2.5rem;
+  margin-top: 10px;
 }
 .movieInfo_content_noidung h3:after {
   display: block;

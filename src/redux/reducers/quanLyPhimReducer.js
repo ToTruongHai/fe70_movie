@@ -42,6 +42,7 @@ export const quanLyPhimReducer = (state = defaultState, action) => {
       return { ...state };
     }
     case GET_MOVIE_DETAIL: {
+      
       state.movieDetail = action.detail;
       return { ...state };
     }

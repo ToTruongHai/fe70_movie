@@ -2,8 +2,10 @@ import { ACCESSTOKEN, http, USER_LOGIN } from "../../util/setting";
 import Swal from "sweetalert2";
 import "../../assets/styles/Layout.css";
 import { apiPost } from "../../functions/apiFunctions";
-import { LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
+import { GET_USER_HISTORY, LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
 import Login from "../../Components/Login/Login";
+import { DISPLAY_LOADING } from "./types/loadingType";
+import { displayLoadingAction, hideLoadingAction } from "./loadingAction";
 
 export const loginAction = (data) => {
   return apiPost("/api/QuanLyNguoiDung/DangNhap", data, (content, dispatch) => {
@@ -39,5 +41,22 @@ export const logoutAction = () => {
     dispatch({
       type: LOGOUT,
     });
+  };
+};
+
+export const getUserSeatHistory = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(displayLoadingAction);
+      let result = await http.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+      await dispatch({
+        type: GET_USER_HISTORY,
+        userSeatHistory: result.data.content,
+      });
+      await dispatch(hideLoadingAction);
+      
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 };
