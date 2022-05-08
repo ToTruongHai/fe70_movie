@@ -20,7 +20,7 @@ export default function HomeHeader() {
               Thông tin người dùng
             </NavLink>
           </li>
-          <li className="nav-item active">
+          <li className="nav-item">
             <NavLink
               exact
               className="nav-link"
@@ -62,10 +62,9 @@ export default function HomeHeader() {
               const action = {
                 type: "OPEN_FORM",
                 component: <Login />,
+                // Component: Login,
                 titleModal: "Đăng nhập",
-                handleSubmit: () => {
-                  console.log("login sumbit");
-                },
+                typeModal: "column",
               };
               dispatch(action);
             }}
@@ -80,7 +79,9 @@ export default function HomeHeader() {
               const action = {
                 type: "OPEN_FORM",
                 component: <Register />,
-                titleModal: "Register",
+                typeModal: true,
+                titleModal: "Đăng ký",
+                typeModal: "column",
                 // maxWidth: 80,
                 handleSubmit: () => {
                   console.log("register sumbit");
@@ -101,6 +102,7 @@ export default function HomeHeader() {
         <NavLink className="navbar-brand" to="/">
           Movie
         </NavLink>
+
         <button
           className="navbar-toggler d-lg-none"
           type="button"
@@ -110,17 +112,17 @@ export default function HomeHeader() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         />
+
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active">
-              <NavLink
-                // activeStyle={{ color: "orange" }}
-                // activeClassName="bg-white"
-                exact
-                className="nav-link"
-                to="/home"
-              >
+              <NavLink exact className="nav-link" to="/home">
                 Home
+              </NavLink>
+            </li>
+            <li className="nav-item active">
+              <NavLink exact className="nav-link" to="/admin">
+                Trang quản trị
               </NavLink>
             </li>
             {/* <li className="nav-item">
@@ -136,6 +138,7 @@ export default function HomeHeader() {
         <NavLink className="navbar-brand" to="/">
           Movie
         </NavLink>
+
         <button
           className="navbar-toggler d-lg-none"
           type="button"
@@ -148,21 +151,10 @@ export default function HomeHeader() {
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active">
-              <NavLink
-                // activeStyle={{ color: "orange" }}
-                // activeClassName="bg-white"
-                exact
-                className="nav-link"
-                to="/home"
-              >
+              <NavLink exact className="nav-link" to="/home">
                 Home
               </NavLink>
             </li>
-            {/* <li className="nav-item">
-          <a className="nav-link" href="#">
-            Link
-          </a>
-        </li> */}
           </ul>
           <button
             className="btn btn-outline-success text-white"
@@ -171,7 +163,7 @@ export default function HomeHeader() {
             onClick={() => {
               const action = {
                 type: "OPEN_FORM",
-                component: <Register />,
+                // component: <Register />,
                 titleModal: "Register",
                 handleSubmit: () => {
                   console.log("register sumbit");

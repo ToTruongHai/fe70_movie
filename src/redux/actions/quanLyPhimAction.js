@@ -1,11 +1,11 @@
 import axios from "axios";
-import { apiGet } from "../../functions/apiFunctions";
+import { apiDelete, apiGet } from "../../functions/apiFunctions";
 import { GP, http } from "../../util/setting";
 import {
   GET_ALL_BANNER,
   GET_MOVIE_DETAIL,
   GET_MOVIE_LIST,
-  GET_MOVIE_COMMING,
+  PHIM_PHAN_TRANG,
 } from "./types/quanLyPhimType";
 // import { GET_MOVIE_LIST } from "./types/movieListType";
 
@@ -41,4 +41,22 @@ export const getMovieDetailAction = (maPhim) => {
       console.log(err.response?.data);
     }
   };
+};
+
+export const getDataAdminPhimsAction = (
+  tenPhim = null,
+  soTrang = null,
+  soPhanTuTrenTrang = null
+) => {
+  let url = tenPhim
+    ? `/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=${GP}&tenPhim=${tenPhim}&soTrang=${soTrang}&soPhanTuTrenTrang=${soPhanTuTrenTrang}`
+    : `/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=${GP}&soTrang=${soTrang}&soPhanTuTrenTrang=${soPhanTuTrenTrang}`;
+  return apiGet(url, PHIM_PHAN_TRANG);
+};
+
+export const xoaPhimAction = (maPhim) => {
+  return apiDelete(
+    `/api/QuanLyPhim/XoaPhim?maphim=${maPhim}`,
+    getDataAdminPhimsAction
+  );
 };

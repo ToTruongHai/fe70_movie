@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getScheduleTheater } from "../../redux/actions/quanLyRapAction";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import styles from "../../assets/styles/HomeMovieTheater/HomeMovieTheater.module.css";
 import ButtonPrimaryOutline from "../Elements/ButtonPrimaryOutline/ButtonPrimary";
 const { TabPane } = Tabs;
 // import logo from "../../assets/images/logo.png";

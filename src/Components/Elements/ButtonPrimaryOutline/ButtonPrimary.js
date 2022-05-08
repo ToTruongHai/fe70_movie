@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../../assets/styles/Elements/ButtonPrimaryOutline/ButtonPrimaryOutline.module.css";
 
-export default function ButtonPrimaryOutline(props) {
+export default React.memo(function ButtonPrimaryOutline(props) {
   return (
     <button
       className={`${styles.btnPrimaryOutline} text-uppercase display-6 p-2 ${props.className}`}
@@ -16,4 +16,4 @@ export default function ButtonPrimaryOutline(props) {
       {props.children}
     </button>
   );
-}
+});

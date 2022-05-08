@@ -25,7 +25,34 @@ export const apiPost = (url, data = null, callback = null) => {
           ? err.response?.data.content
           : "Đã xả ra lỗi, vui lòng thử lại",
         icon: "error",
-        timer: 3000,
+        timer: 1000,
+        showCancelButton: false,
+        showConfirmButton: false,
+      }).then(
+        function () {},
+        function (dismiss) {
+          if (dismiss === "timer") {
+          }
+        }
+      );
+    }
+  };
+};
+
+export const apiDelete = (url, callback) => {
+  return async (dispatch) => {
+    try {
+      let result = await http.delete(DOMAIN + url);
+      dispatch(callback());
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        title: "Rất tiếc!",
+        text: err.response?.data.content
+          ? err.response?.data.content
+          : "Đã xả ra lỗi, vui lòng thử lại",
+        icon: "error",
+        timer: 1000,
         showCancelButton: false,
         showConfirmButton: false,
       }).then(
