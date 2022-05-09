@@ -64,7 +64,16 @@ export default function Register() {
     );
   };
   let handleRegister = async () => {
-    dispatch(registerAction(values));
+    let flag = false;
+    for (let key in errors) {
+      console.log(errors[key]);
+      if (errors[key]) {
+        flag = true;
+      }
+    }
+    if (!flag) {
+      dispatch(registerAction(values));
+    }
   };
   return (
     <form

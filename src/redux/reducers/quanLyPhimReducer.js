@@ -1,12 +1,13 @@
-import { act } from "react-dom/test-utils";
 import { GP } from "../../util/setting";
 import {
   GET_ALL_BANNER,
   GET_MOVIE_DETAIL,
   GET_MOVIE_LIST,
+  LAY_THONG_TIN_PHIM,
   PHIM_PHAN_TRANG,
 } from "../actions/types/quanLyPhimType";
 // import { GET_MOVIE_LIST } from "../actions/typeS/quanLyPhimType";
+import _ from "lodash";
 
 const defaultState = {
   arrBanner: [
@@ -65,8 +66,15 @@ export const quanLyPhimReducer = (state = defaultState, action) => {
       return { ...state };
     }
     case PHIM_PHAN_TRANG: {
-      state.dataAdminPhims = action.content.items;
+      let arrPhims = _.orderBy(action.content.items, ["maPhim"], ["desc"]);
+      // console.log(arrPhims);
+      state.dataAdminPhims = arrPhims;
       state.totalCount = action.content.totalCount;
+      return { ...state };
+    }
+
+    case LAY_THONG_TIN_PHIM: {
+      state.form = action.content;
       return { ...state };
     }
     default:

@@ -120,6 +120,7 @@ export const AdminTemplate = (props) => {
                   paddingLeft: "10px",
                   paddingRight: "10px",
                   height: "60px",
+                  textAlign: "center",
                 }}
               >
                 <NavLink className="navbar-brand" to="/admin">
@@ -130,6 +131,7 @@ export const AdminTemplate = (props) => {
                       fontSize: "18px",
                       marginLeft: "10px",
                       verticalAlign: "center",
+                      textAlign: "center",
                     }}
                   >
                     Tix
@@ -146,11 +148,11 @@ export const AdminTemplate = (props) => {
                 }}
                 theme="dark"
               >
-                <Menu.Item key="1" className="nav-admin">
+                {/* <Menu.Item key="1" className="nav-admin">
                   <NavLink className="navbar-brand" to="/admin">
                     DashBoard
                   </NavLink>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="2" className="nav-admin">
                   <NavLink className="navbar-brand" to="/admin/movie">
                     Movie
@@ -158,10 +160,11 @@ export const AdminTemplate = (props) => {
                 </Menu.Item>
               </Menu>
             </Sider>
-            <Layout>
+            <Layout className="site-layout">
               <Header
-                className="site-layout-sub-header-background"
-                style={{ padding: 0 }}
+                className="site-layout-background"
+                style={{ padding: 0, background: "#fff" }}
+                theme="light"
               />
               {/* <props.component {...propsRoute} /> */}
 

@@ -14,57 +14,40 @@ import {
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_FUNCTION } from "../../../redux/actions/types/modalType";
 import moment from "moment";
+import { alertWarning } from "../../../functions/alertFunctions";
+import {
+  capNhatPhimAction,
+  layThongTinPhimAction,
+  themPhimAction,
+} from "../../../redux/actions/quanLyPhimAction";
 
-const MovieForm = () => {
-  const normFile = (e) => {
-    console.log("Upload event:", e);
-
-    if (Array.isArray(e)) {
-      return e;
-    }
-
-    return e && e.fileList;
-  };
-  // let [fileList, setFileList] = useState([]);
-  // const uploadButton = !fileList.length ? (
-  //   <div>
-  //     <PlusOutlined />
-  //     <div style={{ marginTop: 8 }}>Upload</div>
-  //   </div>
-  // ) : (
-  //   ""
-  // );
-
-  const formik = useFormik({
-    initialValues: {
-      maPhim: 0,
-      tenPhim: "",
-      biDanh: "",
-      trailer: "",
-      moTa: "",
-      ngayKhoiChieu: "",
-      sapChieu: false,
-      dangChieu: true,
-      hot: true,
-      hinhAnh: {},
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
-  const handleChangeDatePicker = (value) => {
-    let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
-    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
-  };
-  const handleChangeSwitch = (name) => {
-    return (value) => {
-      formik.setFieldValue(name, value);
-    };
-  };
+const MovieForm = (props) => {
+  const edit = props.edit;
   const dispatch = useDispatch();
+  let { form } = useSelector((a) => a.quanLyPhimReducer);
+  // let [fileList, setFileList] = useState({
+  //   uid: "-1",
+  //   name: "",
+  //   status: "done",
+  //   url: form.hinhAnh,
+  //   thumbUrl: form.hinhAnh,
+  // });
+  // const preFileList
+
+  let fileList = [
+    {
+      uid: "-1",
+      name: "",
+      status: "done",
+      thumbUrl: form.hinhAnh,
+      url: form.hinhAnh,
+    },
+  ];
+  let [img, setImg] = useState("");
+
   useEffect(() => {
     dispatch({
       type: SET_FUNCTION,
@@ -73,6 +56,85 @@ const MovieForm = () => {
       },
     });
   }, []);
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      maPhim: edit ? form.maPhim : 0,
+      tenPhim: edit ? form.tenPhim : "",
+      biDanh: edit ? form.biDanh : "",
+      trailer: edit ? form.trailer : "",
+      moTa: edit ? form.moTa : "",
+      ngayKhoiChieu: edit ? moment(form.ngayKhoiChieu) : "",
+      sapChieu: edit ? form.sapChieu : false,
+      dangChieu: edit ? form.dangChieu : true,
+      hot: edit ? form.hot : true,
+      hinhAnh: edit ? form.hinhAnh : null,
+    },
+
+    onSubmit: (values) => {
+      let formData = new FormData();
+      for (let key in values) {
+        if (key === "hinhAnh" && typeof values.hinhAnh == "Bolb") {
+          // formData.append(
+          //   key,
+          //   values.hinhAnh.originFileObj,
+          //   values.hinhAnh.name
+          // );
+          formData.append(key, values[key], values[key].name);
+        } else if (key == "ngayKhoiChieu" && values[key]) {
+          // if (values[key])
+          formData.append(key, values[key].format("DD/MM/YYYY"));
+        } else {
+          formData.append(key, values[key]);
+        }
+      }
+      // console.log(formData.get("hinhAnh"));
+      if (edit) {
+        dispatch(capNhatPhimAction(formData));
+      } else {
+        dispatch(themPhimAction(formData));
+      }
+    },
+  });
+  useEffect(() => {
+    console.log(props.edit);
+    if (props.edit) {
+      setImg(form.hinhAnh);
+    } else {
+      setImg("");
+    }
+  }, [formik.values.hinhAnh]);
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
+  const handleChangeFile = async (e) => {
+    let file = e.target.files[0];
+    await formik.setFieldValue("hinhAnh", file);
+    if (file.type == "image/png" || file.type == "image/jpeg") {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setImg(e.target.result);
+      };
+    } else {
+      alertWarning("Hình không đúng định dạng");
+    }
+  };
+
+  const handleChangeDatePicker = (value) => {
+    let ngayKhoiChieu = moment(value, "DD/MM/YYYY");
+    formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
+  };
+  const handleChangeSwitch = (name) => {
+    return (value) => {
+      formik.setFieldValue(name, value);
+    };
+  };
+
   return (
     <div className="px-5 container">
       <Form
@@ -92,6 +154,7 @@ const MovieForm = () => {
                 placeholder="Tên phim"
                 name="tenPhim"
                 onChange={formik.handleChange}
+                value={formik.values.tenPhim}
               />
             </Form.Item>
 
@@ -100,6 +163,7 @@ const MovieForm = () => {
                 placeholder="Trailer"
                 name="trailer"
                 onChange={formik.handleChange}
+                value={formik.values.trailer}
               />
             </Form.Item>
             <Form.Item
@@ -110,25 +174,52 @@ const MovieForm = () => {
               labelAlign="left"
               required
             >
-              <Upload
+              <label htmlFor="upload" className="btn btn-primary btn-lg">
+                Upload hình
+              </label>
+              <input
+                type="file"
+                style={{ display: "none" }}
+                id="upload"
+                onChange={handleChangeFile}
+              />
+              {img && (
+                <img
+                  src={img}
+                  alt=""
+                  width={100}
+                  height={133}
+                  className="d-block mt-3"
+                />
+              )}
+              {/* <Upload
                 name="logo"
                 maxCount="1"
                 // action={(value) => {
-                //   console.log(value);
                 // }}
                 listType="picture"
-                onPreview={false}
+                // onPreview={true}
+                // fileList={fileList}
+                // defaultFileList={[fileList]}
                 onRemove={() => {
-                  formik.setFieldValue("hinhAnh", {});
+                  formik.setFieldValue("hinhAnh", null);
                 }}
-                onChange={(file) => {
-                  formik.setFieldValue("hinhAnh", file);
+                beforeUpload={(file) => {
+                  const isImg =
+                    file.type === "image/png" || file.type === "image/jpeg";
+                  if (!isImg) {
+                    alertWarning("Hình ảnh không đúng dịnh dạng!");
+                  }
+                  return isImg || Upload.LIST_IGNORE;
+                }}
+                onChange={async (file) => {
+                  await formik.setFieldValue("hinhAnh", file.file);
+                  // setFileList(file.fileList);
+                  return true;
                 }}
               >
-                {/* {uploadButton} */}
-                {/* {fileList.length ? null : uploadButton} */}
                 <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
+              </Upload> */}
             </Form.Item>
           </div>
           <div className="col-md-6">
@@ -137,6 +228,7 @@ const MovieForm = () => {
                 placeholder="Bí danh"
                 name="biDanh"
                 onChange={formik.handleChange}
+                value={formik.values.biDanh}
               />
             </Form.Item>
             <Form.Item label="Ngày khởi chiếu" labelAlign="left" required>
@@ -145,6 +237,11 @@ const MovieForm = () => {
                 format={"DD/MM/YYYY"}
                 // name="ngayKhoiChieu"
                 onChange={handleChangeDatePicker}
+                value={
+                  formik.values.ngayKhoiChieu
+                    ? moment(formik.values.ngayKhoiChieu)
+                    : ""
+                }
               />
             </Form.Item>
             <Form.Item label="Mô tả" labelAlign="left">
@@ -153,6 +250,7 @@ const MovieForm = () => {
                 allowClear
                 name="moTa"
                 onChange={formik.handleChange}
+                value={formik.values.moTa}
               />
             </Form.Item>
           </div>
@@ -160,27 +258,28 @@ const MovieForm = () => {
         <div className="row">
           <div className="col-md-3 col-sm-6">
             <Form.Item label="Hot" labelAlign="left">
-              <Switch onChange={handleChangeSwitch("hot")} />
+              <Switch
+                onChange={handleChangeSwitch("hot")}
+                checked={formik.values.hot}
+              />
             </Form.Item>
           </div>
           <div className="col-md-3 col-sm-6">
             <Form.Item label="Đang chiếu" labelAlign="left">
-              <Switch onChange={handleChangeSwitch("dangChieu")} />
+              <Switch
+                onChange={handleChangeSwitch("dangChieu")}
+                checked={formik.values.dangChieu}
+              />
             </Form.Item>
           </div>
           <div className="col-md-3 col-sm-6">
             <Form.Item label="Sắp chiếu" labelAlign="left">
-              <Switch onChange={handleChangeSwitch("sapChieu")} />
+              <Switch
+                onChange={handleChangeSwitch("sapChieu")}
+                checked={formik.values.sapChieu}
+              />
             </Form.Item>
           </div>
-          {/* <div
-            className="col-12 py-3 text-center  border-top"
-            style={{
-              borderColor: "#e9ecef !important",
-            }}
-          >
-            <ButtonPrimary className="font-weight-bold">Lưu</ButtonPrimary>
-          </div> */}
         </div>
       </Form>
     </div>

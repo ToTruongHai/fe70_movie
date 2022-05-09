@@ -3,32 +3,63 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, PageHeader, Input, Table } from "antd";
 import {
   getDataAdminPhimsAction,
+  getMovieListAction,
+  layThongTinPhimAction,
   xoaPhimAction,
+  xoaPhimsAction,
 } from "../../../redux/actions/quanLyPhimAction";
 import Swal from "sweetalert2";
 import MovieForm from "../../../Components/Admin/Movie/MovieForm";
 import { usePrevious } from "react-use";
+import { OPEN_FORM } from "../../../redux/actions/types/modalType";
 const { Search } = Input;
 
 export default function Movie() {
   const dispatch = useDispatch();
-  let [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  let [soTrang, setSoTrang] = useState(1);
-  let [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(10);
-  let { dataAdminPhims, totalCount } = useSelector((a) => a.quanLyPhimReducer);
-  let [filter, setFilter] = useState("");
+
+  // let [soTrang, setSoTrang] = useState(1);
+  // let [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(10);
+  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
+  let [arrPhims, setArrPhims] = useState([]);
+  let [selectedRowKeyss, setSelectedRowKeys] = useState([]);
+  // let [filter, setFilter] = useState("");
   useEffect(() => {
-    dispatch(getDataAdminPhimsAction("", soTrang, soPhanTuTrenTrang));
+    dispatch(getMovieListAction());
   }, []);
-  const prevFilter = usePrevious(filter);
   useEffect(() => {
-    if (prevFilter != filter) {
-      setSoTrang(1);
-    }
-    dispatch(getDataAdminPhimsAction(filter, soTrang, soPhanTuTrenTrang));
-  }, [filter, soTrang]);
+    setArrPhims(movieList);
+  }, [movieList]);
+  // const prevFilter = usePrevious(filter);
+  // useEffect(() => {
+  //   if (prevFilter != filter) {
+  //     setSoTrang(1);
+  //   }
+  //   dispatch(getDataAdminPhimsAction(filter, soTrang, soPhanTuTrenTrang));
+  // }, [filter, soTrang]);
   const buttons = [
-    <Button key="2" type="danger">
+    <Button
+      key="2"
+      type="danger"
+      onClick={() => {
+        Swal.fire({
+          title: "Bạn chắc chắn muốn xóa những phim này?",
+          icon: "warning",
+          showCancelButton: true,
+          showConfirmButton: true,
+          confirmButtonText: "Xóa",
+          cancelButtonText: "Hủy",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            dispatch(xoaPhimsAction(selectedRowKeyss));
+            // Swal.fire({
+            //   title: "Xóa thành công",
+            //   icon: "success",
+            //   showConfirmButton: false,
+            // });
+          }
+        });
+      }}
+    >
       Xóa
     </Button>,
     <Button
@@ -38,8 +69,8 @@ export default function Movie() {
       data-target="#modelId"
       onClick={() => {
         const action = {
-          type: "OPEN_FORM",
-          component: <MovieForm />,
+          type: OPEN_FORM,
+          component: <MovieForm edit={false} />,
           titleModal: "Thêm phim",
           maxWidth: 75,
         };
@@ -50,7 +81,8 @@ export default function Movie() {
     </Button>,
   ];
   const onSearch = (value) => {
-    setFilter(value);
+    // setFilter(value);
+    dispatch(getMovieListAction(value));
   };
 
   const columns = [
@@ -106,6 +138,16 @@ export default function Movie() {
               data-toggle="modal"
               data-target="#modelId"
               key={film.maPhim + "1"}
+              onClick={() => {
+                dispatch(layThongTinPhimAction(film.maPhim));
+                const action = {
+                  type: OPEN_FORM,
+                  component: <MovieForm edit={true} maPhim={film.maPhim} />,
+                  titleModal: "Cập nhật phim",
+                  maxWidth: 75,
+                };
+                dispatch(action);
+              }}
             >
               <i className="fa-solid fa-gear"></i>
             </button>
@@ -122,11 +164,11 @@ export default function Movie() {
                 }).then((result) => {
                   if (result.isConfirmed) {
                     dispatch(xoaPhimAction(film.maPhim));
-                    Swal.fire({
-                      title: "Xóa thành công",
-                      icon: "success",
-                      showConfirmButton: false,
-                    });
+                    // Swal.fire({
+                    //   title: "Xóa thành công",
+                    //   icon: "success",
+                    //   showConfirmButton: false,
+                    // });
                   }
                 });
               }}
@@ -141,11 +183,10 @@ export default function Movie() {
   ];
 
   const onSelectChange = (selectedRowKeys) => {
-    // console.log(selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
   };
   const rowSelection = {
-    selectedRowKeys,
+    selectedRowKeyss,
     onChange: onSelectChange,
     selections: [
       Table.SELECTION_ALL,
@@ -153,9 +194,9 @@ export default function Movie() {
       Table.SELECTION_NONE,
     ],
   };
-  const handleTableChange = (pagination) => {
-    setSoTrang(pagination.current);
-  };
+  // const handleTableChange = (pagination) => {
+  //   setSoTrang(pagination.current);
+  // };
 
   return (
     <React.Fragment>
@@ -171,13 +212,17 @@ export default function Movie() {
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={dataAdminPhims}
-          pagination={{
-            current: soTrang,
-            pageSize: soPhanTuTrenTrang,
-            total: totalCount,
-          }}
-          onChange={handleTableChange}
+          dataSource={arrPhims
+            .map((item) => {
+              return { ...item, key: item.maPhim };
+            })
+            .reverse()}
+          // pagination={{
+          //   current: soTrang,
+          //   pageSize: soPhanTuTrenTrang,
+          //   total: totalCount,
+          // }}
+          // onChange={handleTableChange}
         />
       </div>
     </React.Fragment>

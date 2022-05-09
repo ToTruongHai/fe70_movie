@@ -6,6 +6,8 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { logoutAction } from "../../redux/actions/quanLyNguoiDungAction";
 import Swal from "sweetalert2";
+import { USER_LOGIN } from "../../util/setting";
+import { OPEN_FORM } from "../../redux/actions/types/modalType";
 
 export default function HomeHeader() {
   const dispatch = useDispatch();
@@ -60,7 +62,7 @@ export default function HomeHeader() {
             data-target="#modelId"
             onClick={() => {
               const action = {
-                type: "OPEN_FORM",
+                type: OPEN_FORM,
                 component: <Login />,
                 // Component: Login,
                 titleModal: "Đăng nhập",
@@ -77,7 +79,7 @@ export default function HomeHeader() {
             data-target="#modelId"
             onClick={() => {
               const action = {
-                type: "OPEN_FORM",
+                type: OPEN_FORM,
                 component: <Register />,
                 typeModal: true,
                 titleModal: "Đăng ký",
@@ -120,11 +122,13 @@ export default function HomeHeader() {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item active">
-              <NavLink exact className="nav-link" to="/admin">
-                Trang quản trị
-              </NavLink>
-            </li>
+            {userLogin.maLoaiNguoiDung == "QuanTri" && (
+              <li className="nav-item active">
+                <NavLink exact className="nav-link" to="/admin/movie">
+                  Trang quản trị
+                </NavLink>
+              </li>
+            )}
             {/* <li className="nav-item">
             <a className="nav-link" href="#">
               Link
@@ -163,7 +167,7 @@ export default function HomeHeader() {
             onClick={() => {
               const action = {
                 type: "OPEN_FORM",
-                // component: <Register />,
+                component: <Register />,
                 titleModal: "Register",
                 handleSubmit: () => {
                   console.log("register sumbit");
