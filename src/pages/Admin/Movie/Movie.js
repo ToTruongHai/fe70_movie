@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, PageHeader, Input, Table } from "antd";
+import { Button, Input } from "antd";
 import {
-  getDataAdminPhimsAction,
   getMovieListAction,
   layThongTinPhimAction,
   xoaPhimAction,
@@ -12,30 +11,10 @@ import Swal from "sweetalert2";
 import MovieForm from "../../../Components/Admin/Movie/MovieForm";
 import { usePrevious } from "react-use";
 import { OPEN_FORM } from "../../../redux/actions/types/modalType";
+import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
 const { Search } = Input;
 
 export default function Movie() {
-  const dispatch = useDispatch();
-
-  // let [soTrang, setSoTrang] = useState(1);
-  // let [soPhanTuTrenTrang, setSoPhanTuTrenTrang] = useState(10);
-  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
-  let [arrPhims, setArrPhims] = useState([]);
-  let [selectedRowKeyss, setSelectedRowKeys] = useState([]);
-  // let [filter, setFilter] = useState("");
-  useEffect(() => {
-    dispatch(getMovieListAction());
-  }, []);
-  useEffect(() => {
-    setArrPhims(movieList);
-  }, [movieList]);
-  // const prevFilter = usePrevious(filter);
-  // useEffect(() => {
-  //   if (prevFilter != filter) {
-  //     setSoTrang(1);
-  //   }
-  //   dispatch(getDataAdminPhimsAction(filter, soTrang, soPhanTuTrenTrang));
-  // }, [filter, soTrang]);
   const buttons = [
     <Button
       key="2"
@@ -50,12 +29,7 @@ export default function Movie() {
           cancelButtonText: "Hủy",
         }).then((result) => {
           if (result.isConfirmed) {
-            dispatch(xoaPhimsAction(selectedRowKeyss));
-            // Swal.fire({
-            //   title: "Xóa thành công",
-            //   icon: "success",
-            //   showConfirmButton: false,
-            // });
+            dispatch(xoaPhimsAction(selectedRowKeys));
           }
         });
       }}
@@ -80,10 +54,6 @@ export default function Movie() {
       Thêm mới
     </Button>,
   ];
-  const onSearch = (value) => {
-    // setFilter(value);
-    dispatch(getMovieListAction(value));
-  };
 
   const columns = [
     {
@@ -182,48 +152,54 @@ export default function Movie() {
     },
   ];
 
-  const onSelectChange = (selectedRowKeys) => {
-    setSelectedRowKeys(selectedRowKeys);
+  const dispatch = useDispatch();
+
+  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
+  let { selectedRowKeys } = useSelector((a) => a.adminTemplateReducer);
+  useEffect(() => {
+    dispatch(getMovieListAction());
+    let dataSource = movieList
+      .map((item) => {
+        return { ...item, key: item.maPhim };
+      })
+      .reverse();
+    dispatch({
+      type: LOAD_COMPONENT,
+      payload: {
+        title: "Quản lý phim",
+        buttons,
+        columns,
+        dataSource,
+        selectedRowKeys: [],
+      },
+    });
+  }, []);
+  useEffect(() => {
+    let dataSource = movieList
+      .map((item) => {
+        return { ...item, key: item.maPhim };
+      })
+      .reverse();
+    dispatch({
+      type: LOAD_COMPONENT,
+      payload: {
+        dataSource,
+      },
+    });
+  }, [movieList]);
+  // const prevFilter = usePrevious(filter);
+
+  const onSearch = (value) => {
+    // setFilter(value);
+    dispatch(getMovieListAction(value));
   };
-  const rowSelection = {
-    selectedRowKeyss,
-    onChange: onSelectChange,
-    selections: [
-      Table.SELECTION_ALL,
-      Table.SELECTION_INVERT,
-      Table.SELECTION_NONE,
-    ],
-  };
-  // const handleTableChange = (pagination) => {
-  //   setSoTrang(pagination.current);
-  // };
 
   return (
     <React.Fragment>
-      <PageHeader
-        ghost={false}
-        title="Quản lý phim"
-        extra={buttons}
-      ></PageHeader>
       <div className="">
         <div className="card-body filter-wrapper bg-white my-3">
           <Search placeholder="Tên phim" onSearch={onSearch} enterButton />
         </div>
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={arrPhims
-            .map((item) => {
-              return { ...item, key: item.maPhim };
-            })
-            .reverse()}
-          // pagination={{
-          //   current: soTrang,
-          //   pageSize: soPhanTuTrenTrang,
-          //   total: totalCount,
-          // }}
-          // onChange={handleTableChange}
-        />
       </div>
     </React.Fragment>
   );
