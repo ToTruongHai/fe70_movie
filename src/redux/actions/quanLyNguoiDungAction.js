@@ -1,11 +1,12 @@
-import { ACCESSTOKEN, http, USER_LOGIN } from "../../util/setting";
+import { ACCESSTOKEN, GP, http, USER_LOGIN } from "../../util/setting";
 import Swal from "sweetalert2";
 import "../../assets/styles/Layout.css";
 import { apiPost } from "../../functions/apiFunctions";
-import { GET_USER_HISTORY, LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
+import { GET_USER_HISTORY, GET_USER_LIST, LOGIN, LOGOUT } from "./types/quanLyNguoiDungType";
 import Login from "../../Components/Login/Login";
 import { DISPLAY_LOADING } from "./types/loadingType";
 import { displayLoadingAction, hideLoadingAction } from "./loadingAction";
+import { alertSuccess } from "../../functions/alertFunctions";
 
 export const loginAction = (data) => {
   return apiPost("/api/QuanLyNguoiDung/DangNhap", data, (content, dispatch) => {
@@ -57,6 +58,56 @@ export const getUserSeatHistory = () => {
         type: GET_USER_HISTORY,
         userSeatHistory: result.data.content,
       });
+      await dispatch(hideLoadingAction);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+};
+
+export const adminGetUserListAction = (tenNguoiDung = null) => {
+  return async (dispatch) => {
+    try {
+      dispatch(displayLoadingAction);
+      let url = tenNguoiDung
+      ? `api/QuanLyNguoiDung/LayDanhSachNguoiDung?maNhom=${GP}&tuKhoa=${tenNguoiDung}`
+      : "api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=" + GP;
+      let result = await http.get(url);
+      await dispatch({
+        type: GET_USER_LIST,
+        userList: result.data.content,
+      });
+      await dispatch(hideLoadingAction);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+};
+
+export const adminDeleteUsersAction = (user) => {
+  return async (dispatch) => {
+    try {
+      dispatch(displayLoadingAction);
+      let result = await user.map((item) => {
+        return  http.delete(`api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${item}`);
+      });
+      Promise.all(result).then(() => {
+        alertSuccess("Xử lý thành công");
+        dispatch(adminGetUserListAction());
+      });
+      await dispatch(hideLoadingAction);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+};
+
+export const adminDeleteUserAction = (user) => {
+  return async (dispatch) => {
+    try {
+      dispatch(displayLoadingAction);
+      let result = await http.delete('api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan='+ user);
+      await dispatch(adminGetUserListAction());
       await dispatch(hideLoadingAction);
     } catch (error) {
       console.log("error: ", error);
