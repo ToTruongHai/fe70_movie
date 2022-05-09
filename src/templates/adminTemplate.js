@@ -17,7 +17,7 @@ export const AdminTemplate = React.memo((props) => {
   // Làm phần table antd
   const dispatch = useDispatch();
   const onSelectChange = (selectedRowKeys) => {
-    console.log(selectedRowKeys);
+    // console.log(selectedRowKeys);
     dispatch({
       type: LOAD_COMPONENT,
       payload: {
@@ -25,6 +25,7 @@ export const AdminTemplate = React.memo((props) => {
       },
     });
   };
+  // console.log("load lại");
 
   const rowSelection = {
     selectedRowKeys,
@@ -69,7 +70,7 @@ export const AdminTemplate = React.memo((props) => {
     //     .removeEventListener("onhide", null);
     // };
   }, []);
-  console.log(dataSource);
+  // console.log(dataSource);
   let Component = props.component;
 
   if (props.mobileComponent) {
