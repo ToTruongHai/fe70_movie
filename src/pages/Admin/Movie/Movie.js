@@ -9,7 +9,6 @@ import {
 } from "../../../redux/actions/quanLyPhimAction";
 import Swal from "sweetalert2";
 import MovieForm from "../../../Components/Admin/Movie/MovieForm";
-import { usePrevious } from "react-use";
 import { OPEN_FORM } from "../../../redux/actions/types/modalType";
 import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
 const { Search } = Input;

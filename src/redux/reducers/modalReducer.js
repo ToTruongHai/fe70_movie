@@ -26,6 +26,23 @@ export const modalReducer = (state = defaultState, action) => {
       }
       // state = { ...action };
 
+      if (action.typeModal === "TRAILER") {
+        let oldSrc = action.trailerSrc;
+        if (oldSrc.includes("watch?v=")) {
+          oldSrc = oldSrc.replace(
+            /watch[&\/\\#, +()$~%.'":*?<>{}]v=/g,
+            "embed/"
+          );
+          if (oldSrc.includes("&")) {
+            oldSrc = oldSrc.substr(0, oldSrc.indexOf("&"));
+          }
+          if (!oldSrc.includes("https://")) {
+            oldSrc = "https://" + oldSrc;
+          }
+        }
+        state.trailerSrc = oldSrc;
+      }
+      
       return { ...state };
     }
     case "SET_SRC": {
