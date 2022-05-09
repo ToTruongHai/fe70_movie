@@ -128,9 +128,9 @@ function Checkout(props) {
                   <th>
                     <strong>Ghế đang đặt</strong>
                   </th>
-                  <th>
+                  {/* <th>
                     <strong>Ghế khách đang đặt</strong>
-                  </th>
+                  </th> */}
                   <th>
                     <strong>Ghế đã đặt</strong>
                   </th>
@@ -160,14 +160,14 @@ function Checkout(props) {
                       <i className="fa-solid fa-check"></i>
                     </button>
                   </td>
-                  <td>
+                  {/* <td>
                     <button
                       className=" ghe gheKhachDangDat text-center w-auto pl-5 pr-5"
                       disabled={true}
                     >
                       <i className="fa-solid fa-check"></i>
                     </button>
-                  </td>
+                  </td> */}
                   <td>
                     <button
                       className=" ghe gheDaDat text-center w-auto pl-5 pr-5"
