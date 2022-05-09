@@ -28,24 +28,6 @@ const MovieForm = (props) => {
   const edit = props.edit;
   const dispatch = useDispatch();
   let { form } = useSelector((a) => a.quanLyPhimReducer);
-  // let [fileList, setFileList] = useState({
-  //   uid: "-1",
-  //   name: "",
-  //   status: "done",
-  //   url: form.hinhAnh,
-  //   thumbUrl: form.hinhAnh,
-  // });
-  // const preFileList
-
-  let fileList = [
-    {
-      uid: "-1",
-      name: "",
-      status: "done",
-      thumbUrl: form.hinhAnh,
-      url: form.hinhAnh,
-    },
-  ];
   let [img, setImg] = useState("");
 
   useEffect(() => {
@@ -73,6 +55,7 @@ const MovieForm = (props) => {
 
     onSubmit: (values) => {
       let formData = new FormData();
+      // console.log(values.hinhAnh);
       for (let key in values) {
         if (key === "hinhAnh" && typeof values.hinhAnh == "Bolb") {
           // formData.append(
@@ -97,7 +80,8 @@ const MovieForm = (props) => {
     },
   });
   useEffect(() => {
-    console.log(props.edit);
+    // console.log(props.edit);
+    // console.log("bị loại lại", formik.values.hinhAnh);
     if (props.edit) {
       setImg(form.hinhAnh);
     } else {
@@ -113,11 +97,14 @@ const MovieForm = (props) => {
 
   const handleChangeFile = async (e) => {
     let file = e.target.files[0];
+
     await formik.setFieldValue("hinhAnh", file);
+    // console.log(formik.values.hinhAnh);
     if (file.type == "image/png" || file.type == "image/jpeg") {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
+        // console.log(e.target.result);
         setImg(e.target.result);
       };
     } else {

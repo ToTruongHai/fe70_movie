@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function TrailerModal(props) {
-  const { component, handleSubmit, titleModal, isOpen } = useSelector(
-    (rootReducer) => rootReducer.modalReducer
-  );
+  const { component, handleSubmit, titleModal, isOpen, typeModal } =
+    useSelector((rootReducer) => rootReducer.modalReducer);
   let [heightModal, setHeightModal] = useState(0);
 
   let setHeightModalFunction = () => {
@@ -18,20 +17,22 @@ export default function TrailerModal(props) {
   }, []);
 
   return (
-    <div
-      className="modal fade bd-example-modal-lg"
-      id="trailerModal"
-      tabIndex="-1"
-      role="dialog"
-      aria-labelledby="myLargeModalLabel"
-      aria-hidden="true"
-    >
+    typeModal == "TRAILER" && (
       <div
-        className="modal-dialog modal-lg"
-        style={{ maxWidth: "80%", height: `${heightModal}px` }}
+        className="modal fade bd-example-modal-lg"
+        id="trailerModal"
+        tabIndex="0"
+        role="dialog"
+        aria-labelledby="myLargeModalLabel"
+        aria-hidden="true"
       >
-        <div className="modal-content h-100">{component}</div>
+        <div
+          className="modal-dialog modal-lg"
+          style={{ maxWidth: "80%", height: `${heightModal}px` }}
+        >
+          <div className="modal-content h-100">{component}</div>
+        </div>
       </div>
-    </div>
+    )
   );
 }

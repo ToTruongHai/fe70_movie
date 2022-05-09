@@ -9,50 +9,14 @@ import {
 } from "../../../redux/actions/quanLyPhimAction";
 import Swal from "sweetalert2";
 import MovieForm from "../../../Components/Admin/Movie/MovieForm";
+// import { usePrevious } from "react-use";
 import { OPEN_FORM } from "../../../redux/actions/types/modalType";
 import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
 const { Search } = Input;
 
 export default function Movie() {
-  const buttons = [
-    <Button
-      key="2"
-      type="danger"
-      onClick={() => {
-        Swal.fire({
-          title: "Bạn chắc chắn muốn xóa những phim này?",
-          icon: "warning",
-          showCancelButton: true,
-          showConfirmButton: true,
-          confirmButtonText: "Xóa",
-          cancelButtonText: "Hủy",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            dispatch(xoaPhimsAction(selectedRowKeys));
-          }
-        });
-      }}
-    >
-      Xóa
-    </Button>,
-    <Button
-      key="1"
-      type="primary"
-      data-toggle="modal"
-      data-target="#modelId"
-      onClick={() => {
-        const action = {
-          type: OPEN_FORM,
-          component: <MovieForm edit={false} />,
-          titleModal: "Thêm phim",
-          maxWidth: 75,
-        };
-        dispatch(action);
-      }}
-    >
-      Thêm mới
-    </Button>,
-  ];
+  let { selectedRowKeys } = useSelector((a) => a.adminTemplateReducer);
+  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
 
   const columns = [
     {
@@ -114,6 +78,7 @@ export default function Movie() {
                   component: <MovieForm edit={true} maPhim={film.maPhim} />,
                   titleModal: "Cập nhật phim",
                   maxWidth: 75,
+                  typeModal: "",
                 };
                 dispatch(action);
               }}
@@ -153,15 +118,54 @@ export default function Movie() {
 
   const dispatch = useDispatch();
 
-  let { movieList } = useSelector((a) => a.quanLyPhimReducer);
-  let { selectedRowKeys } = useSelector((a) => a.adminTemplateReducer);
   useEffect(() => {
     dispatch(getMovieListAction());
+
     let dataSource = movieList
       .map((item) => {
         return { ...item, key: item.maPhim };
       })
       .reverse();
+    let buttons = [
+      <Button
+        key="2"
+        type="danger"
+        onClick={() => {
+          Swal.fire({
+            title: "Bạn chắc chắn muốn xóa những phim này?",
+            icon: "warning",
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: "Xóa",
+            cancelButtonText: "Hủy",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(xoaPhimsAction(selectedRowKeys));
+            }
+          });
+        }}
+      >
+        Xóa
+      </Button>,
+      <Button
+        key="1"
+        type="primary"
+        data-toggle="modal"
+        data-target="#modelId"
+        onClick={() => {
+          const action = {
+            type: OPEN_FORM,
+            component: <MovieForm edit={false} />,
+            titleModal: "Thêm phim",
+            maxWidth: 75,
+            typeModal: "",
+          };
+          dispatch(action);
+        }}
+      >
+        Thêm mới
+      </Button>,
+    ];
     dispatch({
       type: LOAD_COMPONENT,
       payload: {
@@ -186,6 +190,54 @@ export default function Movie() {
       },
     });
   }, [movieList]);
+  useEffect(() => {
+    let buttons = [
+      <Button
+        key="2"
+        type="danger"
+        onClick={() => {
+          Swal.fire({
+            title: "Bạn chắc chắn muốn xóa những phim này?",
+            icon: "warning",
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: "Xóa",
+            cancelButtonText: "Hủy",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(xoaPhimsAction(selectedRowKeys));
+            }
+          });
+        }}
+      >
+        Xóa
+      </Button>,
+      <Button
+        key="1"
+        type="primary"
+        data-toggle="modal"
+        data-target="#modelId"
+        onClick={() => {
+          const action = {
+            type: OPEN_FORM,
+            component: <MovieForm edit={false} />,
+            titleModal: "Thêm phim",
+            maxWidth: 75,
+            typeModal: "",
+          };
+          dispatch(action);
+        }}
+      >
+        Thêm mới
+      </Button>,
+    ];
+    dispatch({
+      type: LOAD_COMPONENT,
+      payload: {
+        buttons,
+      },
+    });
+  }, [selectedRowKeys]);
   // const prevFilter = usePrevious(filter);
 
   const onSearch = (value) => {
