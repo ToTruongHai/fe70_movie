@@ -99,12 +99,12 @@ export const xoaPhimAction = (maPhim) => {
 export const xoaPhimsAction = (arr) => {
   return async (dispatch) => {
     try {
-      let arrPromise = arr.map((item) => {
+      let arrPromise = arr.map(async (item) => {
         return http.delete(DOMAIN + `/api/QuanLyPhim/XoaPhim?maphim=${item}`);
       });
-      Promise.all(arrPromise).then((result) => {
-        alertSuccess("Xử lý thành công");
+      Promise.all(arrPromise).then(() => {
         dispatch(getMovieListAction());
+        alertSuccess("Xử lý thành công");
       });
     } catch (err) {
       alertWarning("Đã xảy ra lỗi");
