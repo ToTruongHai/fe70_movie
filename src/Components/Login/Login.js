@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import Register from "../Register/Register";
 import { loginAction } from "../../redux/actions/quanLyNguoiDungAction";
 
-export default function Login() {
+export default function Login(props) {
   let [values, setValues] = useState({ taiKhoan: "", matKhau: "" });
   let [errors, setErrors] = useState({ taiKhoan: "", matKhau: "" });
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ export default function Login() {
       errorMess = placeholder + " không được để trống";
     }
     if (name === "taiKhoan") {
-      if (value.length < 3 || value.length > 12) {
-        errorMess = placeholder + " phải từ 3 đến 12 ký tự";
+      if (value.length < 3) {
+        errorMess = placeholder + " phải từ 3 ký tự trở lên";
       }
     }
     setErrors({
@@ -35,7 +35,18 @@ export default function Login() {
     const action = loginAction(values);
     dispatch(action);
   };
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "SET_FUNCTION",
+  //     handleSubmit: handleLogin,
+  //   });
+  // });
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "SET_FUNCTION",
+  //     handleSubmit: handleLogin,
+  //   });
+  // }, [values.taiKhoan, values.matKhau]);
   return (
     <form
       className="loginForm"
@@ -43,12 +54,9 @@ export default function Login() {
         event.preventDefault();
         handleLogin();
       }}
+      id="login"
     >
-      <div className="headerForm d-flex flex-column align-items-center">
-        <img src={logo} alt="" width={75} height={75} className="mt-5 mb-5" />
-        <h2 className="text-uppercase font-weight-bold display-4">đăng nhập</h2>
-      </div>
-      <div className="bodyForm px-5 py-2">
+      <div className="bodyForm px-5">
         <div>
           <div className=" overflow-hidden position-relative mb-3">
             <input
@@ -56,7 +64,6 @@ export default function Login() {
               placeholder="Tài khoản"
               type="text"
               name="taiKhoan"
-              // onChange={formik.handleChange}
               onChange={handleChangeInput}
               value={values.taiKhoan}
             />
@@ -71,7 +78,6 @@ export default function Login() {
               placeholder="Mật khẩu"
               type="password"
               name="matKhau"
-              // onChange={formik.handleChange}
               onChange={handleChangeInput}
               value={values.matKhau}
             />
@@ -91,6 +97,7 @@ export default function Login() {
                   type: "OPEN_FORM",
                   component: <Register />,
                   titleModal: "Đăng ký",
+                  typeModal: true,
                   // maxWidth: 80,
                   handleSubmit: () => {
                     console.log("đăng ký sumbit");

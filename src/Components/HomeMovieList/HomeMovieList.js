@@ -2,10 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styles from "../../assets/styles/HomeMovieList/HomeMovieList.module.css";
-import {
-  getMovieCommingListAction,
-  getMovieListAction,
-} from "../../redux/actions/quanLyPhimAction";
+import { getMovieListAction } from "../../redux/actions/quanLyPhimAction";
 import AlertPrimary from "../Elements/AlertPrimary/AlertPrimary";
 import MultipleRowSlick from "../ReactSlick/MultipleRowSlick";
 

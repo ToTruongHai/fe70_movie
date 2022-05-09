@@ -1,6 +1,8 @@
 import React from "react";
+import { OPEN_FORM, SET_FUNCTION } from "../actions/types/modalType";
 
 const defaultState = {
+  // Component: React.Fragment,
   component: <div></div>,
   titleModal: "",
   handleSubmit: () => {
@@ -14,7 +16,16 @@ const defaultState = {
 
 export const modalReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case "OPEN_FORM": {
+    case OPEN_FORM: {
+      for (let key in action) {
+        // if (key == "component") {
+        //   // state[key] = action[key];
+        //   console.log(state[key]);
+        // }
+        state[key] = action[key];
+      }
+      // state = { ...action };
+
       if (action.typeModal === "TRAILER") {
         let oldSrc = action.trailerSrc;
         if (oldSrc.includes("watch?v=")) {
@@ -26,23 +37,21 @@ export const modalReducer = (state = defaultState, action) => {
             oldSrc = oldSrc.substr(0, oldSrc.indexOf("&"));
           }
           if (!oldSrc.includes("https://")) {
-            oldSrc = "https://" + oldSrc
+            oldSrc = "https://" + oldSrc;
           }
         }
         state.trailerSrc = oldSrc;
       }
-
-      state.component = action.component;
-      state.titleModal = action.titleModal;
-      state.handleSubmit = action.handleSubmit;
-      state.isOpen = action.isOpen;
-      state.maxWidth = action.maxWidth;
-
+      
       return { ...state };
     }
     case "SET_SRC": {
       state.trailerSrc = action.trailerSrc;
 
+      return { ...state };
+    }
+    case SET_FUNCTION: {
+      state.handleSubmit = action.handleSubmit;
       return { ...state };
     }
     default:

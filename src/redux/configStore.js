@@ -6,6 +6,7 @@ import { modalReducer } from "./reducers/modalReducer";
 import { quanLyDatVeReducer } from "./reducers/quanLyDatVeReducer";
 import { quanLyNguoiDungReducer } from "./reducers/quanLyNguoiDungReducer";
 import { loadingReducer } from "./reducers/loadingReducer";
+import { adminTemplateReducer } from "./reducers/adminTemplateReducer";
 
 const rootReducer = combineReducers({
   modalReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   quanLyDatVeReducer,
   quanLyNguoiDungReducer,
   loadingReducer,
+  adminTemplateReducer,
 });
 
 let middleWare = applyMiddleware(reduxThunk);
