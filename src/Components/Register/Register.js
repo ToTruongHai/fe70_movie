@@ -59,12 +59,21 @@ export default function Register() {
       {
         ...errors,
         [name]: errorMess,
-      },
-      console.log(errors)
+      }
+      // console.log(errors)
     );
   };
   let handleRegister = async () => {
-    dispatch(registerAction(values));
+    let flag = false;
+    for (let key in errors) {
+      console.log(errors[key]);
+      if (errors[key]) {
+        flag = true;
+      }
+    }
+    if (!flag) {
+      dispatch(registerAction(values));
+    }
   };
   return (
     <form
@@ -74,10 +83,6 @@ export default function Register() {
         handleRegister();
       }}
     >
-      <div className="headerForm d-flex flex-column align-items-center">
-        <img src={logo} alt="" width={75} height={75} className="mt-5 mb-5" />
-        <h2 className="text-uppercase font-weight-bold display-4">đăng ký</h2>
-      </div>
       <div className="bodyForm px-5 py-2">
         <div className="row">
           <div className="px-lg-5 col-12">

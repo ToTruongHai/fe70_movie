@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getScheduleTheater } from "../../redux/actions/quanLyRapAction";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import styles from "../../assets/styles/HomeMovieTheater/HomeMovieTheater.module.css";
 import ButtonPrimaryOutline from "../Elements/ButtonPrimaryOutline/ButtonPrimary";
 const { TabPane } = Tabs;
-
+// import logo from "../../assets/images/logo.png";
 function HomeMovieTheater() {
   let { thongTinLichChieu } = useSelector((a) => a.quanLyRapReducer);
   let dispatch = useDispatch();
@@ -55,18 +54,15 @@ function HomeMovieTheater() {
                         <div className="d-flex mb-5 w-100">
                           <div className="d-flex align-items-center w-100">
                             <img
-                              src={
-                                item.hinhAnh
-                                  ? item.hinhAnh
-                                  : "../../assets/images/logo.png"
-                              }
+                              src={item.hinhAnh}
                               width={75}
                               height={100}
                               alt=""
-                              // onError={(e) => {
-                              //   e.target.onerror = null;
-                              //   e.target.src = "../../assets/images/logo.png";
-                              // }}
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src =
+                                  "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/dd/5d/3c/dd5d3cc0-f63b-1ce9-498d-9437ab10795e/source/60x60bb.jpg";
+                              }}
                             />
                             <div className="ml-3 w-100 container">
                               <h5 className="font-weight-bold">

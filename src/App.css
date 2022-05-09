@@ -217,3 +217,30 @@ html {
 .tabFilms ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+.logo {
+  height: 50px;
+  padding: 5px 0;
+  display: inline-block;
+}
+
+.ant-form-item-control {
+  max-width: 100% !important;
+  flex: 1 1 !important
+}
+
+.ant-form-item .ant-col-4 {
+  max-width: 25% !important;
+  flex: 0 0 25% !important;
+  white-space: pre-line;
+}
+
+.col-md-3.col-sm-6 .ant-form-item .ant-col-4 {
+  max-width: 50% !important;
+  flex: 0 0 50% !important;
+  white-space: nowrap;
+}
+
+.input:-internal-autofill-selected {
+  background-color: transparent !important;
+}

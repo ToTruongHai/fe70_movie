@@ -11,27 +11,31 @@ export const loginAction = (data) => {
   return apiPost("/api/QuanLyNguoiDung/DangNhap", data, (content, dispatch) => {
     document.getElementById("closeModal").click();
     dispatch({ type: LOGIN, content });
+    Swal.fire({
+      title: "Đăng nhập thành công!",
+      icon: "success",
+      timer: 2000,
+      showCancelButton: false,
+      showConfirmButton: false,
+    }).then(function (dismiss) {
+      if (dismiss === "timer") {
+      }
+    });
   });
 };
 
 export const registerAction = (data) => {
   return apiPost("/api/QuanLyNguoiDung/DangKy", data, (content, dispatch) => {
+    document.getElementById("closeModal").click();
     Swal.fire({
       title: "Đăng ký tài khoản thành công!",
       icon: "success",
-      timer: 3000,
+      timer: 2000,
       showCancelButton: false,
       showConfirmButton: false,
-    }).then(
-      function () {},
-      function (dismiss) {
-        if (dismiss === "timer") {
-        }
+    }).then(function (dismiss) {
+      if (dismiss === "timer") {
       }
-    );
-    dispatch({
-      type: "OPEN_FORM",
-      component: <Login />,
     });
   });
 };
@@ -54,7 +58,6 @@ export const getUserSeatHistory = () => {
         userSeatHistory: result.data.content,
       });
       await dispatch(hideLoadingAction);
-      
     } catch (error) {
       console.log("error: ", error);
     }
