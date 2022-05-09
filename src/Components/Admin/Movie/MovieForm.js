@@ -28,24 +28,6 @@ const MovieForm = (props) => {
   const edit = props.edit;
   const dispatch = useDispatch();
   let { form } = useSelector((a) => a.quanLyPhimReducer);
-  // let [fileList, setFileList] = useState({
-  //   uid: "-1",
-  //   name: "",
-  //   status: "done",
-  //   url: form.hinhAnh,
-  //   thumbUrl: form.hinhAnh,
-  // });
-  // const preFileList
-
-  let fileList = [
-    {
-      uid: "-1",
-      name: "",
-      status: "done",
-      thumbUrl: form.hinhAnh,
-      url: form.hinhAnh,
-    },
-  ];
   let [img, setImg] = useState("");
 
   useEffect(() => {
