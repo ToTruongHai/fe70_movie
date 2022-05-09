@@ -24,7 +24,6 @@ export const modalReducer = (state = defaultState, action) => {
         // }
         state[key] = action[key];
       }
-      // state = { ...action };
 
       if (action.typeModal === "TRAILER") {
         let oldSrc = action.trailerSrc;
@@ -42,7 +41,7 @@ export const modalReducer = (state = defaultState, action) => {
         }
         state.trailerSrc = oldSrc;
       }
-      
+
       return { ...state };
     }
     case "SET_SRC": {
