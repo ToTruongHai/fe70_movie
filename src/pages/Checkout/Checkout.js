@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import { Redirect } from "react-router-dom";
 import ButtonPrimaryOutline from "../../Components/Elements/ButtonPrimaryOutline/ButtonPrimary";
 import { history } from "../../util/setting";
+// import { connection } from "../..";
 
 function Checkout(props) {
   const { seatList, danhSachGheDangDat, danhSachGheKhachDangDat } = useSelector(
@@ -32,6 +33,11 @@ function Checkout(props) {
   useEffect(async () => {
     let action = getSeatListAction(props.match.params.id);
     dispatch(action);
+
+    //Lấy danh sách ghế từ server về
+    // connection.on("loadDanhSachGheDaDat", (dsGheKhachDat) => {
+    //   console.log("dsGheKhachDat: ", dsGheKhachDat)
+    // });
   }, []);
 
   useEffect(async () => {
@@ -128,9 +134,9 @@ function Checkout(props) {
                   <th>
                     <strong>Ghế đang đặt</strong>
                   </th>
-                  <th>
+                  {/* <th>
                     <strong>Ghế khách đang đặt</strong>
-                  </th>
+                  </th> */}
                   <th>
                     <strong>Ghế đã đặt</strong>
                   </th>
@@ -160,14 +166,14 @@ function Checkout(props) {
                       <i className="fa-solid fa-check"></i>
                     </button>
                   </td>
-                  <td>
+                  {/* <td>
                     <button
                       className=" ghe gheKhachDangDat text-center w-auto pl-5 pr-5"
                       disabled={true}
                     >
                       <i className="fa-solid fa-check"></i>
                     </button>
-                  </td>
+                  </td> */}
                   <td>
                     <button
                       className=" ghe gheDaDat text-center w-auto pl-5 pr-5"
