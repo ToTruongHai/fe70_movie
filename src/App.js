@@ -15,6 +15,7 @@ import Loading from "./Components/Loading/Loading";
 import { AdminTemplate } from "./templates/adminTemplate";
 import DashBoard from "./pages/Admin/DashBoard/DashBoard";
 import Movie from "./pages/Admin/Movie/Movie";
+import User from "./pages/Admin/User/User";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <CheckoutTemplate path={"/checkout/:id"} component={Checkout} />
 
         {/* Admin */}
+        <AdminTemplate path={"/admin/user"} component={User} />
         <AdminTemplate path={"/admin/movie"} component={Movie} />
         <AdminTemplate path={"/admin"} component={DashBoard} />
 

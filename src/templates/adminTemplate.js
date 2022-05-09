@@ -132,6 +132,11 @@ export const AdminTemplate = React.memo((props) => {
                     Movie
                   </NavLink>
                 </Menu.Item>
+                <Menu.Item className="nav-admin">
+                  <NavLink className="navbar-brand" to="/admin/user">
+                    User
+                  </NavLink>
+                </Menu.Item>
               </Menu>
             </Sider>
             <Layout className="site-layout">

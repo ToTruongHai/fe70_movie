@@ -1,5 +1,10 @@
 import { ACCESSTOKEN, USER_LOGIN } from "../../util/setting";
-import { GET_USER_HISTORY, LOGIN, LOGOUT } from "../actions/types/quanLyNguoiDungType";
+import {
+  GET_USER_HISTORY,
+  GET_USER_LIST,
+  LOGIN,
+  LOGOUT,
+} from "../actions/types/quanLyNguoiDungType";
 
 let userLogin = "";
 if (localStorage.getItem(USER_LOGIN)) {
@@ -9,6 +14,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 const stateDefault = {
   userLogin,
   userSeatHistory: [],
+  userList: [],
 };
 
 export const quanLyNguoiDungReducer = (state = stateDefault, action) => {
@@ -28,8 +34,12 @@ export const quanLyNguoiDungReducer = (state = stateDefault, action) => {
       return { ...state };
     }
     case GET_USER_HISTORY: {
-      state.userSeatHistory = action.userSeatHistory
-      return {...state}
+      state.userSeatHistory = action.userSeatHistory;
+      return { ...state };
+    }
+    case GET_USER_LIST: {
+      state.userList = action.userList;
+      return { ...state };
     }
     default:
       return state;
