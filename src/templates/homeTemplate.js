@@ -24,8 +24,8 @@ export const HomeTemplate = (props) => {
     return () => {
       //Hủy 2 sự kiện này khi component mất khỏi giao diện
       //(Chuyển template hoặc reload)
-      window.removeEventListener("onload");
-      window.removeEventListener("onresize");
+      window.removeEventListener("onload", null);
+      window.removeEventListener("onresize", null);
 
       document
         .getElementById("trailerModal")

@@ -1,18 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Upload,
-} from "antd";
-import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { Form, Input, DatePicker, Switch } from "antd";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_FUNCTION } from "../../../redux/actions/types/modalType";
@@ -20,7 +7,6 @@ import moment from "moment";
 import { alertWarning } from "../../../functions/alertFunctions";
 import {
   capNhatPhimAction,
-  layThongTinPhimAction,
   themPhimAction,
 } from "../../../redux/actions/quanLyPhimAction";
 

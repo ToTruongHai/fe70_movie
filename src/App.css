@@ -244,3 +244,7 @@ html {
 .input:-internal-autofill-selected {
   background-color: transparent !important;
 }
+
+.ant-table-thead th.ant-table-cell {
+  vertical-align: middle;
+}
