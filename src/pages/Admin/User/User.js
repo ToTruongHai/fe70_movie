@@ -6,7 +6,8 @@ import Swal from "sweetalert2";
 import MovieForm from "../../../Components/Admin/Movie/MovieForm";
 import { OPEN_FORM } from "../../../redux/actions/types/modalType";
 import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
-import { adminDeleteUserAction, adminDeleteUsersAction, adminGetUserListAction } from "../../../redux/actions/quanLyNguoiDungAction";
+import { adminDeleteUserAction, adminDeleteUsersAction, adminGetUserInfoAction, adminGetUserListAction } from "../../../redux/actions/quanLyNguoiDungAction";
+import UserForm from "../../../Components/Admin/User/UserForm";
 const { Search } = Input;
 export default function User() {
   const dispatch = useDispatch();
@@ -37,15 +38,15 @@ export default function User() {
       type="primary"
       data-toggle="modal"
       data-target="#modelId"
-      //   onClick={() => {
-      //     const action = {
-      //       type: OPEN_FORM,
-      //       component: <MovieForm edit={false} />,
-      //       titleModal: "Thêm phim",
-      //       maxWidth: 75,
-      //     };
-      //     dispatch(action);
-      //   }}
+        onClick={() => {
+          const action = {
+            type: OPEN_FORM,
+            component: <UserForm edit={false} />,
+            titleModal: "Thêm người dùng",
+            maxWidth: 40,
+          };
+          dispatch(action);
+        }}
     >
       Thêm mới
     </Button>,
@@ -94,16 +95,17 @@ export default function User() {
               data-toggle="modal"
               data-target="#modelId"
               key={user.taiKhoan + "1"}
-              //   onClick={() => {
-              //     dispatch(layThongTinPhimAction(film.maPhim));
-              //     const action = {
-              //       type: OPEN_FORM,
-              //       component: <MovieForm edit={true} maPhim={film.maPhim} />,
-              //       titleModal: "Cập nhật phim",
-              //       maxWidth: 75,
-              //     };
-              //     dispatch(action);
-              //   }}
+                onClick={() => {
+                  dispatch(adminGetUserInfoAction(user.taiKhoan));
+                  const action = {
+                    type: OPEN_FORM,
+                    component: <UserForm edit={true} />,
+                    titleModal: "Cập nhật người dùng",
+                    maxWidth: 40,
+                    typeModal: "",
+                  };
+                  dispatch(action);
+                }}
             >
               <i className="fa-solid fa-gear"></i>
             </button>

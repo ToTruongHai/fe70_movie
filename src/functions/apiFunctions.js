@@ -51,6 +51,27 @@ export const apiPost2 = (url, data = null, callback = null) => {
   };
 };
 
+export const apiPut = (url, data = null, callback = null) => {
+  return async (dispatch) => {
+    try {
+      let result = await http.put(DOMAIN + url, data);
+      document.getElementById("closeModal").click();
+      alertSuccess(result.data.message);
+      if (callback) {
+        dispatch(callback);
+      }
+    } catch (err) {
+      console.log(err.response);
+      alertWarning(
+        "Rất tiếc!",
+        err.response?.data.content
+          ? err.response?.data.content
+          : "Đã xả ra lỗi, vui lòng thử lại"
+      );
+    }
+  };
+};
+
 export const apiDelete = (url, callback) => {
   return async (dispatch) => {
     try {
