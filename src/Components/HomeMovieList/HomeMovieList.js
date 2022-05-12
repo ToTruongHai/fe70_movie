@@ -90,6 +90,10 @@ export default function HomeMovieList() {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("load lại trang chủ");
+  }, [movieList]);
+
   return (
     <div className="row">
       <div className="col">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input } from "antd";
 import {
@@ -14,7 +14,7 @@ import { OPEN_FORM } from "../../../redux/actions/types/modalType";
 import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
 const { Search } = Input;
 
-export default function Movie() {
+function Movie() {
   let { selectedRowKeys } = useSelector((a) => a.adminTemplateReducer);
   let { movieList } = useSelector((a) => a.quanLyPhimReducer);
 
@@ -190,6 +190,7 @@ export default function Movie() {
       },
     });
   }, [movieList]);
+  // console.log("load lại trang movie");
   useEffect(() => {
     let buttons = [
       <Button
@@ -255,3 +256,5 @@ export default function Movie() {
     </React.Fragment>
   );
 }
+
+export default memo(Movie);

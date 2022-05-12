@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -25,6 +25,7 @@ import {
 } from "../../../redux/actions/quanLyPhimAction";
 
 const MovieForm = (props) => {
+  // console.log("load lại form movie");
   const edit = props.edit;
   const dispatch = useDispatch();
   let { form } = useSelector((a) => a.quanLyPhimReducer);
@@ -273,4 +274,4 @@ const MovieForm = (props) => {
   );
 };
 
-export default MovieForm;
+export default memo(MovieForm);
