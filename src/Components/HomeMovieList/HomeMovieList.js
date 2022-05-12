@@ -75,6 +75,7 @@ export default function HomeMovieList() {
     window.addEventListener("resize", setHeightModalFunction, false);
     window.onload = setHeightModalFunction();
     document.getElementById("modelTrailer").onhide = () => {
+      console.log(1);
       setSrcTrailer("");
     };
     let action = getMovieListAction();
@@ -82,9 +83,6 @@ export default function HomeMovieList() {
     // action = getMovieCommingListAction();
     // dispatch(action);
     return () => {
-      document
-        .getElementById("modelTrailer")
-        .removeEventListener("onhide", null);
       window.removeEventListener("onload", null);
       window.removeEventListener("resize", null);
     };

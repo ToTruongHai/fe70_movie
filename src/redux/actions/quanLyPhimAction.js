@@ -1,12 +1,5 @@
-import axios from "axios";
-import { result } from "lodash";
 import { alertSuccess, alertWarning } from "../../functions/alertFunctions";
-import {
-  apiDelete,
-  apiGet,
-  apiPost,
-  apiPost2,
-} from "../../functions/apiFunctions";
+import { apiDelete, apiGet, apiPost2 } from "../../functions/apiFunctions";
 import { DOMAIN, GP, http } from "../../util/setting";
 import {
   GET_ALL_BANNER,

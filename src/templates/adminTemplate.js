@@ -70,7 +70,7 @@ export const AdminTemplate = React.memo((props) => {
     //     .removeEventListener("onhide", null);
     // };
   }, []);
-  // console.log(dataSource);
+  // console.log("load lại trang admin");
   let Component = props.component;
 
   if (props.mobileComponent) {

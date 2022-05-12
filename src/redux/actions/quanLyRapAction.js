@@ -1,5 +1,6 @@
-import { apiGet } from "../../functions/apiFunctions";
+import { apiGet, apiPost2 } from "../../functions/apiFunctions";
 import { DOMAIN, GP, http } from "../../util/setting";
+import { displayLoadingAction, hideLoadingAction } from "./loadingAction";
 import {
   GET_ALL_MOVIE_THEATER,
   GET_THEATER_CLUSTER,
@@ -28,6 +29,7 @@ export const getScheduleTheater = () => {
 export const getMovieSchedule = (maPhim) => {
   return async (dispatch) => {
     try {
+      await dispatch(displayLoadingAction);
       let result = await http.get(
         "/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=" + maPhim
       );
@@ -35,8 +37,17 @@ export const getMovieSchedule = (maPhim) => {
         type: GET_MOVIE_SCHEDULE,
         movieSchedule: result.data.content,
       });
+      dispatch(hideLoadingAction);
     } catch (error) {
       console.log("error: ", error);
     }
   };
+};
+
+export const taoLichChieuAction = (data) => {
+  return apiPost2(
+    "/api/QuanLyDatVe/TaoLichChieu",
+    data,
+    getMovieSchedule(data.maPhim)
+  );
 };

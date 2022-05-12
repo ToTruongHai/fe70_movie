@@ -1,18 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Upload,
-} from "antd";
-import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import React, { memo, useEffect, useState } from "react";
+import { Form, Input, DatePicker, Switch } from "antd";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_FUNCTION } from "../../../redux/actions/types/modalType";
@@ -20,11 +7,11 @@ import moment from "moment";
 import { alertWarning } from "../../../functions/alertFunctions";
 import {
   capNhatPhimAction,
-  layThongTinPhimAction,
   themPhimAction,
 } from "../../../redux/actions/quanLyPhimAction";
 
 const MovieForm = (props) => {
+  // console.log("load lại form movie");
   const edit = props.edit;
   const dispatch = useDispatch();
   let { form } = useSelector((a) => a.quanLyPhimReducer);
@@ -273,4 +260,4 @@ const MovieForm = (props) => {
   );
 };
 
-export default MovieForm;
+export default memo(MovieForm);

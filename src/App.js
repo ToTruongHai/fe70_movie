@@ -16,6 +16,7 @@ import { AdminTemplate } from "./templates/adminTemplate";
 import DashBoard from "./pages/Admin/DashBoard/DashBoard";
 import Movie from "./pages/Admin/Movie/Movie";
 import User from "./pages/Admin/User/User";
+import Showtimes from "./Components/Admin/Showtimes/Showtimes";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         {/* Admin */}
         <AdminTemplate path={"/admin/user"} component={User} />
         <AdminTemplate path={"/admin/movie"} component={Movie} />
+        <AdminTemplate path={"/admin/showtimes/:id"} component={Showtimes} />
         <AdminTemplate path={"/admin"} component={DashBoard} />
 
         {/* Default Page */}
