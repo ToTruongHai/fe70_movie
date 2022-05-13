@@ -13,32 +13,28 @@ export default function Search(props) {
   useEffect(() => {
     dispatch(getMovieListAction(props.match.params.tenPhim));
   }, [movieList]);
-  console.log("aaaa", props.match.params.tenPhim);
-  console.log("bbbbb", movieList);
 
-  const listData = [];
-  for (let i = 0; i < movieList?.length; i++) {
-    listData.push({
-      href: "https://ant.design",
-      title: `ant design part ${i}`,
-      avatar: "https://joeschmoe.io/api/v1/random",
-      description:
-        "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-      content: movieList?.moTa,
-      hinhAnh: movieList?.hinhAnh,
-    });
-  }
   return (
     <div className="container">
       <h2
         style={{
           color: "var(--primary_color)",
-          padding: "25px",
+          padding: "25px 25px 0 25px",
           fontSize: "3rem",
         }}
       >
         Kết quả tìm kiếm cho: {props.match.params.tenPhim}
       </h2>
+      <h3
+        style={{
+          padding: "0px 25px 25px 25px",
+          fontSize: "1.5rem",
+          color: "grey",
+        }}
+      >
+        Có ({movieList?.length}) Kết Quả
+      </h3>
+      <hr />
       <List
         itemLayout="vertical"
         size="large"
