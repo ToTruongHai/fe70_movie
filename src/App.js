@@ -16,7 +16,8 @@ import { AdminTemplate } from "./templates/adminTemplate";
 import DashBoard from "./pages/Admin/DashBoard/DashBoard";
 import Movie from "./pages/Admin/Movie/Movie";
 import User from "./pages/Admin/User/User";
-import Showtimes from "./Components/Admin/Showtimes/Showtimes";
+import Showtimes from "./pages/Showtimes/Showtimes";
+import Profile from "./pages/Profile/Profile";
 import Search from "./Components/Search/Search";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Switch>
         <HomeTemplate path={"/home"} component={Home} />
         <HomeTemplate path={"/detail/:id"} component={Detail} />
+        <HomeTemplate path="/profile" component={Profile} />
         <HomeTemplate path={"/search/:tenPhim"} component={Search} />
         <CheckoutTemplate path={"/checkout/:id"} component={Checkout} />
 
@@ -33,6 +35,7 @@ function App() {
         <AdminTemplate path={"/admin/user"} component={User} />
         <AdminTemplate path={"/admin/movie"} component={Movie} />
         <AdminTemplate path={"/admin/showtimes/:id"} component={Showtimes} />
+        {/* <AdminTemplate path={"/admin/profile"} component={Profile} /> */}
         <AdminTemplate path={"/admin"} component={DashBoard} />
 
         {/* Default Page */}

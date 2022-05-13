@@ -10,12 +10,36 @@ import { history, USER_LOGIN } from "../../util/setting";
 import logo from "../../assets/images/logo.png";
 import { OPEN_FORM } from "../../redux/actions/types/modalType";
 import Search from "antd/lib/input/Search";
+import { Avatar, Dropdown, Menu } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 export default function HomeHeader() {
   const dispatch = useDispatch();
 
   let { userLogin } = useSelector((a) => a.quanLyNguoiDungReducer);
-
+  const menu = (
+    <Menu>
+      {userLogin.maLoaiNguoiDung == "QuanTri" && (
+        <Menu.Item key="1">
+          <NavLink to="/admin">Trang quản trị</NavLink>
+        </Menu.Item>
+      )}
+      <Menu.Item key="2">
+        <NavLink to="/profile">Thông tin cá nhân</NavLink>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <NavLink
+          to="/"
+          onClick={(event) => {
+            event.preventDefault();
+            dispatch(logoutAction());
+          }}
+        >
+          Đăng xuất
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
   const renderLogin = () => {
     if (userLogin) {
       return (
@@ -57,49 +81,48 @@ export default function HomeHeader() {
         </React.Fragment>
       );
     } else {
-      return (
-        <React.Fragment>
-          
-          <button
-            className={`btn ${styles.btnHeader}`}
-            data-toggle="modal"
-            data-target="#modelId"
-            onClick={() => {
-              const action = {
-                type: OPEN_FORM,
-                component: <Login />,
-                // Component: Login,
-                titleModal: "Đăng nhập",
-                typeModal: "column",
-              };
-              dispatch(action);
-            }}
-          >
-            Đăng nhập
-          </button>
-          <button
-            className="btn btn-outline-success"
-            data-toggle="modal"
-            data-target="#modelId"
-            onClick={() => {
-              const action = {
-                type: OPEN_FORM,
-                component: <Register />,
-                typeModal: true,
-                titleModal: "Đăng ký",
-                typeModal: "column",
-                // maxWidth: 80,
-                handleSubmit: () => {
-                  console.log("register sumbit");
-                },
-              };
-              dispatch(action);
-            }}
-          >
-            Đăng ký
-          </button>
-        </React.Fragment>
-      );
+      // return (
+      //   <React.Fragment>
+      //     <button
+      //       className={`btn ${styles.btnHeader}`}
+      //       data-toggle="modal"
+      //       data-target="#modelId"
+      //       onClick={() => {
+      //         const action = {
+      //           type: OPEN_FORM,
+      //           component: <Login />,
+      //           // Component: Login,
+      //           titleModal: "Đăng nhập",
+      //           typeModal: "column",
+      //         };
+      //         dispatch(action);
+      //       }}
+      //     >
+      //       Đăng nhập
+      //     </button>
+      //     <button
+      //       className="btn btn-outline-success"
+      //       data-toggle="modal"
+      //       data-target="#modelId"
+      //       onClick={() => {
+      //         const action = {
+      //           type: OPEN_FORM,
+      //           component: <Register />,
+      //           typeModal: true,
+      //           titleModal: "Đăng ký",
+      //           typeModal: "column",
+      //           // maxWidth: 80,
+      //           handleSubmit: () => {
+      //             console.log("register sumbit");
+      //           },
+      //         };
+      //         dispatch(action);
+      //       }}
+      //     >
+      //       Đăng ký
+      //     </button>
+      //   </React.Fragment>
+      // );
     }
   };
   const onSearch = (value) => {
@@ -161,6 +184,16 @@ export default function HomeHeader() {
               </li>
             )}
           </ul>
+          {/* <Avatar
+            style={{
+              backgroundColor: "#87d068",
+            }}
+            icon={<UserOutlined />}
+            className="mr-2"
+          />
+          <Dropdown placement="bottomRight" className="mr-4" overlay={menu}>
+            <span className="btn btn-lg">{userLogin.hoTen}</span>
+          </Dropdown> */}
         </div>
       </nav>
       {/* Black Navbar */}
