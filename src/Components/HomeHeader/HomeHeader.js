@@ -59,8 +59,9 @@ export default function HomeHeader() {
     } else {
       return (
         <React.Fragment>
+          
           <button
-            className="btn btn-outline-success"
+            className={`btn ${styles.btnHeader}`}
             data-toggle="modal"
             data-target="#modelId"
             onClick={() => {
@@ -95,7 +96,7 @@ export default function HomeHeader() {
               dispatch(action);
             }}
           >
-            Register
+            Đăng ký
           </button>
         </React.Fragment>
       );
