@@ -17,6 +17,7 @@ import DashBoard from "./pages/Admin/DashBoard/DashBoard";
 import Movie from "./pages/Admin/Movie/Movie";
 import User from "./pages/Admin/User/User";
 import Showtimes from "./Components/Admin/Showtimes/Showtimes";
+import Search from "./Components/Search/Search";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Switch>
         <HomeTemplate path={"/home"} component={Home} />
         <HomeTemplate path={"/detail/:id"} component={Detail} />
+        <HomeTemplate path={"/search/:tenPhim"} component={Search} />
         <CheckoutTemplate path={"/checkout/:id"} component={Checkout} />
 
         {/* Admin */}
