@@ -114,6 +114,7 @@ export default function ShowtimesForm(props) {
             min="75000"
             max="200000"
             value={formik.values.giaVe}
+            placeholder="Giá vé"
             onChange={(value) => {
               formik.setFieldValue("giaVe", value);
             }}

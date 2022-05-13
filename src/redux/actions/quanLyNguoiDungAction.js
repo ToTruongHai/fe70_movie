@@ -1,4 +1,4 @@
-import { ACCESSTOKEN, GP, http, USER_LOGIN } from "../../util/setting";
+import { ACCESSTOKEN, GP, history, http, USER_LOGIN } from "../../util/setting";
 import Swal from "sweetalert2";
 import "../../assets/styles/Layout.css";
 import { apiPost, apiPost2, apiPut } from "../../functions/apiFunctions";
@@ -53,6 +53,7 @@ export const logoutAction = () => {
     dispatch({
       type: LOGOUT,
     });
+    history.push("/");
   };
 };
 
@@ -61,6 +62,7 @@ export const getUserSeatHistory = () => {
     try {
       dispatch(displayLoadingAction);
       let result = await http.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+      console.log(result.data.content);
       await dispatch({
         type: GET_USER_HISTORY,
         userSeatHistory: result.data.content,

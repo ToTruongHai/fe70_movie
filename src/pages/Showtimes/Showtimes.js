@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import CurrencyFormat from "react-currency-format";
 import { useDispatch, useSelector } from "react-redux";
-import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
-import { getMovieSchedule } from "../../../redux/actions/quanLyRapAction";
+import { LOAD_COMPONENT } from "../../redux/actions/types/adminTemplateType";
+import { getMovieSchedule } from "../../redux/actions/quanLyRapAction";
 import moment from "moment";
 import { Button } from "antd";
-import ShowtimesForm from "./ShowtimesForm";
-import { OPEN_FORM } from "../../../redux/actions/types/modalType";
+import ShowtimesForm from "../../Components/Admin/Showtimes/ShowtimesForm";
+import { OPEN_FORM } from "../../redux/actions/types/modalType";
 
 export default function Showtimes(props) {
   const dispatch = useDispatch();
@@ -42,13 +42,17 @@ export default function Showtimes(props) {
       align: "center",
       fixed: "right",
       sortDirection: ["descend", "ascend"],
-      sorter: (a, b) => a.ngayChieuGioChieu > b.ngayChieuGioChieu,
+      sorter: (a, b) =>
+        moment(a.ngayChieuGioChieu).diff(
+          moment(b.ngayChieuGioChieu),
+          "seconds"
+        ),
     },
     {
       title: "Giá vé",
       dataIndex: "giaVe",
       sortDirection: ["descend", "ascend"],
-      sorter: (a, b) => a.maLichChieu - b.maLichChieu,
+      sorter: (a, b) => a.giaVe - b.giaVe,
       render: (value) => {
         return (
           <CurrencyFormat
@@ -64,7 +68,6 @@ export default function Showtimes(props) {
     },
   ];
   useEffect(() => {
-    console.log("load vào trang");
     dispatch(getMovieSchedule(props.match.params.id));
     let dataSource = [];
     const { tenPhim, heThongRapChieu } = movieSchedule;
@@ -114,8 +117,6 @@ export default function Showtimes(props) {
     });
   }, []);
   useEffect(() => {
-    console.log("render lại trang");
-    console.log(movieSchedule);
     let dataSource = [];
     const { tenPhim, heThongRapChieu } = movieSchedule;
     heThongRapChieu?.reduce((result, item) => {

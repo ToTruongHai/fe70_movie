@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Redirect, Route } from "react-router-dom";
 import { USER_LOGIN } from "../util/setting";
 
-import { Layout, Menu, PageHeader, Table, Input } from "antd";
+import { Layout, Menu, PageHeader, Table, Avatar, Dropdown, Space } from "antd";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import logo from "../assets/images/logo.png";
 import "../assets/styles/adminTemplate/adminTemplate.css";
 import { LOAD_COMPONENT } from "../redux/actions/types/adminTemplateType";
+import { logoutAction } from "../redux/actions/quanLyNguoiDungAction";
 
 const { Header, Content, Sider } = Layout;
 
@@ -42,6 +44,22 @@ export const AdminTemplate = React.memo((props) => {
     (rootReducer) => rootReducer.quanLyNguoiDungReducer
   );
 
+  const menu = (
+    <Menu>
+      <Menu.Item key="1">
+        <NavLink
+          to="/"
+          onClick={(event) => {
+            event.preventDefault();
+            dispatch(logoutAction());
+          }}
+        >
+          Đăng xuất
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
   const [windowSize, setWindowSize] = useState({
     innerWidth: window.innerWidth,
     innerHeight: window.innerHeight,
@@ -58,6 +76,7 @@ export const AdminTemplate = React.memo((props) => {
   useEffect(() => {
     window.onresize = changeSizeWindow;
     window.onload = changeSizeWindow;
+    console.log(menu);
 
     // return () => {
     //   //Hủy 2 sự kiện này khi component mất khỏi giao diện
@@ -94,7 +113,7 @@ export const AdminTemplate = React.memo((props) => {
       render={(propsRoute) => {
         return (
           <Layout>
-            <Sider breakpoint="lg" collapsedWidth="0">
+            <Sider breakpoint="lg" collapsedWidth="0" className="mb-3">
               <div
                 style={{
                   paddingLeft: "10px",
@@ -103,14 +122,19 @@ export const AdminTemplate = React.memo((props) => {
                   textAlign: "center",
                 }}
               >
-                <NavLink className="navbar-brand" to="/admin">
-                  <img className="logo" src={logo} alt="" />{" "}
+                <NavLink className="navbar-brand mt-3" to="/admin">
+                  <img
+                    className="logo"
+                    src={logo}
+                    alt=""
+                    style={{ height: "70px" }}
+                  />
                   <span
-                    className="text-white text-center"
+                    className="text-white font-weight-semi-bold text-center text-uppercase"
                     style={{
-                      fontSize: "18px",
+                      fontSize: "32px",
                       marginLeft: "10px",
-                      verticalAlign: "center",
+                      verticalAlign: "middle",
                       textAlign: "center",
                     }}
                   >
@@ -127,25 +151,43 @@ export const AdminTemplate = React.memo((props) => {
                   borderRight: 0,
                 }}
                 theme="dark"
+                className="mt-5"
               >
                 <Menu.Item key="2" className="nav-admin">
                   <NavLink className="navbar-brand" to="/admin/movie">
-                    Movie
+                    <i className="fa-solid fa-video"></i>{" "}
+                    <span className="ml-3">Quản lý phim</span>
                   </NavLink>
                 </Menu.Item>
-                <Menu.Item className="nav-admin">
+                <Menu.Item key="3" className="nav-admin">
                   <NavLink className="navbar-brand" to="/admin/user">
-                    User
+                    <i className="fa-solid fa-user"></i>{" "}
+                    <span className="ml-3">Quản lý người dùng</span>
                   </NavLink>
                 </Menu.Item>
               </Menu>
             </Sider>
             <Layout className="site-layout">
               <Header
-                className="site-layout-background"
+                className="site-layout-background d-flex justify-content-end align-items-center"
                 style={{ padding: 0, background: "#fff" }}
                 theme="light"
-              />
+              >
+                <Avatar
+                  style={{
+                    backgroundColor: "#87d068",
+                  }}
+                  icon={<UserOutlined />}
+                  className="mr-2"
+                />
+                <Dropdown
+                  placement="bottomRight"
+                  className="mr-4"
+                  overlay={menu}
+                >
+                  <span className="btn btn-lg">{userLogin.hoTen}</span>
+                </Dropdown>
+              </Header>
 
               <Content style={{ margin: "24px 16px 0" }}>
                 <div

@@ -9,6 +9,7 @@ import {
   adminGetUserTypeAction,
 } from "../../../redux/actions/quanLyNguoiDungAction";
 import { SET_FUNCTION } from "../../../redux/actions/types/modalType";
+import { GP, USER_LOGIN } from "../../../util/setting";
 
 const UserForm = (props) => {
   const edit = props.edit;
@@ -34,7 +35,7 @@ const UserForm = (props) => {
       matKhau: edit ? userForm.matKhau : "",
       email: edit ? userForm.email : "",
       soDt: edit ? userForm.soDT : "",
-      maNhom: "GP01",
+      maNhom: GP,
       maLoaiNguoiDung: edit ? userForm.maLoaiNguoiDung : "KhachHang",
       hoTen: edit ? userForm?.hoTen : "",
     },
@@ -62,7 +63,7 @@ const UserForm = (props) => {
 
     formik.setFieldValue("maLoaiNguoiDung", name);
   };
-
+  // console.log(localStorage.getItem(USER_LOGIN).JSON);
   return (
     <div className="container">
       <Form
@@ -84,7 +85,6 @@ const UserForm = (props) => {
               message: "Tài khoản không được để trống!",
             },
           ]}
-          
         >
           <Input
             name="taiKhoan"
