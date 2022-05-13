@@ -1,4 +1,63 @@
-
-.bg_black{
-    background-color: var(--background_dark);
+.bg_black {
+  background-color: var(--background_dark);
+}
+.navHome > li {
+  padding: 15px;
+}
+.navHome > button {
+  color: var(--primary_color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 16px;
+  border: none;
+  border-radius: 0;
+  line-height: 2;
+}
+.navHome > button:hover {
+  background-color: var(--primary_color);
+  color: white;
+}
+.btnHeader {
+}
+.logo {
+  width: 50px;
+  height: 50px;
+}
+.navHome > li > a {
+  color: var(--primary_color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.navHome > li:hover {
+  background-color: var(--primary_color);
+}
+.navHome > li:hover > a {
+  color: white;
+}
+.navBar_search {
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
+}
+@media only screen and (max-width: 768px) {
+  .navBar_search {
+    display: flex;
+    width: 50%;
+    justify-content: flex-end;
+  }
+}
+.quanTri_li {
+  background-color: var(--primary_color);
+  transition: all 0.5s;
+}
+.quanTri_li:hover {
+  background-color: white !important;
+}
+.quanTri_li > a {
+  color: white !important;
+}
+.quanTri_li:hover > a {
+  color: var(--primary_color) !important;
 }

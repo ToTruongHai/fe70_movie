@@ -183,3 +183,11 @@ export const adminEditUserInfoAction = (userForm) => {
     adminGetUserListAction()
   );
 };
+
+export const capNhatThongTinNguoiDungAction = (data) => {
+  return apiPut(
+    "/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+    data,
+    getUserSeatHistory()
+  );
+};

@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import { Redirect } from "react-router-dom";
 import ButtonPrimaryOutline from "../../Components/Elements/ButtonPrimaryOutline/ButtonPrimary";
 import { history } from "../../util/setting";
+import HistoryBookingItem from "../../Components/Elements/HistoryBookingItem";
 // import { connection } from "../..";
 
 function Checkout(props) {
@@ -378,7 +379,7 @@ export default function (props) {
   );
 }
 
-function KetQuaDatVe(props) {
+export const KetQuaDatVe = (props) => {
   const { userSeatHistory, userLogin } = useSelector(
     (rootReducer) => rootReducer.quanLyNguoiDungReducer
   );
@@ -393,7 +394,8 @@ function KetQuaDatVe(props) {
         {userSeatHistory.thongTinDatVe?.map((seat, index) => {
           return (
             <div className="p-3 col-12 col-lg-4 col-md-6 col-md-6" key={index}>
-              <div
+              <HistoryBookingItem seat={seat} />
+              {/* <div
                 className="row m-0 pt-3 pb-3 border rounded"
                 style={{ height: "150px" }}
               >
@@ -473,11 +475,11 @@ function KetQuaDatVe(props) {
                     })}
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           );
         })}
       </div>
     </div>
   );
-}
+};

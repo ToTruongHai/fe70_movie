@@ -6,9 +6,6 @@ export default React.memo(function ButtonPrimary(props) {
     <button
       className={`${styles.btnPrimary} text-white text-uppercase display-6 p-3 ${props.className}`}
       type={props.type ? props.type : "submit"}
-      // onClick={() => {
-      //   props.handleClick();
-      // }}
       onClick={() => {
         if (props.handleClick) {
           props.handleClick();

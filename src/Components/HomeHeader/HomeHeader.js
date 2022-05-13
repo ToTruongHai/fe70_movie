@@ -6,20 +6,47 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { logoutAction } from "../../redux/actions/quanLyNguoiDungAction";
 import Swal from "sweetalert2";
-import { USER_LOGIN } from "../../util/setting";
+import { history, USER_LOGIN } from "../../util/setting";
+import logo from "../../assets/images/logo.png";
 import { OPEN_FORM } from "../../redux/actions/types/modalType";
+import Search from "antd/lib/input/Search";
+import { Avatar, Dropdown, Menu } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 export default function HomeHeader() {
   const dispatch = useDispatch();
 
   let { userLogin } = useSelector((a) => a.quanLyNguoiDungReducer);
+  const menu = (
+    <Menu>
+      {userLogin.maLoaiNguoiDung == "QuanTri" && (
+        <Menu.Item key="1">
+          <NavLink to="/admin">Trang quản trị</NavLink>
+        </Menu.Item>
+      )}
+      <Menu.Item key="2">
+        <NavLink to="/profile">Thông tin cá nhân</NavLink>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <NavLink
+          to="/"
+          onClick={(event) => {
+            event.preventDefault();
+            dispatch(logoutAction());
+          }}
+        >
+          Đăng xuất
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
   const renderLogin = () => {
     if (userLogin) {
       return (
         <React.Fragment>
           <li className="nav-item active">
             <NavLink exact className="nav-link" to="/profile">
-              Thông tin người dùng
+              {userLogin.hoTen}
             </NavLink>
           </li>
           <li className="nav-item">
@@ -54,56 +81,77 @@ export default function HomeHeader() {
         </React.Fragment>
       );
     } else {
-      return (
-        <React.Fragment>
-          <button
-            className="btn btn-outline-success"
-            data-toggle="modal"
-            data-target="#modelId"
-            onClick={() => {
-              const action = {
-                type: OPEN_FORM,
-                component: <Login />,
-                // Component: Login,
-                titleModal: "Đăng nhập",
-                typeModal: "column",
-              };
-              dispatch(action);
-            }}
-          >
-            Đăng nhập
-          </button>
-          <button
-            className="btn btn-outline-success"
-            data-toggle="modal"
-            data-target="#modelId"
-            onClick={() => {
-              const action = {
-                type: OPEN_FORM,
-                component: <Register />,
-                typeModal: true,
-                titleModal: "Đăng ký",
-                typeModal: "column",
-                // maxWidth: 80,
-                handleSubmit: () => {
-                  console.log("register sumbit");
-                },
-              };
-              dispatch(action);
-            }}
-          >
-            Register
-          </button>
-        </React.Fragment>
-      );
+      // return (
+      //   <React.Fragment>
+      //     <button
+      //       className={`btn ${styles.btnHeader}`}
+      //       data-toggle="modal"
+      //       data-target="#modelId"
+      //       onClick={() => {
+      //         const action = {
+      //           type: OPEN_FORM,
+      //           component: <Login />,
+      //           // Component: Login,
+      //           titleModal: "Đăng nhập",
+      //           typeModal: "column",
+      //         };
+      //         dispatch(action);
+      //       }}
+      //     >
+      //       Đăng nhập
+      //     </button>
+      //     <button
+      //       className="btn btn-outline-success"
+      //       data-toggle="modal"
+      //       data-target="#modelId"
+      //       onClick={() => {
+      //         const action = {
+      //           type: OPEN_FORM,
+      //           component: <Register />,
+      //           typeModal: true,
+      //           titleModal: "Đăng ký",
+      //           typeModal: "column",
+      //           // maxWidth: 80,
+      //           handleSubmit: () => {
+      //             console.log("register sumbit");
+      //           },
+      //         };
+      //         dispatch(action);
+      //       }}
+      //     >
+      //       Đăng ký
+      //     </button>
+      //   </React.Fragment>
+      // );
     }
+  };
+  const onSearch = (value) => {
+    history.push(`/search/${value}`);
   };
   return (
     <React.Fragment>
-      <nav className={`navbar navbar-expand-sm`}>
+      {/* Home Navbar */}
+      <nav className={`navbar navbar-expand-sm p-0`}>
         <NavLink className="navbar-brand" to="/">
-          Movie
+          <img
+            src={logo}
+            alt=""
+            className={styles.logo}
+            style={{ margin: "0 0 0 10px" }}
+          />
         </NavLink>
+        <div className={`${styles.navBar_search}`}>
+          <div
+            className=""
+            style={{ minWidth: "100px", maxWidth: "300px", width: "100%" }}
+          >
+            <Search
+              placeholder="Nhập tên phim"
+              enterButton
+              onSearch={onSearch}
+            />
+          </div>
+        </div>
 
         <button
           className="navbar-toggler d-lg-none"
@@ -113,31 +161,42 @@ export default function HomeHeader() {
           aria-controls="collapsibleNavId"
           aria-expanded="false"
           aria-label="Toggle navigation"
-        />
+          style={{
+            lineHeight: "2",
+            border: "1px solid black",
+            marginRight: "10px",
+          }}
+        >
+          <i className="fa-solid fa-bars"></i>
+        </button>
 
-        <div className="collapse navbar-collapse" id="collapsibleNavId">
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item active">
-              <NavLink exact className="nav-link" to="/home">
-                Home
-              </NavLink>
-            </li>
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="collapsibleNavId"
+        >
+          <ul className={`navbar-nav ${styles.navHome}`}>
+            {renderLogin()}
             {userLogin.maLoaiNguoiDung == "QuanTri" && (
-              <li className="nav-item active">
+              <li className={`nav-item active ${styles.quanTri_li}`}>
                 <NavLink exact className="nav-link" to="/admin/movie">
                   Trang quản trị
                 </NavLink>
               </li>
             )}
-            {/* <li className="nav-item">
-            <a className="nav-link" href="#">
-              Link
-            </a>
-          </li> */}
-            {renderLogin()}
           </ul>
+          {/* <Avatar
+            style={{
+              backgroundColor: "#87d068",
+            }}
+            icon={<UserOutlined />}
+            className="mr-2"
+          />
+          <Dropdown placement="bottomRight" className="mr-4" overlay={menu}>
+            <span className="btn btn-lg">{userLogin.hoTen}</span>
+          </Dropdown> */}
         </div>
       </nav>
+      {/* Black Navbar */}
       <nav className={`navbar navbar-expand-sm navbar-dark ${styles.bg_black}`}>
         <NavLink className="navbar-brand" to="/">
           Movie

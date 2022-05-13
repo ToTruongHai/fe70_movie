@@ -18,6 +18,7 @@ import Movie from "./pages/Admin/Movie/Movie";
 import User from "./pages/Admin/User/User";
 import Showtimes from "./pages/Showtimes/Showtimes";
 import Profile from "./pages/Profile/Profile";
+import Search from "./Components/Search/Search";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <HomeTemplate path={"/home"} component={Home} />
         <HomeTemplate path={"/detail/:id"} component={Detail} />
         <HomeTemplate path="/profile" component={Profile} />
+        <HomeTemplate path={"/search/:tenPhim"} component={Search} />
         <CheckoutTemplate path={"/checkout/:id"} component={Checkout} />
 
         {/* Admin */}

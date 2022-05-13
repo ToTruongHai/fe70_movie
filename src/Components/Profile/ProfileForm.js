@@ -4,53 +4,43 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   adminGetUserInfoAction,
+  capNhatThongTinNguoiDungAction,
   getUserSeatHistory,
 } from "../../redux/actions/quanLyNguoiDungAction";
 import { GP } from "../../util/setting";
 import UserForm from "../Admin/User/UserForm";
+import ButtonPrimary from "../Elements/ButtonPrimary/ButtonPrimary";
 
 export default function ProfileForm() {
   let { userSeatHistory } = useSelector((a) => a.quanLyNguoiDungReducer);
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getUserSeatHistory());
+  // }, []);
+  // console.log(userSeatHistory);
 
-  useEffect(() => {
-    dispatch(getUserSeatHistory());
-  }, []);
-  console.log(userSeatHistory);
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      taiKhoan: userSeatHistory.taiKhoan,
+      matKhau: userSeatHistory.matKhau,
+      email: userSeatHistory.email,
+      soDt: userSeatHistory.soDT,
+      maLoaiNguoiDung: userSeatHistory.maLoaiNguoiDung,
+      hoTen: userSeatHistory?.hoTen,
+      maNhom: GP,
+    },
 
-  // const formik = useFormik({
-  //   enableReinitialize: true,
-  //   initialValues: {
-  //     taiKhoan: userSeatHistory.taiKhoan,
-  //     matKhau: userSeatHistory.matKhau,
-  //     email: userSeatHistory.email,
-  //     soDt: userSeatHistory.soDT,
-  //     maLoaiNguoiDung: userSeatHistory.maLoaiNguoiDung,
-  //     hoTen: userSeatHistory?.hoTen,
-  //   },
-
-  //   onSubmit: (values) => {
-  //     console.log(values);
-  //     // let formData = new FormData();
-  //     // for (let key in values) {
-  //     //   formData.append(key, values[key]);
-  //     // }
-  //     // for (var data of formData.entries()) {
-  //     //   console.log(data[0] + ", " + data[1]);
-  //     // }
-  //     // if (edit) {
-  //     //   dispatch(adminEditUserInfoAction(formData));
-  //     // } else {
-  //     //   dispatch(adminAddUserAction(formData));
-  //     // }
-  //   },
-  // });
+    onSubmit: (values) => {
+      dispatch(capNhatThongTinNguoiDungAction(values));
+    },
+  });
   return (
     <div className="container">
-      <div className="row">
-        <h2 className="text-center">THÔNG TIN NGƯỜI DÙNG</h2>
+      <div className="row justify-content-center">
+        <h1 className="text-center">THÔNG TIN CÁ NHÂN</h1>
         <div className="container">
-          {/* <Form
+          <Form
             labelCol={{
               span: 4,
             }}
@@ -74,7 +64,7 @@ export default function ProfileForm() {
                 name="taiKhoan"
                 onChange={formik.handleChange}
                 value={formik.values.taiKhoan}
-                disabled={false}
+                disabled={true}
               />
             </Form.Item>
             <Form.Item
@@ -91,6 +81,7 @@ export default function ProfileForm() {
                 name="matKhau"
                 onChange={formik.handleChange}
                 value={formik.values.matKhau}
+                autoComplete="off"
               />
             </Form.Item>
 
@@ -130,6 +121,7 @@ export default function ProfileForm() {
                 name="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
+                autoComplete="off"
               />
             </Form.Item>
 
@@ -140,7 +132,12 @@ export default function ProfileForm() {
                 value={formik.values.soDt}
               />
             </Form.Item>
-          </Form> */}
+          </Form>
+          <div className="text-center">
+            <ButtonPrimary handleClick={formik.handleSubmit}>
+              Cập nhật
+            </ButtonPrimary>
+          </div>
         </div>
       </div>
     </div>
