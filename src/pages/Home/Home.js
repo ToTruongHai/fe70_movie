@@ -5,20 +5,16 @@ import HomeMovieTheater from "../../Components/HomeMovieTheater/HomeMovieTheater
 import PageWrapper from "../../templates/pageWrapper";
 
 export default function Home() {
+  const arrComponent = [HomeMovieList, HomeMovieTheater];
   return (
     <React.Fragment>
       <HomeBanner />
 
-      {/* <PageWrapper arrComponent={arrComponent} /> */}
-      <div className="container">
+      <PageWrapper arrComponent={arrComponent} />
+      {/* <div className="container">
         <HomeMovieList />
         <HomeMovieTheater />
-        {/* <div className="row"> */}
-        {/* <div className="w-auto d-none d-md-inline-block">
-          <HomeMovieTheater />
-        </div> */}
-        {/* </div> */}
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }

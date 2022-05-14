@@ -6,5 +6,5 @@ export default function PageWrapper(props) {
       return <Item key={index} />;
     });
   };
-  return <div className="container">{renderArrComponent()}</div>;
+  return <div className="container mb-5">{renderArrComponent()}</div>;
 }

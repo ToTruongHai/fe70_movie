@@ -8,6 +8,7 @@ export default function HistoryBooking() {
   );
   return (
     <div className="container">
+      <h2 className="text-center">LỊCH SỬ ĐẶT VÉ</h2>
       <div className="row">
         {userSeatHistory.thongTinDatVe?.map((seat, index) => {
           return (
