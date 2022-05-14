@@ -38,6 +38,10 @@ export const modalReducer = (state = defaultState, action) => {
           if (!oldSrc.includes("https://")) {
             oldSrc = "https://" + oldSrc;
           }
+        } else if (oldSrc.includes("tu.be")) {
+          oldSrc = oldSrc.replace('https://youtu.be/', '');
+          oldSrc = "https://www.youtube.com/embed/" + oldSrc;
+          console.log("test", oldSrc);
         }
         state.trailerSrc = oldSrc;
       }
