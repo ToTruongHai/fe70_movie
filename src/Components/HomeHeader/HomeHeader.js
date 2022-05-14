@@ -81,48 +81,48 @@ export default function HomeHeader() {
         </React.Fragment>
       );
     } else {
-      // return (
-      //   <React.Fragment>
-      //     <button
-      //       className={`btn ${styles.btnHeader}`}
-      //       data-toggle="modal"
-      //       data-target="#modelId"
-      //       onClick={() => {
-      //         const action = {
-      //           type: OPEN_FORM,
-      //           component: <Login />,
-      //           // Component: Login,
-      //           titleModal: "Đăng nhập",
-      //           typeModal: "column",
-      //         };
-      //         dispatch(action);
-      //       }}
-      //     >
-      //       Đăng nhập
-      //     </button>
-      //     <button
-      //       className="btn btn-outline-success"
-      //       data-toggle="modal"
-      //       data-target="#modelId"
-      //       onClick={() => {
-      //         const action = {
-      //           type: OPEN_FORM,
-      //           component: <Register />,
-      //           typeModal: true,
-      //           titleModal: "Đăng ký",
-      //           typeModal: "column",
-      //           // maxWidth: 80,
-      //           handleSubmit: () => {
-      //             console.log("register sumbit");
-      //           },
-      //         };
-      //         dispatch(action);
-      //       }}
-      //     >
-      //       Đăng ký
-      //     </button>
-      //   </React.Fragment>
-      // );
+      return (
+        <React.Fragment>
+          <button
+            className={`btn ${styles.btnHeader}`}
+            data-toggle="modal"
+            data-target="#modelId"
+            onClick={() => {
+              const action = {
+                type: OPEN_FORM,
+                component: <Login />,
+                // Component: Login,
+                titleModal: "Đăng nhập",
+                typeModal: "column",
+              };
+              dispatch(action);
+            }}
+          >
+            Đăng nhập
+          </button>
+          <button
+            className="btn btn-outline-success"
+            data-toggle="modal"
+            data-target="#modelId"
+            onClick={() => {
+              const action = {
+                type: OPEN_FORM,
+                component: <Register />,
+                typeModal: true,
+                titleModal: "Đăng ký",
+                typeModal: "column",
+                // maxWidth: 80,
+                handleSubmit: () => {
+                  console.log("register sumbit");
+                },
+              };
+              dispatch(action);
+            }}
+          >
+            Đăng ký
+          </button>
+        </React.Fragment>
+      );
     }
   };
   const onSearch = (value) => {

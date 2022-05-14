@@ -9,6 +9,7 @@ import logo from "../assets/images/logo.png";
 import "../assets/styles/adminTemplate/adminTemplate.css";
 import { LOAD_COMPONENT } from "../redux/actions/types/adminTemplateType";
 import { logoutAction } from "../redux/actions/quanLyNguoiDungAction";
+import Swal from "sweetalert2";
 
 const { Header, Content, Sider } = Layout;
 
@@ -51,7 +52,23 @@ export const AdminTemplate = React.memo((props) => {
           to="/"
           onClick={(event) => {
             event.preventDefault();
-            dispatch(logoutAction());
+            Swal.fire({
+              title: "Bạn chắc chắn muốn đăng xuất?",
+              icon: "warning",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonText: "Đăng xuất",
+              cancelButtonText: "Hủy",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(logoutAction());
+                Swal.fire({
+                  title: "Đăng xuất thành công",
+                  icon: "success",
+                  showConfirmButton: false,
+                });
+              }
+            });
           }}
         >
           Đăng xuất
