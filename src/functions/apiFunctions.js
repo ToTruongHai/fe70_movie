@@ -1,13 +1,19 @@
 import { DOMAIN, http } from "../util/setting";
 import Swal from "sweetalert2";
 import { alertSuccess, alertWarning } from "./alertFunctions";
+import {
+  displayLoadingAction,
+  hideLoadingAction,
+} from "../redux/actions/loadingAction";
 export const apiGet = (url, type) => {
   return async (dispatch) => {
+    dispatch(displayLoadingAction);
     let result = await http.get(DOMAIN + url);
-    dispatch({
+    await dispatch({
       type,
       content: result.data.content,
     });
+    dispatch(hideLoadingAction);
   };
 };
 
