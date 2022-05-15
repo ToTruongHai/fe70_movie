@@ -41,7 +41,7 @@
   font-size: 2rem;
   color: var(--primary_color);
 }
-.tab_content_time a {
+/* .tab_content_time a {
   color: var(--secondary_color);
   border: 1px solid #ced0da;
   color: #43464b;
@@ -50,7 +50,7 @@
 .tab_content_time a:hover {
   color: var(--primary_color) !important;
   border: 1px solid var(--primary_color);
-}
+} */
 
 .schedule_rap {
   border-left: 10px solid #47251c;
