@@ -24,7 +24,6 @@ export default React.memo((props) => {
   } else {
     return (
       <a
-        key={props.key}
         data-toggle="modal"
         data-target="#modelId"
         className={props.className}

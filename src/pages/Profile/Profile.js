@@ -10,7 +10,9 @@ import { getUserSeatHistory } from "../../redux/actions/quanLyNguoiDungAction";
 export default function Profile() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserSeatHistory());
+    if (localStorage.getItem(USER_LOGIN)) {
+      dispatch(getUserSeatHistory());
+    }
   }, []);
   if (!localStorage.getItem(USER_LOGIN)) {
     return <Redirect to="/" />;
