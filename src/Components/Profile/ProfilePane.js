@@ -7,18 +7,20 @@ import { KetQuaDatVe } from "../../pages/Checkout/Checkout";
 const { TabPane } = Tabs;
 
 export default function ProfilePane() {
-  const [tabPosition, setTabPosition] = useState("left");
+  const [widthSize, setWidthSize] = useState(0);
   const changeSizeWindow = () => {
     let { innerWidth } = window;
-    if (innerWidth > 800) {
-      setTabPosition("left");
-    } else {
-      setTabPosition("top");
-    }
+    setWidthSize(innerWidth);
+    console.log(innerWidth);
+    // if (innerWidth > 800) {
+    //   setTabPosition("left");
+    // } else {
+    //   setTabPosition("top");
+    // }
   };
   useEffect(() => {
-    window.onresize = changeSizeWindow;
-    window.onload = changeSizeWindow;
+    window.addEventListener("resize", changeSizeWindow);
+    window.onload = changeSizeWindow();
     return () => {
       window.removeEventListener("onload", null);
       window.removeEventListener("onresize", null);
@@ -28,7 +30,7 @@ export default function ProfilePane() {
   return (
     <div className="row">
       <div className="col">
-        <Tabs tabPosition={tabPosition} className="mt-5">
+        <Tabs tabPosition={widthSize > 800 ? "left" : "top"} className="mt-5">
           <TabPane tab="Thông tin cá nhân" key="1">
             <ProfileForm />
           </TabPane>
