@@ -10,7 +10,6 @@ export default function ProfilePane() {
   const [tabPosition, setTabPosition] = useState("left");
   const changeSizeWindow = () => {
     let { innerWidth } = window;
-    console.log(innerWidth);
     if (innerWidth > 800) {
       setTabPosition("left");
     } else {

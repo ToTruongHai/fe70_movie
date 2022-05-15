@@ -14,10 +14,6 @@ import ButtonPrimary from "../Elements/ButtonPrimary/ButtonPrimary";
 export default function ProfileForm() {
   let { userSeatHistory } = useSelector((a) => a.quanLyNguoiDungReducer);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getUserSeatHistory());
-  // }, []);
-  // console.log(userSeatHistory);
 
   const formik = useFormik({
     enableReinitialize: true,
