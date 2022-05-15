@@ -1,11 +1,14 @@
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
+import loadingGif from "../../assets/images/loading.gif";
 
 export default function Loading(props) {
   const { isLoading } = useSelector(
     (rootReducer) => rootReducer.loadingReducer
   );
-
+  const antIcon = <LoadingOutlined style={{ fontSize: 64 }} spin />;
   return (
     <React.Fragment>
       {isLoading ? (
@@ -25,7 +28,10 @@ export default function Loading(props) {
             fontSize: "4rem",
           }}
         >
-          <div> Loading... </div>
+          <div>
+            <Spin indicator={antIcon} size="large" />
+            {/* <img src={loadingGif} alt="" width={100} height={100} /> */}
+          </div>
         </div>
       ) : (
         ""

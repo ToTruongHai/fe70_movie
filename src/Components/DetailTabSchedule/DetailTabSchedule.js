@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { Tabs } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../../assets/styles/DetailTab/DetailTabSchedule.module.css";
@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 
 import Login from "../Login/Login";
 import { USER_LOGIN } from "../../util/setting";
+import { OPEN_FORM } from "../../redux/actions/types/modalType";
+import BookingItem from "../Elements/BookingItem";
 
 const { TabPane } = Tabs;
 export default function DetailTabSchedule() {
@@ -53,43 +55,53 @@ export default function DetailTabSchedule() {
   };
 
   const renderBookTime = (cumRap) => {
-    if (!localStorage.getItem(USER_LOGIN)) {
-      return cumRap.lichChieuPhim?.slice(0, 12).map((lich, index) => {
-        return (
-          <a
-            className="col-1 p-2 m-2 text-center"
-            data-toggle="modal"
-            data-target="#modelId"
-            key={index}
-            onClick={() => {
-              const action = {
-                type: "OPEN_FORM",
-                component: <Login />,
-                titleModal: "Đăng ký",
-                handleSubmit: () => {
-                  console.log("đăng ký sumbit");
-                },
-              };
-              dispatch(action);
-            }}
-          >
-            {moment(lich.ngayChieuGioChieu).format("hh:mm A")}
-          </a>
-        );
-      });
-    } else {
-      return cumRap.lichChieuPhim?.slice(0, 12).map((lich, index) => {
-        return (
-          <NavLink
-            className="col-1 p-2 m-2 text-center"
-            to={`/checkout/${lich.maLichChieu}`}
-            key={index}
-          >
-            {moment(lich.ngayChieuGioChieu).format("hh:mm A")}
-          </NavLink>
-        );
-      });
-    }
+    return cumRap.lichChieuPhim?.slice(0, 12).map((lich, index) => {
+      return (
+        <BookingItem
+          className="col-1 p-2 m-2 text-center"
+          item={lich}
+          key={index}
+        />
+      );
+    });
+    // if (!localStorage.getItem(USER_LOGIN)) {
+    //   return cumRap.lichChieuPhim?.slice(0, 12).map((lich, index) => {
+    //     return (
+    //       <a
+    //         className="col-1 p-2 m-2 text-center"
+    //         data-toggle="modal"
+    //         data-target="#modelId"
+    //         key={index}
+    //         onClick={() => {
+    //           const action = {
+    //             type: OPEN_FORM,
+    //             component: <Login />,
+    //             titleModal: "Đăng nhập",
+    //             typeModal: "column",
+    //             handleSubmit: () => {
+    //               console.log("đăng ký sumbit");
+    //             },
+    //           };
+    //           dispatch(action);
+    //         }}
+    //       >
+    //         {moment(lich.ngayChieuGioChieu).format("hh:mm A")}
+    //       </a>
+    //     );
+    //   });
+    // } else {
+    //   return cumRap.lichChieuPhim?.slice(0, 12).map((lich, index) => {
+    //     return (
+    //       <NavLink
+    //         className="col-1 p-2 m-2 text-center"
+    //         to={`/checkout/${lich.maLichChieu}`}
+    //         key={index}
+    //       >
+    //         {moment(lich.ngayChieuGioChieu).format("hh:mm A")}
+    //       </NavLink>
+    //     );
+    //   });
+    // }
   };
 
   return (

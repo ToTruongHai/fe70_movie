@@ -19,6 +19,7 @@ import User from "./pages/Admin/User/User";
 import Showtimes from "./pages/Showtimes/Showtimes";
 import Profile from "./pages/Profile/Profile";
 import Search from "./Components/Search/Search";
+import { Route } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
 
         {/* Default Page */}
         <HomeTemplate path={"/"} component={Home} />
+        <Route path="*" component={Home} />
       </Switch>
       <ModalHOC />
       <TrailerModal />
