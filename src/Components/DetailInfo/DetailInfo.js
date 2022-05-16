@@ -29,20 +29,37 @@ export default function DetailInfo() {
     dispatch(action);
   }, []);
 
+  const renderMota = (movieDetail) => {
+    if (window.innerWidth < 768) {
+      return movieDetail?.moTa.length > 100
+        ? movieDetail?.moTa.substr(0, 100) + "..."
+        : movieDetail?.moTa;
+    } else {
+      return movieDetail?.moTa.length > 500
+      ? movieDetail?.moTa.substr(0, 500) + "..."
+      : movieDetail?.moTa;
+    }
+  };
+
   return (
     <div className={`${styles.movieInfo} mt-5`}>
       <div className={`${styles.movieInfo_img}`}>
-        <div className="col-5 m-0 p-0">
-          <img src={movieDetail?.hinhAnh} alt="..." width={`100%`} height={`100%`} />
+        <div className="col-6 col-md-5 m-0 p-0">
+          <img
+            src={movieDetail?.hinhAnh}
+            alt="..."
+            width={`100%`}
+            height={`100%`}
+          />
         </div>
-        <div className={`${styles.movieInfo_content} col-7`}>
+        <div className={`${styles.movieInfo_content} col-6 col-md-7`}>
           <p>{movieDetail?.tenPhim}</p>
           <p>
             <span>Ngày khởi chiếu: </span>
             {moment(movieDetail.ngayKhoiChieu).format("DD/MM/YYYY hh:mm A")}
           </p>
           <div className="row">
-            <div className="col-md-5 col-lg-3 ">
+            <div className="col-sm-3 col-md-5 col-lg-3 ">
               <CircularProgressbar
                 value={danhGia}
                 maxValue={10}
@@ -51,21 +68,14 @@ export default function DetailInfo() {
                 backgroundPadding={5}
               />
             </div>
-            <div className="col-md-7 col-lg-9">
+            <div className="col-sm-9 col-md-7 col-lg-9">
               {/* <button className="btn text-white">ĐÁNH GIÁ</button> */}
               <ButtonPrimary>Đánh giá</ButtonPrimary>
             </div>
           </div>
           <div className={`${styles.movieInfo_content_noidung}`}>
             <h3>Nội Dung</h3>
-            <p>
-              {
-                // movieDetail?.moTa.length > 300
-                //       ? movieDetail?.moTa.substr(0, 300) + "..."
-                //       :
-                movieDetail?.moTa
-              }
-            </p>
+            <p>{renderMota(movieDetail)}</p>
           </div>
           <div className={`${styles.movieInfo_content_trailer}`}>
             <button

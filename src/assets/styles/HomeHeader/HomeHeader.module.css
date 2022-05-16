@@ -1,6 +1,11 @@
 .bg_black {
   background-color: var(--background_dark);
 }
+.navBar_shadowBox {
+  -webkit-box-shadow: 0px 8px 20px -14px #000000; 
+  box-shadow: 0px 8px 20px -14px #000000;
+}
+
 .navHome > li {
   padding: 15px;
 }
@@ -18,8 +23,7 @@
   background-color: var(--primary_color);
   color: white;
 }
-.btnHeader {
-}
+
 .logo {
   width: 50px;
   height: 50px;
@@ -44,7 +48,14 @@
 @media only screen and (max-width: 768px) {
   .navBar_search {
     display: flex;
-    width: 50%;
+    width: 80%;
+    justify-content: flex-end;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .navBar_search {
+    display: flex;
+    width: 60%;
     justify-content: flex-end;
   }
 }

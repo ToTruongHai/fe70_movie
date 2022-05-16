@@ -2,7 +2,8 @@
   position: relative;
 }
 /* button */
-.carousel_container_button_left, .carousel_container_button_right{
+.carousel_container_button_left,
+.carousel_container_button_right {
   position: absolute;
   height: 100%;
   top: 0;
@@ -11,58 +12,71 @@
   border: none;
   z-index: 1;
 }
-.carousel_container_button_left{
+.carousel_container_button_left {
   left: 0;
 }
-.carousel_container_button_right{
+.carousel_container_button_right {
   right: 0;
 }
 
 .carousel_container_button_right:hover {
-  background-image: linear-gradient(to right, #ffffff00 , #000000f2);
+  background-image: linear-gradient(to right, #ffffff00, #000000f2);
 }
 .carousel_container_button_left:hover {
-  background-image: linear-gradient(to right, #000000f2 , #ffffff00);
+  background-image: linear-gradient(to right, #000000f2, #ffffff00);
 }
 
-.carousel_container_button_left i, .carousel_container_button_right i{
+.carousel_container_button_left i,
+.carousel_container_button_right i {
   font-size: 3rem;
   color: white;
   opacity: 0.5;
 }
-.carousel_container_button_left:hover i, .carousel_container_button_right:hover i{
+.carousel_container_button_left:hover i,
+.carousel_container_button_right:hover i {
   opacity: 1;
 }
 
 /* img */
 .carousel_custom {
-  max-height: 500px;
+  max-height: 800px;
 }
 
 .carousel_img {
-  height: 500px;
-  max-height: 500px;
+  height: 700px;
+  max-height: 800px;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  transition: all 0.5s;
 }
-
+@media only screen and (max-width: 992px) {
+  .carousel_img {
+    height: 500px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .carousel_img {
+    height: 300px;
+  }
+}
 /* global */
 :global(.btn:focus) {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%) !important;
 }
-:global(.slick-dots li button){
+:global(.slick-dots li button) {
   width: 10px !important;
   height: 10px !important;
   border-radius: 50% !important;
   background-color: transparent !important;
   border: 2px solid white !important;
 }
-:global(.ant-carousel .slick-dots li.slick-active){
+:global(.ant-carousel .slick-dots li.slick-active) {
   width: 16px !important;
 }
-:global(.ant-carousel .slick-dots li.slick-active button){
+:global(.ant-carousel .slick-dots li.slick-active button) {
   border: 2px solid var(--primary_color) !important;
 }
+
