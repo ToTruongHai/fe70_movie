@@ -1,9 +1,12 @@
 .movieInfo {
   display: flex;
   width: 70%;
-  /* justify-content: center;
-  align-items: center; */
-
+  transition: all .5s;
+}
+@media only screen and (max-width: 992px) {
+  .movieInfo {
+    width: 90%;
+  }
 }
 .movieInfo_img {
   width: 100%;
@@ -95,6 +98,6 @@
 
 
 /* movie_tab */
-.movie_tab{
+/* .movie_tab{
 
-}
+} */

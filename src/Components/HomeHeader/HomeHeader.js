@@ -131,7 +131,7 @@ export default function HomeHeader() {
   return (
     <React.Fragment>
       {/* Home Navbar */}
-      <nav className={`navbar navbar-expand-sm p-0`}>
+      <nav className={`navbar navbar-expand-md p-0 ${styles.navBar_shadowBox}`}>
         <NavLink className="navbar-brand" to="/">
           <img
             src={logo}
@@ -197,7 +197,7 @@ export default function HomeHeader() {
         </div>
       </nav>
       {/* Black Navbar */}
-      <nav className={`navbar navbar-expand-sm navbar-dark ${styles.bg_black}`}>
+      {/* <nav className={`navbar navbar-expand-sm navbar-dark ${styles.bg_black}`}>
         <NavLink className="navbar-brand" to="/">
           Movie
         </NavLink>
@@ -219,26 +219,8 @@ export default function HomeHeader() {
               </NavLink>
             </li>
           </ul>
-          <button
-            className="btn btn-outline-success text-white"
-            data-toggle="modal"
-            data-target="#modelId"
-            onClick={() => {
-              const action = {
-                type: "OPEN_FORM",
-                component: <Register />,
-                titleModal: "Register",
-                handleSubmit: () => {
-                  console.log("register sumbit");
-                },
-              };
-              dispatch(action);
-            }}
-          >
-            Register
-          </button>
         </div>
-      </nav>
+      </nav> */}
     </React.Fragment>
   );
 }

@@ -15,7 +15,7 @@ export default function Search(props) {
   }, [movieList]);
 
   return (
-    <div className="container">
+    <div className="container pb-5">
       <h2
         style={{
           color: "var(--primary_color)",
