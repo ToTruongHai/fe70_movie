@@ -10,8 +10,13 @@
   background-color: var(--sub_text_color);
   color: white;
 }
+@media only screen and (max-width: 768px) {
+  .ghe {
+    width: calc(100% / 16);
+  }
+}
 .gheDaDat {
-  background-color: red;
+  background-color: red !important;
   cursor: no-drop;
 }
 .gheDangDat {
@@ -39,3 +44,14 @@
     padding-left: 5px;
   }
 }
+
+@media only screen and (max-width: 992px) {
+  .seat_container{
+    overflow: scroll;
+  }
+  .row-tablet{
+    width: 992px;
+  }
+}
+
+

@@ -40,7 +40,11 @@ export const HomeTemplate = (props) => {
       Component = props.mobileComponent;
     }
   }
-
+  if (props.tabletComponent) {
+    if (windowSize.innerWidth < 992) {
+      Component = props.tabletComponent;
+    }
+  }
   return (
     <Route
       exact
@@ -48,7 +52,7 @@ export const HomeTemplate = (props) => {
       render={(propsRoute) => {
         return (
           <div>
-            <HomeHeader />
+            <HomeHeader  />
             <Component {...propsRoute} />
             <HomeFooter />
           </div>

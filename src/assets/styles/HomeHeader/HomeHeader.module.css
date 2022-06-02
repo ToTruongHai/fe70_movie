@@ -2,12 +2,22 @@
   background-color: var(--background_dark);
 }
 .navBar_shadowBox {
-  -webkit-box-shadow: 0px 8px 20px -14px #000000; 
+  -webkit-box-shadow: 0px 8px 20px -14px #000000;
   box-shadow: 0px 8px 20px -14px #000000;
 }
-
+.navHome {
+  width: 100%;
+}
 .navHome > li {
   padding: 15px;
+}
+.navHome :global(.ant-dropdown-trigger) {
+  font-size: 1.5rem !important;
+  font-weight: 600;
+}
+.navBar_search :global(.ant-btn-primary) {
+  border-color: var(--primary_color) !important;
+  background: var(--primary_color) !important;
 }
 .navHome > button {
   color: var(--primary_color);
@@ -42,22 +52,38 @@
 }
 .navBar_search {
   display: flex;
-  width: 80%;
-  justify-content: flex-end;
+  margin-left: 20px;
 }
 @media only screen and (max-width: 768px) {
   .navBar_search {
-    display: flex;
-    width: 80%;
-    justify-content: flex-end;
+    margin-left: 0;
   }
 }
 @media only screen and (max-width: 576px) {
   .navBar_search {
-    display: flex;
-    width: 60%;
-    justify-content: flex-end;
+    margin-left: 0;
   }
+}
+.navBar_link {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.navBar_link li {
+  padding: 20px;
+}
+.navBar_link li a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: grey;
+}
+
+.navBar_link li:hover a {
+  color: var(--primary_color);
+}
+.navBar_link li:hover a:hover {
+  color: var(--primary_color);
 }
 .quanTri_li {
   background-color: var(--primary_color);

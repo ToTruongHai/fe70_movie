@@ -13,7 +13,7 @@ export default function HomeMovieList() {
   let renderMovieList = (list) => {
     return list.map((item, index) => {
       return (
-        <div key={index} className={`${styles.home_movie_item}`}>
+        <div id="movieList" key={index} className={`${styles.home_movie_item}`}>
           <div className={`${styles.img_wrapper} w-100 position-relative`}>
             <img src={item.hinhAnh} alt="" className={`${styles.img_item}`} />
             <div
