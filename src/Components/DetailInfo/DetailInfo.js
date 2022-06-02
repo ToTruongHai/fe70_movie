@@ -43,8 +43,8 @@ export default function DetailInfo() {
 
   return (
     <div className={`${styles.movieInfo} mt-5`}>
-      <div className={`${styles.movieInfo_img}`}>
-        <div className="col-6 col-md-5 m-0 p-0">
+      <div className={`${styles.movieInfo_img} row`}>
+        <div className={`col-12 col-sm-6 col-md-5 m-0 p-0`}>
           <img
             src={movieDetail?.hinhAnh}
             alt="..."
@@ -52,14 +52,14 @@ export default function DetailInfo() {
             height={`100%`}
           />
         </div>
-        <div className={`${styles.movieInfo_content} col-6 col-md-7`}>
+        <div className={`${styles.movieInfo_content} col-12 col-sm-6 col-md-7`}>
           <p>{movieDetail?.tenPhim}</p>
           <p>
             <span>Ngày khởi chiếu: </span>
             {moment(movieDetail.ngayKhoiChieu).format("DD/MM/YYYY hh:mm A")}
           </p>
-          <div className="row">
-            <div className="col-sm-3 col-md-5 col-lg-3 ">
+          <div className={`row `}>
+            <div className="col-3 ">
               <CircularProgressbar
                 value={danhGia}
                 maxValue={10}
@@ -68,7 +68,7 @@ export default function DetailInfo() {
                 backgroundPadding={5}
               />
             </div>
-            <div className="col-sm-9 col-md-7 col-lg-9">
+            <div className={`col-sm-9 col-md-7 col-lg-9 col-9 ${styles.row_rating}`}>
               {/* <button className="btn text-white">ĐÁNH GIÁ</button> */}
               <ButtonPrimary>Đánh giá</ButtonPrimary>
             </div>

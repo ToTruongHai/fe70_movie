@@ -76,14 +76,15 @@
 .navBar_link li a {
   font-size: 1.5rem;
   font-weight: 600;
-  color: grey;
+  color: grey !important;
+  white-space: nowrap;
 }
 
 .navBar_link li:hover a {
-  color: var(--primary_color);
+  color: var(--primary_color) !important;
 }
 .navBar_link li:hover a:hover {
-  color: var(--primary_color);
+  color: var(--primary_color) !important;
 }
 .quanTri_li {
   background-color: var(--primary_color);
