@@ -111,9 +111,9 @@ function Checkout(props) {
       className="container-fluid"
       style={{ height: "100%", minHeight: "100vh" }}
     >
-      <div className="row">
+      <div className="row ">
         {/* SEAT_LIST */}
-        <div className={`col-9 text-center ${styles.seat_list}`}>
+        <div className={`col-lg-9 col-md-8 col-12 text-center ${styles.seat_list}`}>
           <div className="mt-5 ">
             <div className={`${styles.darkbg} ml-auto mr-auto`}></div>
             <div className={`${styles.trapezoid} ml-auto mr-auto`}>
@@ -122,7 +122,7 @@ function Checkout(props) {
           </div>
           {/* RENDER SEAT */}
           <div className="w-100 container seat_container">
-            <div className="row">{renderSeat()}</div>
+            <div className="row row-tablet">{renderSeat()}</div>
           </div>
           {/* TABLE */}
           <div className="mt-5 container">
@@ -209,7 +209,7 @@ function Checkout(props) {
         </div>
         {/* SIDE_INFO */}
         <div
-          className={`col-3 d-flex flex-column justify-content-between ${styles.side_info}`}
+          className={`col-lg-3 col-md-4 col-12 d-flex flex-column justify-content-between ${styles.side_info}`}
           style={{ height: "100%", minHeight: "100vh" }}
         >
           <div>
@@ -389,93 +389,12 @@ export const KetQuaDatVe = (props) => {
     dispatch(action);
   }, []);
   return (
-    <div className="container-fluid  p-5">
-      <div className="row">
+    <div className="container-fluid p-5 ">
+      <div className="row ">
         {userSeatHistory.thongTinDatVe?.map((seat, index) => {
           return (
             <div className="p-3 col-12 col-lg-4 col-md-6 col-md-6" key={index}>
               <HistoryBookingItem seat={seat} />
-              {/* <div
-                className="row m-0 pt-3 pb-3 border rounded"
-                style={{ height: "150px" }}
-              >
-                <div className="col-3 m-0 p-0 d-flex justify-content-center align-items-center">
-                  <img
-                    src={seat.hinhAnh}
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      borderRadius: "50%",
-                    }}
-                    alt="..."
-                  />
-                </div>
-                <div
-                  className="col-9 m-0 p-0"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "var(--primary_color)",
-                      fontSize: "1.5rem",
-                    }}
-                    className="text-xs font-weight-bold  mb-1"
-                  >
-                    {seat.tenPhim}
-                  </div>
-                  <div className="h5 mb-0  text-gray-800">
-                    {`Giờ Chiếu: ${moment(seat.ngayDat).format(
-                      "hh:mm A"
-                    )} - Ngày Chiếu: ${moment(seat.ngayDat).format(
-                      "DD-MM-YYYY"
-                    )}`}
-                  </div>
-                  <div>
-                    <span className="h5">Địa Điểm: </span>
-                    {_.first(seat.danhSachGhe).tenHeThongRap}
-                  </div>
-                  <div>
-                    <span className="h5">Rạp: </span>
-                    {_.first(seat.danhSachGhe).tenCumRap}
-                  </div>
-                  <div>
-                    <span className="h5">Ghế: </span>
-
-                    {seat.danhSachGhe.map((ghe, index) => {
-                      if (index < 10) {
-                        return (
-                          <span
-                            style={{
-                              display: "inline-block",
-                              color: "var(--primary_color)",
-                              margin: "0 2px",
-                              fontWeight: "500",
-                            }}
-                            key={index}
-                          >
-                            {"[" + ghe.tenGhe + "]"}
-                          </span>
-                        );
-                      } else {
-                        if (index + 1 === seat.danhSachGhe.length) {
-                          return (
-                            <span
-                              style={{ display: "inline-block" }}
-                              key={index}
-                            >
-                              ...
-                            </span>
-                          );
-                        }
-                      }
-                    })}
-                  </div>
-                </div>
-              </div> */}
             </div>
           );
         })}
