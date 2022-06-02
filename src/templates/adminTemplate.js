@@ -112,6 +112,7 @@ export const AdminTemplate = React.memo((props) => {
   if (props.mobileComponent) {
     if (windowSize.innerWidth < 768) {
       Component = props.mobileComponent;
+      return;
     }
   }
 

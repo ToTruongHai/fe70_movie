@@ -57,13 +57,9 @@ const UserForm = (props) => {
   });
 
   const handleUserTypeChange = (name, e) => {
-    // console.log("name", name);
-    // console.log("e", e);
-    console.log("asdajsdkljaskl", name);
-
     formik.setFieldValue("maLoaiNguoiDung", name);
   };
-  // console.log(localStorage.getItem(USER_LOGIN).JSON);
+
   return (
     <div className="container">
       <Form

@@ -46,7 +46,7 @@ function HomeMovieTheater() {
           );
         };
         return (
-          <TabPane tab={icon()} key={index}>
+          <TabPane id="movieTheater" tab={icon()} key={index}>
             <Tabs tabPosition="left" className="tabFilms">
               {item?.lstCumRap?.slice(0, 7).map((rap, index) => {
                 return (
@@ -130,7 +130,12 @@ function HomeMovieTheater() {
           );
         };
         return (
-          <TabPane tab={icon()} key={index} className="tabIpad">
+          <TabPane
+            id="movieTheater"
+            tab={icon()}
+            key={index}
+            className="tabIpad"
+          >
             {item?.lstCumRap?.slice(0, 7).map((rap, index) => {
               return (
                 <React.Fragment key={index}>
@@ -225,7 +230,10 @@ function HomeMovieTheater() {
     }
   };
   return (
-    <Tabs tabPosition={windowSize.innerWidth > 576 ? "left" : "top"}>
+    <Tabs
+      id="movieTheater"
+      tabPosition={windowSize.innerWidth > 576 ? "left" : "top"}
+    >
       {renderMovieTheaterList()}
     </Tabs>
   );

@@ -12,6 +12,7 @@ import { OPEN_FORM } from "../../redux/actions/types/modalType";
 import Search from "antd/lib/input/Search";
 import { Avatar, Dropdown, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { Header } from "antd/lib/layout/layout";
 
 export default function HomeHeader() {
   const dispatch = useDispatch();
@@ -19,20 +20,31 @@ export default function HomeHeader() {
   let { userLogin } = useSelector((a) => a.quanLyNguoiDungReducer);
   const menu = (
     <Menu>
-      {userLogin.maLoaiNguoiDung == "QuanTri" && (
-        <Menu.Item key="1">
-          <NavLink to="/admin">Trang quản trị</NavLink>
-        </Menu.Item>
-      )}
-      <Menu.Item key="2">
+      <Menu.Item key="1">
         <NavLink to="/profile">Thông tin cá nhân</NavLink>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key="2">
         <NavLink
           to="/"
           onClick={(event) => {
             event.preventDefault();
-            dispatch(logoutAction());
+            Swal.fire({
+              title: "Bạn chắc chắn muốn đăng xuất?",
+              icon: "warning",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonText: "Đăng xuất",
+              cancelButtonText: "Hủy",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(logoutAction());
+                Swal.fire({
+                  title: "Đăng xuất thành công",
+                  icon: "success",
+                  showConfirmButton: false,
+                });
+              }
+            });
           }}
         >
           Đăng xuất
@@ -40,46 +52,68 @@ export default function HomeHeader() {
       </Menu.Item>
     </Menu>
   );
+
   const renderLogin = () => {
     if (userLogin) {
-      return (
-        <React.Fragment>
-          <li className="nav-item active">
-            <NavLink exact className="nav-link" to="/profile">
-              {userLogin.hoTen}
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink
-              exact
-              className="nav-link"
-              to=""
-              onClick={(e) => {
-                e.preventDefault();
-                Swal.fire({
-                  title: "Bạn chắc chắn muốn đăng xuất?",
-                  icon: "warning",
-                  showCancelButton: true,
-                  showConfirmButton: true,
-                  confirmButtonText: "Đăng xuất",
-                  cancelButtonText: "Hủy",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    dispatch(logoutAction());
-                    Swal.fire({
-                      title: "Đăng xuất thành công",
-                      icon: "success",
-                      showConfirmButton: false,
-                    });
-                  }
-                });
+      if (window.innerWidth < 768) {
+        return (
+          <React.Fragment>
+            <li className="nav-item active">
+              <NavLink exact className="nav-link" to="/profile">
+                {userLogin.hoTen}
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                className="nav-link"
+                to=""
+                onClick={(e) => {
+                  e.preventDefault();
+                  Swal.fire({
+                    title: "Bạn chắc chắn muốn đăng xuất?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: "Đăng xuất",
+                    cancelButtonText: "Hủy",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      dispatch(logoutAction());
+                      Swal.fire({
+                        title: "Đăng xuất thành công",
+                        icon: "success",
+                        showConfirmButton: false,
+                      });
+                    }
+                  });
+                }}
+              >
+                Đăng xuất
+              </NavLink>
+            </li>
+          </React.Fragment>
+        );
+      } else {
+        return (
+          <Header
+            className="site-layout-background d-flex justify-content-end align-items-center"
+            style={{ padding: 0, background: "#fff" }}
+            theme="light"
+          >
+            <Avatar
+              style={{
+                backgroundColor: "#f26b38",
               }}
-            >
-              Đăng xuất
-            </NavLink>
-          </li>
-        </React.Fragment>
-      );
+              icon={<UserOutlined />}
+              className="mr-2"
+            />
+            <Dropdown placement="bottomRight" className="mr-4" overlay={menu}>
+              <span className="btn btn-lg">{userLogin.hoTen}</span>
+            </Dropdown>
+          </Header>
+        );
+      }
     } else {
       return (
         <React.Fragment>
@@ -128,10 +162,69 @@ export default function HomeHeader() {
   const onSearch = (value) => {
     history.push(`/search/${value}`);
   };
+
+  const renderLink = () => {
+    if (window.innerWidth < 768) {
+      return (
+        <React.Fragment>
+          <li className="nav-item">
+            <a
+              onClick={() => {
+                document.querySelector("#movieList").scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Lịch Chiếu
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              onClick={() => {
+                document.querySelector("#movieTheater").scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Cụm Rạp
+            </a>
+          </li>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <div className={`${styles.navBar_link}`}>
+          <li className="nav-item">
+            <a
+              onClick={() => {
+                document.querySelector("#movieList").scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Lịch Chiếu
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              onClick={() => {
+                document.querySelector("#movieTheater").scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Cụm Rạp
+            </a>
+          </li>
+        </div>
+      );
+    }
+  };
   return (
     <React.Fragment>
       {/* Home Navbar */}
       <nav className={`navbar navbar-expand-md p-0 ${styles.navBar_shadowBox}`}>
+        {/* Logo */}
         <NavLink className="navbar-brand" to="/">
           <img
             src={logo}
@@ -140,6 +233,7 @@ export default function HomeHeader() {
             style={{ margin: "0 0 0 10px" }}
           />
         </NavLink>
+        {/* Search */}
         <div className={`${styles.navBar_search}`}>
           <div
             className=""
@@ -153,6 +247,7 @@ export default function HomeHeader() {
           </div>
         </div>
 
+        {/* collapse button */}
         <button
           className="navbar-toggler d-lg-none"
           type="button"
@@ -175,6 +270,10 @@ export default function HomeHeader() {
           id="collapsibleNavId"
         >
           <ul className={`navbar-nav ${styles.navHome}`}>
+            {/* Home Link */}
+            {renderLink()}
+
+            {/* Login */}
             {renderLogin()}
             {userLogin.maLoaiNguoiDung == "QuanTri" && (
               <li className={`nav-item active ${styles.quanTri_li}`}>
@@ -184,43 +283,8 @@ export default function HomeHeader() {
               </li>
             )}
           </ul>
-          {/* <Avatar
-            style={{
-              backgroundColor: "#87d068",
-            }}
-            icon={<UserOutlined />}
-            className="mr-2"
-          />
-          <Dropdown placement="bottomRight" className="mr-4" overlay={menu}>
-            <span className="btn btn-lg">{userLogin.hoTen}</span>
-          </Dropdown> */}
         </div>
       </nav>
-      {/* Black Navbar */}
-      {/* <nav className={`navbar navbar-expand-sm navbar-dark ${styles.bg_black}`}>
-        <NavLink className="navbar-brand" to="/">
-          Movie
-        </NavLink>
-
-        <button
-          className="navbar-toggler d-lg-none"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapsibleNavId"
-          aria-controls="collapsibleNavId"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        />
-        <div className="collapse navbar-collapse" id="collapsibleNavId">
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item active">
-              <NavLink exact className="nav-link" to="/home">
-                Home
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </nav> */}
     </React.Fragment>
   );
 }
