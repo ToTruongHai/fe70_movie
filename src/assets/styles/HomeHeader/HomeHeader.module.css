@@ -39,7 +39,7 @@
   height: 50px;
 }
 .navHome > li > a {
-  color: var(--primary_color);
+  color: inherit;
   font-size: 1.5rem;
   font-weight: 500;
   white-space: nowrap;
