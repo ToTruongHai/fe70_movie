@@ -12,7 +12,7 @@ export default function Search(props) {
 
   useEffect(() => {
     dispatch(getMovieListAction(props.match.params.tenPhim));
-  }, [movieList]);
+  }, [props.match.params.tenPhim]);
 
   return (
     <div className="container pb-5">
