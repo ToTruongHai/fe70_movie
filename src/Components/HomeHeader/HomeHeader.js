@@ -23,7 +23,13 @@ export default function HomeHeader() {
       <Menu.Item key="1">
         <NavLink to="/profile">Thông tin cá nhân</NavLink>
       </Menu.Item>
-      <Menu.Item key="2">
+      {userLogin.maLoaiNguoiDung == "QuanTri" && (
+        <Menu.Item key="2">
+          <NavLink to="/admin/movie">Trang quản trị</NavLink>
+        </Menu.Item>
+      )}
+
+      <Menu.Item key="3">
         <NavLink
           to="/"
           onClick={(event) => {
@@ -63,6 +69,13 @@ export default function HomeHeader() {
                 {userLogin.hoTen}
               </NavLink>
             </li>
+            {userLogin.maLoaiNguoiDung == "QuanTri" && (
+              <li className={`nav-item `}>
+                <NavLink exact className="nav-link" to="/admin/movie">
+                  Trang quản trị
+                </NavLink>
+              </li>
+            )}
             <li className="nav-item">
               <NavLink
                 exact
@@ -275,13 +288,13 @@ export default function HomeHeader() {
 
             {/* Login */}
             {renderLogin()}
-            {userLogin.maLoaiNguoiDung == "QuanTri" && (
+            {/* {userLogin.maLoaiNguoiDung == "QuanTri" && (
               <li className={`nav-item active ${styles.quanTri_li}`}>
                 <NavLink exact className="nav-link" to="/admin/movie">
                   Trang quản trị
                 </NavLink>
               </li>
-            )}
+            )} */}
           </ul>
         </div>
       </nav>
