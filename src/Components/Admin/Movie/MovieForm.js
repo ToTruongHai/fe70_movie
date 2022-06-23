@@ -11,7 +11,6 @@ import {
 } from "../../../redux/actions/quanLyPhimAction";
 
 const MovieForm = (props) => {
-  // console.log("load lại form movie");
   const edit = props.edit;
   const dispatch = useDispatch();
   let { form } = useSelector((a) => a.quanLyPhimReducer);
@@ -42,14 +41,8 @@ const MovieForm = (props) => {
 
     onSubmit: (values) => {
       let formData = new FormData();
-      // console.log(values.hinhAnh);
       for (let key in values) {
         if (key === "hinhAnh" && typeof values.hinhAnh == "Bolb") {
-          // formData.append(
-          //   key,
-          //   values.hinhAnh.originFileObj,
-          //   values.hinhAnh.name
-          // );
           formData.append(key, values[key], values[key].name);
         } else if (key == "ngayKhoiChieu" && values[key]) {
           // if (values[key])
@@ -58,7 +51,6 @@ const MovieForm = (props) => {
           formData.append(key, values[key]);
         }
       }
-      // console.log(formData.get("hinhAnh"));
       if (edit) {
         dispatch(capNhatPhimAction(formData));
       } else {
@@ -67,8 +59,6 @@ const MovieForm = (props) => {
     },
   });
   useEffect(() => {
-    // console.log(props.edit);
-    // console.log("bị loại lại", formik.values.hinhAnh);
     if (props.edit) {
       setImg(form.hinhAnh);
     } else {
@@ -166,34 +156,6 @@ const MovieForm = (props) => {
                   className="d-block mt-3"
                 />
               )}
-              {/* <Upload
-                name="logo"
-                maxCount="1"
-                // action={(value) => {
-                // }}
-                listType="picture"
-                // onPreview={true}
-                // fileList={fileList}
-                // defaultFileList={[fileList]}
-                onRemove={() => {
-                  formik.setFieldValue("hinhAnh", null);
-                }}
-                beforeUpload={(file) => {
-                  const isImg =
-                    file.type === "image/png" || file.type === "image/jpeg";
-                  if (!isImg) {
-                    alertWarning("Hình ảnh không đúng dịnh dạng!");
-                  }
-                  return isImg || Upload.LIST_IGNORE;
-                }}
-                onChange={async (file) => {
-                  await formik.setFieldValue("hinhAnh", file.file);
-                  // setFileList(file.fileList);
-                  return true;
-                }}
-              >
-                <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload> */}
             </Form.Item>
           </div>
           <div className="col-md-6">
