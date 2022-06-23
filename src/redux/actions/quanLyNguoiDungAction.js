@@ -14,6 +14,7 @@ import Login from "../../Components/Login/Login";
 import { DISPLAY_LOADING } from "./types/loadingType";
 import { displayLoadingAction, hideLoadingAction } from "./loadingAction";
 import { alertSuccess } from "../../functions/alertFunctions";
+import { BOOK_SEAT } from "./types/quanLyDatVeType";
 
 export const loginAction = (data) => {
   return apiPost("/api/QuanLyNguoiDung/DangNhap", data, (content, dispatch) => {
@@ -49,7 +50,8 @@ export const registerAction = (data) => {
 };
 
 export const logoutAction = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    getState().quanLyDatVeReducer.danhSachGheDangDat = [];
     dispatch({
       type: LOGOUT,
     });

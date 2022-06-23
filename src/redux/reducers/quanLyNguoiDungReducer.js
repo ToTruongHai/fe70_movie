@@ -37,12 +37,24 @@ export const quanLyNguoiDungReducer = (state = stateDefault, action) => {
       localStorage.setItem(USER_LOGIN, JSON.stringify(userLogin));
       localStorage.setItem(ACCESSTOKEN, token);
       state.userLogin = userLogin;
+      state.userForm = {
+        taiKhoan: "",
+        matKhau: "",
+        email: "",
+        soDt: "",
+        maNhom: "GP01",
+        maLoaiNguoiDung: "",
+        hoTen: "",
+      };
+      state.userType = [];
       return { ...state };
     }
     case LOGOUT: {
       localStorage.removeItem(USER_LOGIN);
       localStorage.removeItem(ACCESSTOKEN);
+      state.userSeatHistory = [];
       state.userLogin = "";
+      state.userList = [];
       return { ...state };
     }
     case GET_USER_HISTORY: {
@@ -60,8 +72,7 @@ export const quanLyNguoiDungReducer = (state = stateDefault, action) => {
     case GET_USER_INFO: {
       state.userForm = action.userInfo;
 
-      
-      return {...state}
+      return { ...state };
     }
     default:
       return state;

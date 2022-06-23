@@ -183,9 +183,13 @@ export default function HomeHeader() {
           <li className="nav-item">
             <a
               onClick={() => {
-                document.querySelector("#movieList").scrollIntoView({
-                  behavior: "smooth",
-                });
+                if (document.querySelector("#movieList")) {
+                  document.querySelector("#movieList").scrollIntoView({
+                    behavior: "smooth",
+                  });
+                } else {
+                  history.push(`/`);
+                }
               }}
             >
               Lịch Chiếu
@@ -194,9 +198,13 @@ export default function HomeHeader() {
           <li className="nav-item">
             <a
               onClick={() => {
-                document.querySelector("#movieTheater").scrollIntoView({
-                  behavior: "smooth",
-                });
+                if (document.querySelector("#movieTheater")) {
+                  document.querySelector("#movieTheater").scrollIntoView({
+                    behavior: "smooth",
+                  });
+                } else {
+                  history.push(`/`);
+                }
               }}
             >
               Cụm Rạp
@@ -210,9 +218,13 @@ export default function HomeHeader() {
           <li className="nav-item">
             <a
               onClick={() => {
-                document.querySelector("#movieList").scrollIntoView({
-                  behavior: "smooth",
-                });
+                if (document.querySelector("#movieList")) {
+                  document.querySelector("#movieList").scrollIntoView({
+                    behavior: "smooth",
+                  });
+                } else {
+                  history.push(`/`);
+                }
               }}
             >
               Lịch Chiếu
@@ -221,9 +233,13 @@ export default function HomeHeader() {
           <li className="nav-item">
             <a
               onClick={() => {
-                document.querySelector("#movieTheater").scrollIntoView({
-                  behavior: "smooth",
-                });
+                if (document.querySelector("#movieTheater")) {
+                  document.querySelector("#movieTheater").scrollIntoView({
+                    behavior: "smooth",
+                  });
+                } else {
+                  history.push(`/`);
+                }
               }}
             >
               Cụm Rạp

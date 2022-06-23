@@ -6,7 +6,12 @@ import Swal from "sweetalert2";
 import MovieForm from "../../../Components/Admin/Movie/MovieForm";
 import { OPEN_FORM } from "../../../redux/actions/types/modalType";
 import { LOAD_COMPONENT } from "../../../redux/actions/types/adminTemplateType";
-import { adminDeleteUserAction, adminDeleteUsersAction, adminGetUserInfoAction, adminGetUserListAction } from "../../../redux/actions/quanLyNguoiDungAction";
+import {
+  adminDeleteUserAction,
+  adminDeleteUsersAction,
+  adminGetUserInfoAction,
+  adminGetUserListAction,
+} from "../../../redux/actions/quanLyNguoiDungAction";
 import UserForm from "../../../Components/Admin/User/UserForm";
 const { Search } = Input;
 export default function User() {
@@ -25,9 +30,9 @@ export default function User() {
           confirmButtonText: "Xóa",
           cancelButtonText: "Hủy",
         }).then((result) => {
-            if (result.isConfirmed) {
-              dispatch(adminDeleteUsersAction(selectedRowKeys));
-            }
+          if (result.isConfirmed) {
+            dispatch(adminDeleteUsersAction(selectedRowKeys));
+          }
         });
       }}
     >
@@ -38,15 +43,15 @@ export default function User() {
       type="primary"
       data-toggle="modal"
       data-target="#modelId"
-        onClick={() => {
-          const action = {
-            type: OPEN_FORM,
-            component: <UserForm edit={false} />,
-            titleModal: "Thêm người dùng",
-            maxWidth: 40,
-          };
-          dispatch(action);
-        }}
+      onClick={() => {
+        const action = {
+          type: OPEN_FORM,
+          component: <UserForm edit={false} />,
+          titleModal: "Thêm người dùng",
+          maxWidth: 40,
+        };
+        dispatch(action);
+      }}
     >
       Thêm mới
     </Button>,
@@ -57,7 +62,8 @@ export default function User() {
       title: "Tài Khoản",
       dataIndex: "taiKhoan",
       sortDirection: ["descend", "ascend"],
-      sorter: (a, b) => a.taiKhoan?.toLowerCase().trim() > b.taiKhoan?.toLowerCase().trim(),
+      sorter: (a, b) =>
+        a.taiKhoan?.toLowerCase().trim() > b.taiKhoan?.toLowerCase().trim(),
       align: "center",
     },
     {
@@ -68,7 +74,7 @@ export default function User() {
     },
     {
       title: "Số Điện Thoại",
-      dataIndex: "soDt",
+      dataIndex: "soDT",
       //   sorter: (a, b) =>
       //     a.tenPhim.toLowerCase().trim() > b.tenPhim.toLowerCase().trim(),
       //   width: "20%",
@@ -76,7 +82,8 @@ export default function User() {
     {
       title: "Email",
       dataIndex: "email",
-      sorter: (a, b) => a.email?.toLowerCase().trim() > b.email?.toLowerCase().trim(),
+      sorter: (a, b) =>
+        a.email?.toLowerCase().trim() > b.email?.toLowerCase().trim(),
       sortDirection: ["descend", "ascend"],
 
       //   render: (item) =>
@@ -95,17 +102,17 @@ export default function User() {
               data-toggle="modal"
               data-target="#modelId"
               key={user.taiKhoan + "1"}
-                onClick={() => {
-                  dispatch(adminGetUserInfoAction(user.taiKhoan));
-                  const action = {
-                    type: OPEN_FORM,
-                    component: <UserForm edit={true} />,
-                    titleModal: "Cập nhật người dùng",
-                    maxWidth: 40,
-                    typeModal: "",
-                  };
-                  dispatch(action);
-                }}
+              onClick={() => {
+                dispatch(adminGetUserInfoAction(user.taiKhoan));
+                const action = {
+                  type: OPEN_FORM,
+                  component: <UserForm edit={true} />,
+                  titleModal: "Cập nhật người dùng",
+                  maxWidth: 40,
+                  typeModal: "",
+                };
+                dispatch(action);
+              }}
             >
               <i className="fa-solid fa-gear"></i>
             </button>
